@@ -1,0 +1,393 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1194px !important;
+  }
+}
+a,
+a:hover {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.main-login {
+  width: 100%;
+  min-height: 713px;
+  background-image: url("https://anhdepbonphuong.com/wp-content/uploads/2016/02/tai-10hinh-thu-cung-de-thuong-nhat-lam-hinh-nen-may-tinh-7.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  clear: both;
+  position: relative;
+}
+.main-login::before {
+  content: "";
+  width: 100%;
+  min-height: 713px;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+}
+.form-login form {
+  width: 320px;
+  height: 385px;
+  border: 1px solid rgb(0, 102, 120);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: 0px 0px 8px 0px #ccc;
+  -webkit-box-shadow: 0px 0px 8px 0px #ccc;
+  box-shadow: 0px 0px 8px 0px #ccc;
+}
+.form-login .title-login {
+  text-align: center;
+  color: rgb(0, 124, 191);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+.form-login .username {
+  width: 100%;
+  border-radius: 10px;
+  height: 32px;
+}
+.form-line {
+  margin-bottom: 25px;
+}
+.form-login .password {
+  width: 100%;
+  border-radius: 10px;
+  height: 32px;
+}
+.form-login p {
+  color: rgb(0, 124, 191);
+  font-size: 18px;
+  font-weight: bold;
+}
+.form-login form input {
+  padding-left: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffff;
+}
+.form-login form input::placeholder {
+  color: #ffff;
+  font-weight: bold;
+  font-style: italic;
+}
+.form-login .btn-login {
+  padding: 5px 10px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffff;
+  background: rgb(0, 124, 191);
+  border: 0;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.form-login .btn-login:hover {
+  background: rgb(0, 68, 137);
+}
+.form-login .no-account {
+  color: rgb(0, 203, 230);
+  font-weight: bold;
+  font-size: 16px;
+}
+.err-all .err-all-chil .err-p {
+  color: rgb(255, 0, 0);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 400;
+}
+.err-all .err-all-chil .err-p i {
+  color: rgb(255, 234, 0);
+}
+/* register  */
+.main-register {
+  width: 100%;
+  min-height: 713px;
+  background-image: url("https://anhdepbonphuong.com/wp-content/uploads/2016/02/tai-10hinh-thu-cung-de-thuong-nhat-lam-hinh-nen-may-tinh-7.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  clear: both;
+  position: relative;
+  z-index: 1;
+}
+.main-register::after {
+  content: "";
+  width: 100%;
+  min-height: 713px;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+}
+.form-register form {
+  width: 640px;
+  height: 550px;
+  border: 1px solid rgb(0, 102, 120);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: 0px 0px 8px 0px #ccc;
+  -webkit-box-shadow: 0px 0px 8px 0px #ccc;
+  box-shadow: 0px 0px 8px 0px #ccc;
+  z-index: 8;
+}
+.form-register .title-register {
+  text-align: center;
+  color: rgb(0, 124, 191);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 30px;
+}
+.form-register p {
+  color: rgb(0, 124, 191);
+  font-size: 18px;
+  font-weight: bold;
+  width: 100%;
+}
+.form-register form input {
+  padding-left: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+  border-radius: 10px;
+  height: 32px;
+  width: 100%;
+  color: #ffff;
+  font-weight: bold;
+}
+.form-register form input::placeholder {
+  color: #ffff;
+  font-weight: bold;
+  font-style: italic;
+}
+.form-register .btn-register {
+  padding: 5px 10px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffff;
+  background: rgb(0, 124, 191);
+  border: 0;
+  margin-bottom: 20px;
+  width: 20%;
+  height: 8%;
+  margin-top: 20px;
+}
+.form-register .btn-register:hover {
+  background: rgb(0, 68, 137);
+}
+.form-register .yes-account {
+  color: rgb(0, 203, 230);
+  font-weight: bold;
+  font-size: 16px;
+}
+.form-register .center-register {
+  display: flex;
+  justify-content: space-between;
+}
+.form-register .center-register .td-all {
+  width: 48%;
+}
+.alert-error {
+  color: rgb(255, 0, 0) !important;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.alert-error i {
+  color: rgb(255, 247, 0);
+}
+.alert-success {
+  color: rgb(0, 234, 255) !important;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.alert-success i,
+.login-here {
+  color: rgb(0, 255, 17);
+}
+
+/* admin  */
+.dark {
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.3);
+  left: 0;
+  right: 0;
+  margin: 0;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+}
+
+.dark.shows {
+  visibility: visible;
+  opacity: 1;
+}
+.menu-toogle {
+  cursor: pointer;
+  width: 60px;
+  height: 35px;
+  position: fixed;
+  top: 6px;
+  left: 0;
+  margin: 4px 15px;
+  z-index: 10;
+}
+.menu-toogle div {
+  width: 29px;
+  height: 3px;
+  background: #ffffff;
+  margin: 5px 0;
+  transition: all 0.35s;
+  border-radius: 0;
+}
+.on .line_one {
+  background: #ffffff;
+  -webkit-transform: rotate(45deg) translate(8px, 3px);
+  -moz-transform: rotate(45deg) translate(8px, 3px);
+  -ms-transform: rotate(45deg) translate(8px, 3px);
+  -o-transform: rotate(45deg) translate(8px, 3px);
+  transform: rotate(45deg) translate(8px, 3px);
+}
+.on .line_two {
+  opacity: 0;
+}
+.on .line_three {
+  background: #ffffff;
+  -webkit-transform: rotate(-45deg) translate(8px, -4px);
+  -moz-transform: rotate(-45deg) translate(8px, -4px);
+  -ms-transform: rotate(-45deg) translate(8px, -4px);
+  -o-transform: rotate(-45deg) translate(8px, -4px);
+  transform: rotate(-45deg) translate(8px, -4px);
+}
+#navigator {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  background: #e8e8e8;
+  float: left;
+  z-index: 100;
+  overflow-y: auto;
+}
+#navigator a {
+  text-decoration: none;
+}
+.section1,
+.section2 {
+  border-bottom: 1px solid #cacaca;
+}
+.section1 ul,
+.section2 ul,
+.section3 ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.section1 ul li a,
+.section2 ul li a,
+.section3 ul li a {
+  display: block;
+  padding: 6px 35px 13px 35px;
+  text-align: left;
+}
+.section1 ul li a:hover,
+.section2 ul li a:hover,
+.section3 ul li a:hover {
+  background: #d8d8d8;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.section1 ul li i,
+.section2 ul li i,
+.section3 ul li i {
+  position: relative;
+  top: 6px;
+  margin-right: 6px;
+  color: #131313;
+}
+.section1 ul li a span,
+.section2 ul li a span,
+.section3 ul li a span {
+  color: #111;
+}
+.section2 > span,
+.section3 > span {
+  font-size: 19px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 15px;
+}
+.section2,
+.section3 {
+  padding: 10px;
+}
+
+.menu-top {
+  height: 100px;
+  width: 100%;
+  background-image: url("https://bangxephang.com/wp-content/uploads/2021/03/anh-bia-facebook-dep-troi-sao.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  clear: both;
+}
+.menu-top .title h1 {
+  text-align: center;
+  color: #ffff;
+  text-transform: uppercase;
+  line-height: 100px;
+}
