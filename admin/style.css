@@ -256,6 +256,9 @@ li {
 }
 
 /* admin  */
+.main-menu{
+  position: relative;
+}
 .dark {
   visibility: hidden;
   opacity: 0;
@@ -277,7 +280,7 @@ li {
   width: 60px;
   height: 35px;
   position: fixed;
-  top: 6px;
+  top: 32px;
   left: 0;
   margin: 4px 15px;
   z-index: 10;
@@ -285,13 +288,13 @@ li {
 .menu-toogle div {
   width: 29px;
   height: 3px;
-  background: #ffffff;
+  background: rgb(0, 91, 122);
   margin: 5px 0;
   transition: all 0.35s;
   border-radius: 0;
 }
 .on .line_one {
-  background: #ffffff;
+  background: rgb(0, 91, 122);
   -webkit-transform: rotate(45deg) translate(8px, 3px);
   -moz-transform: rotate(45deg) translate(8px, 3px);
   -ms-transform: rotate(45deg) translate(8px, 3px);
@@ -302,7 +305,7 @@ li {
   opacity: 0;
 }
 .on .line_three {
-  background: #ffffff;
+  background: rgb(0, 91, 122);
   -webkit-transform: rotate(-45deg) translate(8px, -4px);
   -moz-transform: rotate(-45deg) translate(8px, -4px);
   -ms-transform: rotate(-45deg) translate(8px, -4px);
@@ -315,7 +318,7 @@ li {
   position: fixed;
   top: 0;
   left: -250px;
-  background: #e8e8e8;
+  background: #00728e;
   float: left;
   z-index: 100;
   overflow-y: auto;
@@ -338,31 +341,38 @@ li {
 .section2 ul li a,
 .section3 ul li a {
   display: block;
-  padding: 6px 35px 13px 35px;
+  padding: 30px 35px 30px 35px;
   text-align: left;
+  border-bottom: 1px solid rgb(0, 151, 182);
 }
 .section1 ul li a:hover,
 .section2 ul li a:hover,
 .section3 ul li a:hover {
-  background: #d8d8d8;
+  background: #00a4b0;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
+.section1 ul li a:hover i{
+  color: rgb(0, 11, 97);
+}
+.section1 ul li a:hover span{
+  color: rgb(0, 11, 97);
+}
 .section1 ul li i,
 .section2 ul li i,
 .section3 ul li i {
   position: relative;
-  top: 6px;
+  top: 3px;
   margin-right: 6px;
-  color: #131313;
+  color: #ffffff;
 }
 .section1 ul li a span,
 .section2 ul li a span,
 .section3 ul li a span {
-  color: #111;
+  color: #ffffff;
 }
 .section2 > span,
 .section3 > span {
@@ -379,7 +389,7 @@ li {
 .menu-top {
   height: 100px;
   width: 100%;
-  background-image: url("https://bangxephang.com/wp-content/uploads/2021/03/anh-bia-facebook-dep-troi-sao.jpg");
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsg2PokKggrzqOn66tlAZ52Oap99A3SFC2iQ&usqp=CAU");
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -387,7 +397,40 @@ li {
 }
 .menu-top .title h1 {
   text-align: center;
-  color: #ffff;
+  color: rgb(0, 91, 122);
   text-transform: uppercase;
   line-height: 100px;
 }
+.menu-right{
+  display: flex;
+  position: absolute;
+  top: 40%;
+  right: 40px;
+}
+.menu-right .name-user{
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+}
+.menu-right .name-user span{
+  color: rgb(0, 91, 122);
+  font-size: 16px;
+}
+.menu-right .img-user{
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin-top: -22px;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+.menu-right .img-user img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.menu-right .drop-down-user i{
+  color: rgb(0, 91, 122);
+  font-size: 16px;
+  cursor: pointer;
+}
+

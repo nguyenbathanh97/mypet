@@ -25,42 +25,19 @@
                     <div class='line_two'></div>
                     <div class='line_three'></div>
                 </div>
-                <div class="menu-show-icon">
-                    <ul>
-                        <li>
-                            <a href=""><i class="fas fa-home"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fas fa-info-circle"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fas fa-stream"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fas fa-store"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fas fa-hotel"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fas fa-newspaper"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fas fa-address-book"></i></a>
-                        </li>
-                    </ul>
-                </div>
             </div>
             <div class='dark'>
             </div>
             <div id='navigator'>
                 <div class="section1">
                     <ul>
-                        <li><a href="./menu.php"><i class="material-icons fas fa-home"></i><span>Trang chủ</span></a>
+                        <li><a href="../index.php"><i class="material-icons fas fa-home"></i><span>Trang chủ</span></a>
+                        </li>
+                        <li><a href="./menu.php"><i class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
                         </li>
                         <li><a href="#"><i class="material-icons fas fa-info-circle"></i><span>Giới thiệu</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-stream"></i><span>Danh mục</span></a>
+                        <li><a href="#"><i class="material-icons fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a>
                         </li>
                         <li><a href="#"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span></a>
                         </li>
@@ -72,26 +49,17 @@
                         </li>
                     </ul>
                 </div>
-                <!-- <div class="section2"> <span>Trending</span>
-                    <ul>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu1</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu2</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu3</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu4</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu5</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu6</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu7</span></a>
-                        </li>
-                        <li><a href="#"><i class='material-icons'>&amp;#xe87b</i><span>Sub-menu8</span></a>
-                        </li>
-                    </ul>
-                </div> -->
+            </div>
+        </div>
+        <div class="menu-right">
+            <h5 class="name-user">
+                Xin chào: <span>Nguyễn Bá Thành</span>
+            </h5>
+            <a class="img-user" href="#">
+                <img src="../image/avatar.png" alt="image">
+            </a>
+            <div class="drop-down-user">
+                <i class="fas fa-sort-down"></i>
             </div>
         </div>
     </div>
