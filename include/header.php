@@ -1,5 +1,13 @@
+<?php
+include 'config.php';
+$sql_header = "SELECT * FROM sevice";
+$query_header = $conn->prepare($sql_header);
+$query_header->execute();
+$result_header = $query_header->fetchAll(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <div class="header-fa">
         <div class="container">
@@ -38,7 +47,7 @@
                             <li><a href="information.php">Giới thiệu</a></li>
                             <li><a href="service.php">Dịch vụ <i class="fas fa-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="service-chil.php">Cắt tỉa lông chó mèo</a></li>
+                                    <li><a href="">Cắt tỉa lông chó</a></li>
                                     <li><a href="service-chil.php">Tiêm phòng cho chó</a></li>
                                     <li><a href="service-chil.php">Tiêm phòng cho mèo</a></li>
                                     <li><a href="service-chil.php">Triệt sản chó, mèo</a></li>
@@ -74,4 +83,5 @@
         </div>
     </div>
 </body>
+
 </html>

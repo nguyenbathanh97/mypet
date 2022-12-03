@@ -1,3 +1,10 @@
+<?php
+include "../include/config.php";
+$sqlSl_user = "SELECT * FROM admin";
+$query_user = $conn->prepare($sqlSl_user);
+$query_user->execute();
+$result_user = $query_user->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,12 +22,12 @@
     <div class="main-menu">
         <div class="menu-top">
             <div class="title">
-                <h1>Trang quản lý</h1>
+                <h1>Trang quản lý MYPET</h1>
             </div>
         </div>
         <div class="menu-left">
             <div class="menu-show-all">
-                <div class='menu-toogle' title="Show menu">
+                <div class='menu-toogle' title="Hiện Menu">
                     <div class='line_one'></div>
                     <div class='line_two'></div>
                     <div class='line_three'></div>
@@ -33,11 +40,11 @@
                     <ul>
                         <li><a href="../index.php"><i class="material-icons fas fa-home"></i><span>Trang chủ</span></a>
                         </li>
-                        <li><a href="./menu.php"><i class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
+                        <li><a href="./slider.php"><i class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-info-circle"></i><span>Giới thiệu</span></a>
+                        <li><a href="./infor.php"><i class="material-icons fas fa-info-circle"></i><span>Giới thiệu</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a>
+                        <li><a href="./sevice.php"><i class="material-icons fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a>
                         </li>
                         <li><a href="#"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span></a>
                         </li>
@@ -53,13 +60,16 @@
         </div>
         <div class="menu-right">
             <h5 class="name-user">
-                Xin chào: <span>Nguyễn Bá Thành</span>
+                Xin chào: <span><?php echo $result_user->name ?></span>
             </h5>
             <a class="img-user" href="#">
                 <img src="../image/avatar.png" alt="image">
             </a>
             <div class="drop-down-user">
-                <i class="fas fa-sort-down"></i>
+                <i class="down-click fas fa-sort-down"></i>
+                <div class="down-logout">
+                    <a class="logout" href="./login.php">Đăng xuất</a>
+                </div>
             </div>
         </div>
     </div>
@@ -70,7 +80,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="main-admin.js"></script>
+    <script src="main-menu.js"></script>
 </body>
 
 </html>

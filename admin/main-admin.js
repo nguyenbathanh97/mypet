@@ -1,33 +1,35 @@
-// $(document).ready(function(){
-//     $(".yes-account").click(function(){
-//       $(".form-login").fadeIn("1500, 0.6");
-//       $(".form-register").fadeOut("1500, 0.6");
-//     })
-//     $(".no-account").click(function(){
-//         $(".form-register").fadeIn("1500, 0.6");
-//         $(".form-login").fadeOut("1500, 0.6");
-//     })
-//   });
-
 $(document).ready(function () {
-    $('.menu-toogle').click(function () {
-        $(this).toggleClass('on');
-        if ($('#navigator').css('left') == '-250px') {
-            $('#navigator').animate({
-                left: '0px'
-            }, 400);
-            $('.menu-toogle').animate({
-                left: '250px'
-            }, 400);
-            $(".dark").toggleClass("shows");
-        } else {
-            $('#navigator').animate({
-                left: '-250px'
-            }, 400);
-            $(this).animate({
-                left: '0px'
-            }, 400);
-            $(".dark").removeClass('shows');
-        }
-    });
+    // add slide
+    $(".btn-add-slider").click(function () {
+        $(".form-add").fadeIn(500);
+    })
+    $(".close-add").click(function () {
+        $(".form-add").fadeOut(500);
+    })
+    //infor
+    $(".btn-add-infor").click(function () {
+        $(".form-add-infor").fadeIn(500);
+    })
+    $(".close-add").click(function () {
+        $(".form-add-infor").fadeOut(500);
+    })
+    //sevice_pa
+    $(".btn-add-sevice-pa").click(function () {
+        $("#form-add-sevice-pa").fadeIn(500);
+    })
+    $(".close-add").click(function () {
+        $("#form-add-sevice-pa").fadeOut(500);
+    })
+     //sevice
+     $(".btn-add-sevice").click(function () {
+        $("#form-add-sevice").fadeIn(500);
+    })
+    $(".close-add").click(function () {
+        $("#form-add-sevice").fadeOut(500);
+    })
+    //sevice edit
+    $(".close-add").click(function () {
+        $("#form-add-sevice-edit").fadeIn(500);
+    })
 });
+CKEDITOR.replace('desc');

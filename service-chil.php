@@ -1,3 +1,10 @@
+<?php
+include './include/config.php';
+$sql = "SELECT * FROM sevice";
+$query= $conn -> prepare($sql);
+$query-> execute();
+$result = $query->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +30,7 @@
         <div class="slider-service">
             <img src="./image/meo.jpg" alt="slider">
             <h2>Dịch vụ</h2>
-            <h1 class="service-h1">Tiêm phòng chó mèo</h1>
+            <h1 class="service-h1"><?php echo $result->title ?></h1>
         </div>
         <div class="container">
             <div class="row">

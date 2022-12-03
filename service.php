@@ -1,3 +1,10 @@
+<?php
+include './include/config.php';
+$sql = "SELECT * FROM sevice";
+$query = $conn->prepare($sql);
+$query->execute();
+$result = $query->fetchAll(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,33 +31,17 @@
             <h1>Dịch vụ My Pet</h1>
             <div class="row">
                 <div class="col-8">
-                    <div class="service">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                        <div class="service-title">
-                            <a href="#">
-                                <h2 class="title">Phẫu thuật mổ đẻ cho chó</h2>
-                                <p class="desc">Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao</p>
-                            </a>
+                    <?php foreach ($result as $key => $value) { ?>
+                        <div class="service">
+                            <a href="#"><img src="<?php echo $value->image ?>" alt="image"></a>
+                            <div class="service-title">
+                                <a href="#">
+                                    <h2 class="title"><?php echo $value->title ?></h2>
+                                    <div class="desc"><?php echo $value->content ?></div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="service">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                        <div class="service-title">
-                            <a href="#">
-                                <h2 class="title">Phẫu thuật mổ đẻ cho chó</h2>
-                                <p class="desc">Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="service">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                        <div class="service-title">
-                            <a href="#">
-                                <h2 class="title">Phẫu thuật mổ đẻ cho chó</h2>
-                                <p class="desc">Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao Phẫu thuật mổ đẻ cho mèo tỷ lệ thanh công cao</p>
-                            </a>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
                 <div class="col-4 right-service">
                     <div class="search search-service">
