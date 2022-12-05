@@ -960,3 +960,28 @@ li {
  .edit-sevice-chil form{
   padding: 0 50px;
  }
+ .form-add-chil{
+  margin: 0 50px;
+ }
+ .form-add-infor form{
+  padding: 0 50px;
+ }
+ .flex-news{
+  display: flex;
+ }
+ .flex-news .date-news{
+  width: 100px;
+  margin-left: 50px;
+ }
+ .cell-title-time{
+  width: 100px;
+ }
+ .cell-title-title{
+  width: 150px;
+ }
+ .contact-table{
+  margin-top: 20px;
+ }
+ .cell-title-contact{
+  width: 400px;
+ }

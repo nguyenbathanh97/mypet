@@ -18,7 +18,7 @@ a:hover {
   -webkit-transition: all 0.3s ease-in-out 0s;
   -ms-transition: all 0.3s ease-in-out 0s;
 }
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -31,6 +31,11 @@ li {
   margin: 0;
   padding: 0;
   list-style: none;
+} */
+.menu ul li{
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .header-fa {
   background-color: #024f72;
@@ -802,14 +807,16 @@ li {
 }
 .newws .news-chil .news-chil-title {
   margin-left: 15px;
+  width: 70%;
 }
 .newws .news-chil .news-chil-title a h1 {
   font-size: 24px;
   margin-bottom: 10px;
   color: #0072a7;
   font-weight: bold;
+  
 }
-.newws .news-chil .news-chil-title a p {
+.newws .news-chil .news-chil-title .desc-p {
   font-size: 16px;
   color: #000000;
   display: -webkit-box;
@@ -858,6 +865,21 @@ li {
 .service img {
   width: 200px;
   height: 200px;
+  position: relative;
+}
+.service .time{
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fc8b00;
+}
+.service .time h5{
+  text-align: center;
+  line-height: 30px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
 }
 .service .service-title {
   padding: 0 15px;
@@ -962,18 +984,21 @@ li {
 }
 .main-service-chil .service-h1 {
   position: absolute;
-  top: 20%;
+  top: 11%;
   left: 50%;
   transform: translateX(-50%);
-  color: #ffffff;
+  color: #0074aa;
 }
 .main-service-chil h2 {
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 25px;
-  color: #ffffff;
+  color: #0073a9;
+}
+.post-all-service{
+  padding: 20px;
 }
 .main-service-chil .post-all-service {
   margin-bottom: 25px;

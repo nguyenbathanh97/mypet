@@ -15,7 +15,11 @@ $sql_sevice = "SELECT * FROM sevice";
 $query_sevice = $conn->prepare($sql_sevice);
 $query_sevice->execute();
 $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
-
+//  news
+$sql = "SELECT * FROM news";
+$query = $conn->prepare($sql);
+$query->execute();
+$result_news = $query->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result); die();
 ?>
 <!DOCTYPE html>
@@ -222,55 +226,15 @@ $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
             </div>
             <div class="row">
                 <div class="post-service-slide">
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
-                    <div class="post-all">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="post-img"></a>
-                        <a href="#">
-                            <h1 class="post-title">Hướng dẫn phòng bệnh thú cưng</h1>
-                        </a>
-                        <h5 class="post-desc">Chúng tôi thực hiện các xét nghiệm để chẩn đoán bệnh</h5>
-                    </div>
+                    <?php foreach ($result_news as $key => $value) { ?>
+                        <div class="post-all">
+                            <a href="#"><img src="<?php echo $value->image ?>" alt="" class="post-img"></a>
+                            <a href="#">
+                                <h1 class="post-title"><?php echo $value->title ?></h1>
+                            </a>
+                            <div class="post-desc"><?php echo $value->content ?></div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -381,123 +345,19 @@ $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
                 <h1>Tin tức nổi bật</h1>
             </div>
             <div class="row">
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
+                <?php foreach ($result_news as $key => $value) { ?>
+                    <div class="col-6 news-chil">
+                        <div class="news-chil-image">
+                            <a href="#"><img src="<?php echo $value->image ?>" alt="image"></a>
+                        </div>
+                        <div class="news-chil-title">
+                            <a href="#">
+                                <h1><?php echo $value->title ?></h1>
+                            </a>
+                            <div class="desc-p"><?php echo $value->content ?></div>
+                        </div>
                     </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p> Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 news-chil">
-                    <div class="news-chil-image">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                    </div>
-                    <div class="news-chil-title">
-                        <a href="#">
-                            <h1>Đi tìm địa chỉ khám thú uy tín ở hà nội</h1>
-                        </a>
-                        <a href="#">
-                            <p>Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi Nếu bạn đang tìm kiếm một địa chỉ khám bệnh cho thú cưng uy tín và tốt nhất nên đi đến my pet chúng tôi </p>
-                        </a>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>

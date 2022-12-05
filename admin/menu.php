@@ -46,13 +46,13 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
                         </li>
                         <li><a href="./sevice.php"><i class="material-icons fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span></a>
+                        <li><a href="./sevice.php"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-hotel"></i><span>Khách sạn</span></a>
+                        <li><a href="./hotel.php"><i class="material-icons fas fa-hotel"></i><span>Khách sạn</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-newspaper"></i><span>Tin tức</span></a>
+                        <li><a href="./news.php"><i class="material-icons fas fa-newspaper"></i><span>Tin tức</span></a>
                         </li>
-                        <li><a href="#"><i class="material-icons fas fa-address-book"></i><span>Liên hệ</span></a>
+                        <li><a href="./contact.php"><i class="material-icons fas fa-address-book"></i><span>Liên hệ</span></a>
                         </li>
                     </ul>
                 </div>

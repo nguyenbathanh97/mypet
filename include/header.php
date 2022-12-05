@@ -64,10 +64,7 @@ $result_header = $query_header->fetchAll(PDO::FETCH_OBJ);
                                     <li><a href="pet-shop-chil.php">Thời trang thú cưng</a></li>
                                 </ul>
                             </li>
-                            <li><a href="hotel.php">Khách sạn <i class="fas fa-chevron-down"></i></a>
-                                <ul>
-                                    <li><a href="hotel.php">Khách sạn thú cưng</a></li>
-                                </ul>
+                            <li><a href="hotel.php">Khách sạn</a>
                             </li>
                             <li><a href="news.php">Tin tức</a></li>
                             <li><a href="contact.php">Liên hệ</a></li>

@@ -13,13 +13,6 @@ $(document).ready(function () {
     $(".close-add").click(function () {
         $(".form-add-infor").fadeOut(500);
     })
-    //sevice_pa
-    $(".btn-add-sevice-pa").click(function () {
-        $("#form-add-sevice-pa").fadeIn(500);
-    })
-    $(".close-add").click(function () {
-        $("#form-add-sevice-pa").fadeOut(500);
-    })
      //sevice
      $(".btn-add-sevice").click(function () {
         $("#form-add-sevice").fadeIn(500);
