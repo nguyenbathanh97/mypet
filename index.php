@@ -48,7 +48,9 @@ $result_news = $query->fetchAll(PDO::FETCH_OBJ);
             <div class="slide-home">
                 <div id="slide">
                     <?php foreach ($result as $key => $value) { ?>
-                        <div class="item"><img src="<?php echo $value->image ?>" alt="image"></div>
+                        <div class="item">
+                            <img src="<?php echo $value->image ?>" alt="image">
+                    </div>
                     <?php } ?>
                 </div>
             </div>

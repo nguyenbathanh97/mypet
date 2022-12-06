@@ -1,9 +1,18 @@
 <?php
 include './include/config.php';
-$sql = "SELECT * FROM sevice";
-$query= $conn -> prepare($sql);
-$query-> execute();
-$result = $query->fetch(PDO::FETCH_OBJ);
+$sql_news = "SELECT * FROM news";
+$query_news = $conn->prepare($sql_news);
+$query_news->execute();
+$result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    // var_dump($id);
+    // die();
+    $sql = "SELECT * FROM sevice WHERE id = $id";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_OBJ);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,17 +35,24 @@ $result = $query->fetch(PDO::FETCH_OBJ);
     include "./include/header.php";
     ?>
     <!-- /header -->
-    <div class="main-service-chil">
-        <div class="slider-service">
-            <img src="./image/meo.jpg" alt="slider">
-            <h2>Dịch vụ</h2>
-            <h1 class="service-h1"><?php echo $result->title ?></h1>
+    <div class="main-service-chil" style="display: block;">
+        <div class="slider-service sevice-sevice">
+            <img src="./image/anh-bia.png" alt="slider">
+            <h2 class="sevice-h2">Dịch vụ</h2>
+            <?php if (isset($_GET['id'])) { ?>
+                <h1 class="service-h1"><?php echo $result->title ?></h1>
+            <?php } ?>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-8 post-all-service">
+                    <?php if (isset($_GET['id'])) { ?>
+                        <h5 class="service-h5"><?php echo $result->title ?></h5>
+                    <?php } ?>
                     <div class="post">
-
+                        <?php if (isset($_GET['id'])) { ?>
+                            <?php echo $result->content ?>
+                        <?php } ?>
                     </div>
                     <div class="post-contact-service">
                         <h3 class="contact-service-h3">
@@ -115,20 +131,15 @@ $result = $query->fetch(PDO::FETCH_OBJ);
                     </div>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
-                        <div class="title-news-service-chil">
-                            <div class="news-service-chil">
-                                <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                                <a class="desc" href="#">Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn</a>
+                        <?php foreach ($result_news as $key => $value) { ?>
+                            <div class="title-news-service-chil">
+                                <div class="news-service-chil">
+                                    <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
+                                    <a class="desc" href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
+                                </div>
+                                <div class="line"></div>
                             </div>
-                            <div class="line"></div>
-                        </div>
-                        <div class="title-news-service-chil">
-                            <div class="news-service-chil">
-                                <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                                <a class="desc" href="#">Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn</a>
-                            </div>
-                            <div class="line"></div>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

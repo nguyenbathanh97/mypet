@@ -36,6 +36,26 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
         echo "Lỗi!";
     }
 }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql_edit = "SELECT * FROM about  WHERE id = $id";
+    $query_edit = $conn->prepare($sql_edit);
+    $query_edit->execute();
+    $result_edit = $query_edit->fetch(PDO::FETCH_OBJ);
+    $id = $_GET['id'];
+    if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
+        $title = $_POST['title'];
+        $content = $_POST['descc'];
+        $sql = "UPDATE about SET title = '$title', content = '$content' WHERE id = $id";
+        $query = $conn->prepare($sql);
+        $query->execute();
+        if ($query) {
+            header("Location: ./infor.php");
+        } else {
+            echo "lỗi!";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +127,7 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                         </div>
                                         <div class="cell cell-change">
                                             <div class="btn-edit-pre">
-                                                <a class="btn-edit" href="./infor-edit.php?id=<?php echo $value->id ?>">Sửa</a>
+                                                <a class="btn-edit" href="./infor.php?id=<?php echo $value->id ?>">Sửa</a>
                                             </div>
                                             <div class="btn-delete-pre">
                                                 <a class="btn-delete" href="./infor.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
@@ -122,12 +142,12 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
             </div>
         </div>
         <div class="form-add-infor">
-            <div class="container-add-infor form-add-chil">
+            <div class="container-add-infor form-add-chil show-infor">
+                <div class="title-form-add show-top-all">
+                    <h1>Thêm thông tin giới thiệu</h1>
+                    <a class="close-add" href="#"><i class="fas fa-times"></i></a>
+                </div>
                 <form action="" method="POST" enctype='multipart/form-data'>
-                    <div class="title-form-add">
-                        <h1>Thêm thông tin giới thiệu</h1>
-                        <a class="close-add" href="#"><i class="fas fa-times"></i></a>
-                    </div>
                     <div class="input-add">
                         <p>Tiêu đề</p>
                         <input type="text" name="title">
@@ -142,6 +162,29 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                 </form>
             </div>
         </div>
+        <?php if (isset($_GET['id'])) { ?>
+            <div class="form-edit">
+                <div class="infor-edit-container form-edit-chil show-infor">
+                    <div class="title-form-edit show-top-all">
+                        <h1>Cập nhật thông tin</h1>
+                        <a class="close-edit" href="./infor.php"><i class="fas fa-times"></i></a>
+                    </div>
+                    <form action="" method="POST" enctype='multipart/form-data'>
+                        <div class="input-add">
+                            <p>Tiêu đề</p>
+                            <input class="input-mypet" type="text" value="<?php echo $result_edit->title ?>" name="title">
+                        </div>
+                        <div class="input-add">
+                            <p>Nhập nội dung</p>
+                            <textarea class="desc-infor" value="" name="descc" id="descc"><?php echo $result_edit->content ?></textarea>
+                        </div>
+                        <div class="btn-edit-in">
+                            <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -152,5 +195,6 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="../lib/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="main-admin.js"></script>
+<script type="text/javascript" src="./js-admin/main-admin.js"></script>
+
 </html>

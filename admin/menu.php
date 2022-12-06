@@ -73,6 +73,9 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
             </div>
         </div>
     </div>
+    <div class="backtop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -80,7 +83,7 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="main-menu.js"></script>
+    <script src="./js-admin/main-menu.js"></script>
 </body>
 
 </html>

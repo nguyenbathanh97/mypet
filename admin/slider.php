@@ -31,6 +31,26 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
         echo "Lỗi!";
     }
 }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
+        if (isset($_FILES["image"])) {
+            $imagePNG = basename($_FILES["image"]["name"]);
+            $imageName = strtolower(vn2en($imagePNG));
+            $target_dir = "./image/";
+            $target_file = $target_dir . $imageName;
+            move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+        }
+        $sql = "UPDATE slider SET image = '$target_file' WHERE id = $id";
+        $query = $conn->prepare($sql);
+        $query->execute();
+        if ($query) {
+            header("Location: ./slider.php");
+        } else {
+            echo "lỗi!";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +117,7 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                             </div>
                                             <div class="cell cell-change">
                                                 <div class="btn-edit-pre">
-                                                    <a id="aaa" class="btn-edit" href="./slider-edit.php?id=<?php echo $value['id'] ?>">Sửa</a>
+                                                    <a id="aaa" class="btn-edit" href="./slider.php?id=<?php echo $value['id'] ?>">Sửa</a>
                                                 </div>
                                                 <div class="btn-delete-pre">
                                                     <a name="btn-delete" class="btn-delete" href="./slider.php?delete=<?php echo $value['id'] ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
@@ -113,12 +133,12 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
             </div>
         </div>
         <div class="form-add">
-            <div class="container-add-slider form-add-chil">
+            <div class="container-add-slider form-add-chil show-slider">
+                <div class="title-form-add show-top-all">
+                    <h1>Thêm slider</h1>
+                    <a class="close-add" href="#"><i class="fas fa-times"></i></a>
+                </div>
                 <form action="" method="POST" enctype='multipart/form-data'>
-                    <div class="title-form-add">
-                        <h1>Thêm slider</h1>
-                        <a class="close-add" href="#"><i class="fas fa-times"></i></a>
-                    </div>
                     <div class="input-add">
                         <p>Chọn ảnh</p>
                         <input type="file" name='image' multiple />
@@ -129,6 +149,25 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                 </form>
             </div>
         </div>
+        <?php if (isset($_GET['id'])) { ?>
+            <div class="form-edit">
+                <div class="slider-edit-container form-edit-chil show-slider">
+                    <div class="title-form-edit show-top-all">
+                        <h1>Cập nhật slider</h1>
+                        <a class="close-edit" href="./slider.php"><i class="fas fa-times"></i></a>
+                    </div>
+                    <form action="" method="POST" enctype='multipart/form-data'>
+                        <div class="input-edit">
+                            <p>Chọn ảnh</p>
+                            <input type="file" name="image">
+                        </div>
+                        <div class="btn-edit-in">
+                            <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -138,6 +177,6 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script type="text/javascript" src="main-admin.js"></script>
+<script type="text/javascript" src="./js-admin/main-admin.js"></script>
 
 </html>

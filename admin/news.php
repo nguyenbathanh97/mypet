@@ -53,6 +53,37 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
         echo "Lỗi!";
     }
 }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM news WHERE id = $id";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_OBJ);
+    if (isset($_POST['btn-edit-form-news']) && ($_POST['btn-edit-form-news'])) {
+        $title = $_POST['title'];
+        $date = $_POST['date'];
+        $content = $_POST['descc'];
+        if (isset($_FILES["image"])) {
+            $imagePNG = basename($_FILES["image"]["name"]);
+            $imageName = strtolower(vn2en($imagePNG));
+            $target_dir = "./image/";
+            $target_file = $target_dir . $imageName;
+            move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+        }
+        $sql = "UPDATE news SET title = '$title' , content = '$content' ,image = '$target_file', date = '$date' WHERE id = $id";
+        $query = $conn->prepare($sql);
+        $query_excute = $query->execute();
+        if ($query_excute) {
+            $_SESSION['message'] = 'Đã thêm!';
+            header('location: ./news.php');
+            exit(0);
+        } else {
+            $_SESSION['message'] = 'Lỗi!';
+            header('location: ./news.php');
+            exit(0);
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -136,7 +167,7 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                                         </div>
                                         <div class="cell cell-change">
                                             <div class="btn-edit-pre">
-                                                <a class="btn-edit btn-edit-sevice" href="./news-edit.php?id=<?php echo $value->id ?>">Sửa</a>
+                                                <a class="btn-edit btn-edit-sevice" href="./news.php?id=<?php echo $value->id ?>">Sửa</a>
                                             </div>
                                             <div class="btn-delete-pre">
                                                 <a class="btn-delete" href="./news.php?delete_sv=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
@@ -151,12 +182,12 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
             </div>
         </div>
         <div class="form-add" id="form-add-sevice">
-            <div class="add-sevice-last form-add-chil">
+            <div class="add-sevice-last form-add-chil show-news">
+                <div class="title-form-add show-top-all">
+                    <h1>Thêm tin tức</h1>
+                    <a class="close-add" href="#"><i class="fas fa-times"></i></a>
+                </div>
                 <form action="" method="POST" enctype='multipart/form-data'>
-                    <div class="title-form-add">
-                        <h1>Thêm tin tức</h1>
-                        <a class="close-add" href="#"><i class="fas fa-times"></i></a>
-                    </div>
                     <div class="input-add">
                         <p>Tiêu đề</p>
                         <input type="text" name="title">
@@ -181,6 +212,39 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                 </form>
             </div>
         </div>
+        <?php if (isset($_GET['id'])) { ?>
+            <div class="form-edit form-edit-sevice">
+                <div class="edit-sevice-chil form-edit-chil form-edit-chil-sv show-news">
+                    <div class="title-form-edit show-top-all">
+                        <h1>Cập nhật tin tức</h1>
+                        <a class="close-edit" href="./news.php"><i class="fas fa-times"></i></a>
+                    </div>
+                    <form action="" method="POST" enctype='multipart/form-data'>
+                        <div class="input-edit input-edit-af">
+                            <p>Tiêu đề</p>
+                            <input type="text" value="<?php echo $result->title ?>" name="title">
+                        </div>
+                        <div class="input-edit">
+                            <p>Nhập nội dung</p>
+                            <textarea style="height:330px" class="desc-infor" value="" name="descc" id="descc"><?php echo $result->content ?></textarea>
+                        </div>
+                        <div class="flex-news">
+                            <div class="input-edit">
+                                <p>Chọn ảnh</p>
+                                <input type="file" name="image">
+                            </div>
+                            <div class="input-edit">
+                                <p>Chọn thời gian</p>
+                                <input class="date-news" value="<?php echo $result->date ?>" type="date" name="date">
+                            </div>
+                        </div>
+                        <div class="btn-edit-in">
+                            <input type="submit" id="choose-file" name="btn-edit-form-news" value="Cập nhật" class="btn-edit-form">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -191,6 +255,6 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="../lib/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="main-admin.js"></script>
+<script type="text/javascript" src="./js-admin/main-admin.js"></script>
 
 </html>

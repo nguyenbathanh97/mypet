@@ -627,23 +627,26 @@ li {
 }
 .form-add form {
   position: relative;
-  margin-top: 50px;
+}
+
+.close-edit{
+  margin-right: 20px;
 }
 .title-form-add .close-add i {
-  color: #d30000;
+  color: #ff0000;
   font-size: 20px;
+  font-weight: bold;
 }
 .title-form-add .close-add {
   float: right;
-  margin-top: -52px;
+  margin-top: -30px;
 }
 .form-add .title-form-add h1 {
   font-size: 35px;
   font-weight: bold;
   text-align: center;
-  color: #00a2ca;
+  color: #ffffff;
   margin-bottom: 5px;
-  padding-top: 10px;
 }
 .btn-add-in {
   margin-top: 20px;
@@ -676,7 +679,6 @@ li {
 }
 .form-edit form {
   position: relative;
-  margin-top: 50px;
 }
 .form-edit-chil {
   background: #ffffff;
@@ -686,9 +688,9 @@ li {
   font-size: 35px;
   font-weight: bold;
   text-align: center;
-  color: #00a2ca;
+  color: #00728e;
   margin-bottom: 5px;
-  padding-top: 10px;
+  line-height: 30px;
 }
 .input-edit-af input{
   width: 100%;
@@ -716,13 +718,13 @@ li {
 }
 .title-form-edit .close-edit {
   float: right;
-  margin-top: -52px;
+  margin-top: -30px;
 }
 .form-edit .title-form-edit h1 {
   font-size: 35px;
   font-weight: bold;
   text-align: center;
-  color: #00a2ca;
+  color: #ffffff;
   margin-bottom: 5px;
   padding-top: 10px;
 }
@@ -841,7 +843,6 @@ li {
 }
 .form-add-infor form {
   position: relative;
-  margin-top: 50px;
 }
 .title-form-add .close-add i {
   color: #d30000;
@@ -849,15 +850,14 @@ li {
 }
 .title-form-add .close-add {
   float: right;
-  margin-top: -52px;
+  margin-right: 20px;
 }
 .form-add-infor .title-form-add h1 {
   font-size: 35px;
   font-weight: bold;
   text-align: center;
-  color: #00a2ca;
+  color: #ffffff;
   margin-bottom: 5px;
-  padding-top: 10px;
 }
 .btn-add-in {
   margin-top: 20px;
@@ -985,3 +985,78 @@ li {
  .cell-title-contact{
   width: 400px;
  }
+ .cell-title-sevice{
+  width: 200px;
+}
+.backtop{
+  width: 50px;
+  height: 50px;
+  background: #00a4b0;
+  border-radius: 50%;
+  text-align: center;
+  opacity: 0.5;
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+}
+.backtop i{
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 50px;
+  cursor: pointer;
+}
+.show-slider{
+  margin-top: 18%;
+}
+.show-infor{
+  margin-top: 6%;
+}
+.show-sevice{
+  margin-top: 3%;
+}
+.show-hotel{
+  margin-top: 6%;
+}
+.show-news{
+  margin-top: 2%;
+}
+.show-infor p{
+  color: #00728e;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.show-top-all{
+  height: 50px;
+  width: 100%;
+  background: #00728e;
+}
+.menu-show-all{
+  height: 10px;
+}
+.title-input input{
+  width: 100%;
+}
+.input-add p{
+  color: #00728e;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.close-edit{
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 2px;
+  border: 1px solid #d30000;
+  display: flex;
+  justify-content: center;
+}
+.close-add{
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 2px;
+  border: 1px solid #d30000;
+  display: flex;
+  justify-content: center;
+}

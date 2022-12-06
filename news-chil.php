@@ -1,14 +1,18 @@
 <?php
 include './include/config.php';
-$sql ="SELECT * FROM hotel";
-$query= $conn -> prepare($sql);
-$query-> execute();
-$result = $query->fetch(PDO::FETCH_OBJ);
-
 $sql_news = "SELECT * FROM news";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    // var_dump($id);
+    // die();
+    $sql = "SELECT * FROM news WHERE id = $id";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_OBJ);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,17 +35,24 @@ $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
     include "./include/header.php";
     ?>
     <!-- /header -->
-    <div class="main-service-chil">
-        <div class="slider-service sevice-sevice">
-            <img src="./image/home.jpg" alt="slider">
-            <h2 class="sevice-h2">Dịch vụ</h2>
-            <h1 class="service-h1"><?php echo $result->title ?></h1>
+    <div class="main-service-chil" style="display: block;">
+        <div class="slider-service">
+            <img src="./image/anh-bia-news.jpg" alt="slider">
+            <h2 class="news-h2">Tin tức</h2>
+            <?php if (isset($_GET['id'])) { ?>
+                <h1 class="service-h1"><?php echo $result->title ?></h1>
+            <?php } ?>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-8 post-all-service">
-                    <div class="post-hotel">
-                        <?php echo $result->content ?>
+                    <?php if (isset($_GET['id'])) { ?>
+                        <h5 class="service-h5"><?php echo $result->title ?></h5>
+                    <?php } ?>
+                    <div class="post">
+                        <?php if (isset($_GET['id'])) { ?>
+                            <?php echo $result->content ?>
+                        <?php } ?>
                     </div>
                     <div class="post-contact-service">
                         <h3 class="contact-service-h3">

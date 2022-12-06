@@ -26,3 +26,4 @@ $(document).ready(function () {
     })
 });
 CKEDITOR.replace('desc');
+CKEDITOR.replace('descc');

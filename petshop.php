@@ -22,13 +22,12 @@
     <div class="main-service-chil">
         <div class="slider-service">
             <img src="./image/meo.jpg" alt="slider">
-            <h2>Dịch vụ</h2>
             <h1 class="service-h1">Tiêm phòng chó mèo</h1>
         </div>
         <div class="container">
             <div class="home-product">
                 <a href="#" class="back-home"><i class="fas fa-home"></i></a>
-                <i class="fas fa-angle-double-right"></i>
+                <i class="next-icon-product fas fa-angle-double-right"></i>
                 <a class="product-home" href="#">Phụ kiện thú cưng</a>
             </div>
             <div class="row pet-product">

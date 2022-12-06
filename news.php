@@ -1,9 +1,9 @@
 <?php
 include './include/config.php';
-$sql = "SELECT * FROM news";
-$query = $conn->prepare($sql);
-$query->execute();
-$result_news = $query->fetchAll(PDO::FETCH_OBJ);
+$sql_news = "SELECT * FROM news";
+$query_news = $conn->prepare($sql_news);
+$query_news->execute();
+$result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +33,12 @@ $result_news = $query->fetchAll(PDO::FETCH_OBJ);
                 <div class="col-8">
                     <?php foreach ($result_news as $key => $value) { ?>
                         <div class="service">
-                            <a href="#"><img src="<?php echo $value->image ?>" alt="image"></a>
+                            <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
                             <div class="time">
                                 <h5><?php echo $value->date ?></h5>
                             </div>
                             <div class="service-title">
-                                <a href="#">
+                                <a href="news-chil.php?id=<?php echo $value->id ?>">
                                     <h2 class="title"><?php echo $value->title ?></h2>
                                     <div class="desc"><?php echo $value->content ?></div>
                                 </a>
@@ -55,20 +55,15 @@ $result_news = $query->fetchAll(PDO::FETCH_OBJ);
                     </div>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
-                        <div class="title-news-service-chil">
-                            <div class="news-service-chil">
-                                <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                                <a class="desc" href="#">Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn</a>
+                        <?php foreach ($result_news as $key => $value) { ?>
+                            <div class="title-news-service-chil">
+                                <div class="news-service-chil">
+                                    <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
+                                    <a class="desc" href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
+                                </div>
+                                <div class="line"></div>
                             </div>
-                            <div class="line"></div>
-                        </div>
-                        <div class="title-news-service-chil">
-                            <div class="news-service-chil">
-                                <a href="#"><img src="./image/khambenh.jpg" alt="image"></a>
-                                <a class="desc" href="#">Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn Siêu ưu đãi mổ thú cưng đảm bảo 100% thành công và an toàn</a>
-                            </div>
-                            <div class="line"></div>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

@@ -47,13 +47,9 @@ $result_header = $query_header->fetchAll(PDO::FETCH_OBJ);
                             <li><a href="information.php">Giới thiệu</a></li>
                             <li><a href="service.php">Dịch vụ <i class="fas fa-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="">Cắt tỉa lông chó</a></li>
-                                    <li><a href="service-chil.php">Tiêm phòng cho chó</a></li>
-                                    <li><a href="service-chil.php">Tiêm phòng cho mèo</a></li>
-                                    <li><a href="service-chil.php">Triệt sản chó, mèo</a></li>
-                                    <li><a href="service-chil.php">Phẫu thuật ngoại khoa</a></li>
-                                    <li><a href="service-chil.php">Phẫu thuật đẻ chó, mèo</a></li>
-                                    <li><a href="service-chil.php">Hỏa táng thú cưng</a></li>
+                                    <?php foreach ($result_header as $key => $value) { ?>
+                                        <li><a href="service-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a></li>
+                                    <?php } ?>
                                 </ul>
                             </li>
                             <li><a href="petshop.php">Pet shop <i class="fas fa-chevron-down"></i></a>
@@ -78,6 +74,9 @@ $result_header = $query_header->fetchAll(PDO::FETCH_OBJ);
                 </div>
             </div>
         </div>
+    </div>
+    <div class="backtop">
+        <i class="fas fa-arrow-up"></i>
     </div>
 </body>
 

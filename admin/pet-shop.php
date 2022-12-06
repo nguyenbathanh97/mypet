@@ -177,6 +177,6 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="../lib/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="main-admin.js"></script>
+<script type="text/javascript" src="./js-admin/main-admin.js"></script>
 
 </html>
