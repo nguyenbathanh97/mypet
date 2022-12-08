@@ -3,17 +3,17 @@
 include '../include/slug.php';
 include '../include/config.php';
 
-$sqlSl = "SELECT * FROM contact";
+$sqlSl = "SELECT * FROM booking a join sevice b on a.id_sevice = b.id";
 $query = $conn->prepare($sqlSl);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
 if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
     $delete = intval($_GET['delete']);
-    $sql = "DELETE FROM contact WHERE id = $delete";
+    $sql = "DELETE FROM content WHERE id = $delete";
     $query = $conn->prepare($sql);
     $query->execute();
     if ($query) {
-        header("Location: ./contact.php");
+        header("Location: ./content.php");
     } else {
         echo "Lỗi!";
     }
@@ -27,8 +27,11 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liên hệ</title>
+    <title>Đặt lịch</title>
     <link href='//fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css' />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
     <?php
     include "../include/link-css.php";
@@ -45,11 +48,11 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
     <!-- menu  -->
     <div class="main-infor">
         <div class="main-infor-in">
+            <div class="title-show-top"><i class="fas fa-paw"></i>
+                <h1>Quản lý lịch hẹn khám</h1><i class="fas fa-paw"></i>
+            </div>
             <div class="main-infor-chil">
                 <div class="infor-container main-infor-chil-in">
-                    <div class="title-show-top title-show-top2"><i class="fas fa-paw"></i>
-                        <h1>Quản lý khách hàng liên hệ</h1><i class="fas fa-paw"></i>
-                    </div>
                     <div class="form-infor contact-table">
                         <form action="" method="POST">
                             <table id="my-table" cellpadding="2" cellspacing="2">
@@ -58,22 +61,25 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                         <th>
                                             STT
                                         </th>
-                                        <th class="name-contact-th">
+                                        <th>
                                             Họ tên
+                                        </th>
+                                        <th>
+                                            Điện thoại
                                         </th>
                                         <th>
                                             Emai
                                         </th>
                                         <th>
-                                            Địa chỉ
+                                            Thời gian
                                         </th>
-                                        <th class="phone-contact-th">
-                                            Điện thoại
+                                        <th>
+                                            loại dịch vụ
                                         </th>
-                                        <th class="content-contact-th">
+                                        <th class="content-booking-th">
                                             Nội dung yêu cầu
                                         </th>
-                                        <th class="button-edit-delete">
+                                        <th>
                                             <i class="fas fa-cog"></i>
                                         </th>
                                     </tr>
@@ -88,20 +94,23 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                                 <?php echo $value->name ?>
                                             </td>
                                             <td>
-                                                <?php echo $value->email ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->address ?>
-                                            </td>
-                                            <td>
                                                 <?php echo $value->phone ?>
                                             </td>
                                             <td>
-                                                <?php echo $value->content ?>
+                                                <?php echo $value->email ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value->date ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value->title ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value->content_booking ?>
                                             </td>
                                             <td>
                                                 <div class="btn-delete-pre">
-                                                    <a class="btn-delete" href="./contact.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
+                                                    <a class="btn-delete" href="./booking.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

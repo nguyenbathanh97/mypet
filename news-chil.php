@@ -1,6 +1,6 @@
 <?php
 include './include/config.php';
-$sql_news = "SELECT * FROM news";
+$sql_news = "SELECT * FROM news WHERE status_news = 1";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
@@ -12,6 +12,42 @@ if (isset($_GET['id'])) {
     $query = $conn->prepare($sql);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_OBJ);
+}
+
+// sevice
+$sql_sevice = "SELECT * FROM sevice WHERE status_sevice = 1";
+$query_sevice = $conn->prepare($sql_sevice);
+$query_sevice->execute();
+$result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
+// var_dump($result_sevice); die();
+
+// isset($_POST['btn-add-form']) && ($_POST['btn-add-form']);
+$success_booking = "";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $date = $_POST['date'];
+    $select = $_POST['select'];
+    $content = $_POST['desc'];
+    $sql = "INSERT INTO booking (name, phone, email, date, id_sevice, content_booking) VALUES(:name, :phone, :email, :date, :select, :desc)";
+    $query = $conn->prepare($sql);
+    $query->bindParam(':name', $name, PDO::PARAM_STR);
+    $query->bindParam(':phone', $phone, PDO::PARAM_STR);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':date', $date, PDO::PARAM_STR);
+    $query->bindParam(':select', $select, PDO::PARAM_STR);
+    $query->bindParam(':desc', $content, PDO::PARAM_STR);
+    $query_booking = $query->execute();
+    // if ($query_booking) {
+    //     $success_booking = 5;
+    //     $succ_booking = 'Gửi yêu cầu thành công <br> Cảm ơn bạn đã tin tưởng sử dụng dịch vụ của chúng tôi!';
+    // } else {
+    //     $error = 5;
+    //     $err_booking = 'Gửi yêu cầu thất bại';
+    // }
+    // var_dump($success_booking);
+    // die();
 }
 ?>
 <!DOCTYPE html>
@@ -94,30 +130,50 @@ if (isset($_GET['id'])) {
                     <div class="form-booking">
                         <form class="form-booking-chil" action="" method="POST">
                             <div class="line-1">
-                                <p>Đăng ký lịch hẹn khám tại My Pet</p>
+                                <p class="title-booking">Đăng ký lịch hẹn khám tại My Pet</p>
                                 <i class="booking-close fas fa-times"></i>
                             </div>
                             <div class="line-2">
-                                <input type="text" placeholder="Họ tên" name="name">
-                                <input type="text" placeholder="Điện thoại" name="phone">
+                                <div class="group-booking">
+                                    <input id="fullname" type="text" placeholder="Họ tên" name="name">
+                                    <p class="booking-message"></p>
+                                </div>
+                                <div class="group-booking">
+                                    <input id="phone" type="text" placeholder="Điện thoại" name="phone">
+                                    <p class="booking-message"></p>
+                                </div>
                             </div>
                             <div class="line-3">
-                                <input type="email" placeholder="Email" name="email">
-                                <input type="date" placeholder="Ngày" name="number">
+                                <div class="group-booking">
+                                    <input id="email" type="email" placeholder="Email" name="email">
+                                    <p class="booking-message"></p>
+                                </div>
+                                <div class="group-booking">
+                                    <input id="date-time" type="date" placeholder="Ngày" name="date">
+                                    <p class="booking-message"></p>
+                                </div>
                             </div>
                             <div class="line-4">
-                                <select name="" id="">
-                                    <option value="1">--Lựa chọn dịch vụ--</option>
-                                    <option value="2">Khám và điều trị bệnh chó</option>
-                                    <option value="3">Khám và điều trị bệnh mèo</option>
-                                    <option value="4">Khách sạn thú cưng</option>
-                                </select>
+                                <div class="group-booking">
+                                    <select name="select" id="select-booking">
+                                        <option value="">--Lựa chọn dịch vụ--</option>
+                                        <?php foreach ($result_sevice as $key => $value) { ?>
+                                            <option value="<?php echo $value->id ?>"><?php echo $value->title ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <p class="booking-message"></p>
+                                </div>
                             </div>
                             <div class="line-5">
-                                <textarea class="decs" name="" id="" cols="30" rows="10" placeholder="Nội dung yêu cầu"></textarea>
+                                <div class="group-booking">
+                                    <textarea id="desc" class="decs" name="desc" cols="30" rows="10" placeholder="Nội dung yêu cầu"></textarea>
+                                    <p class="booking-message"></p>
+                                </div>
                             </div>
                             <div class="line-6">
-                                <input type="submit" value="Đăng ký ngay" name="btn btn-register">
+                                <div class="group-booking">
+                                    <input type="submit" value="Đăng ký ngay" name="btn btn-register">
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -151,6 +207,25 @@ if (isset($_GET['id'])) {
     include "./include/footer.php";
     ?>
     <!-- /footer  -->
+
+    <script src="./js/validator.js"></script>
+    <script>
+        Validator({
+            form: '.form-booking-chil',
+            formGroupSelector: '.group-booking',
+            errorSelector: ".booking-message",
+            rules: [
+                Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ tên!'),
+                Validator.isRequired('#phone', 'Vui lòng nhập số điện thoại!'),
+                Validator.isPhone('#phone', 'Số điện thoại gồm 10 số và bắt đầu từ số 0'),
+                Validator.isRequired('#email', 'Vui lòng nhập địa chỉ mail!'),
+                Validator.isEmail('#email'),
+                Validator.isRequired('#date-time', 'Vui lòng lựa chọn ngày!'),
+                Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
+                Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
+            ],
+        });
+    </script>
 </body>
 
 </html>

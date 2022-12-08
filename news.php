@@ -1,6 +1,6 @@
 <?php
 include './include/config.php';
-$sql_news = "SELECT * FROM news";
+$sql_news = "SELECT * FROM news WHERE status_news = 1";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);

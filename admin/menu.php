@@ -15,26 +15,33 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
     <title>Admin</title>
     <link href='//fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css-admin/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./css-admin/style.css">
 </head>
 
 <body>
     <div class="main-menu">
-        <div class="menu-top">
-            <div class="title">
+        <div class="main-menu-all">
+            <div class="menu-top-left">
                 <h1>Trang quản lý MYPET</h1>
+            </div>
+            <div class="menu-right">
+                <h5 class="name-user">
+                    Xin chào: <span><?php echo $result_user->name ?></span>
+                </h5>
+                <a class="img-user" href="#">
+                    <img src="../image/logo-top.jpg" alt="image">
+                </a>
+                <div class="drop-down-user">
+                    <i class="down-click fas fa-sort-down"></i>
+                    <div class="down-logout">
+                        <a class="logout" href="./login.php">Đăng xuất</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="menu-left">
-            <div class="menu-show-all">
-                <div class='menu-toogle' title="Hiện Menu">
-                    <div class='line_one'></div>
-                    <div class='line_two'></div>
-                    <div class='line_three'></div>
-                </div>
-            </div>
-            <div class='dark'>
-            </div>
             <div id='navigator'>
                 <div class="section1">
                     <ul>
@@ -53,29 +60,16 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
                         <li><a href="./news.php"><i class="material-icons fas fa-newspaper"></i><span>Tin tức</span></a>
                         </li>
                         <li><a href="./contact.php"><i class="material-icons fas fa-address-book"></i><span>Liên hệ</span></a>
+                        <li><a href="./booking.php"><i class="material-icons fas fa-book"></i><span>Lịch đặt</span></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="menu-right">
-            <h5 class="name-user">
-                Xin chào: <span><?php echo $result_user->name ?></span>
-            </h5>
-            <a class="img-user" href="#">
-                <img src="../image/avatar.png" alt="image">
-            </a>
-            <div class="drop-down-user">
-                <i class="down-click fas fa-sort-down"></i>
-                <div class="down-logout">
-                    <a class="logout" href="./login.php">Đăng xuất</a>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="backtop">
+    <!-- <div class="backtop">
         <i class="fas fa-arrow-up"></i>
-    </div>
+    </div> -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

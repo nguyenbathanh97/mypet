@@ -12,6 +12,7 @@ if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
     $title = $_POST['title'];
     $date = $_POST['date'];;
     $content = $_POST['desc'];
+    $status_news = $_POST['status_news'];
     if (isset($_FILES["image"])) {
         $imagePNG = basename($_FILES["image"]["name"]);
         $imageName = strtolower(vn2en($imagePNG));
@@ -19,12 +20,13 @@ if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
         $target_file = $target_dir . $imageName;
         move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
     }
-    $sql = "INSERT INTO news (title, content, image, date) VALUES (:title, :desc, :image, :date)";
+    $sql = "INSERT INTO news (title, content, image, date, status_news) VALUES (:title, :desc, :image, :date, :status_news)";
     $query = $conn->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':desc', $content, PDO::PARAM_STR);
     $query->bindParam(':image', $target_file, PDO::PARAM_STR);
     $query->bindParam(':date', $date, PDO::PARAM_STR);
+    $query->bindParam(':status_news', $status_news, PDO::PARAM_STR);
     $query_excute = $query->execute();
     if ($query_excute) {
         $_SESSION['message'] = 'Đã thêm!';
@@ -63,6 +65,7 @@ if (isset($_GET['id'])) {
         $title = $_POST['title'];
         $date = $_POST['date'];
         $content = $_POST['descc'];
+        $status_news = $_POST['status_news'];
         if (isset($_FILES["image"])) {
             $imagePNG = basename($_FILES["image"]["name"]);
             $imageName = strtolower(vn2en($imagePNG));
@@ -70,7 +73,7 @@ if (isset($_GET['id'])) {
             $target_file = $target_dir . $imageName;
             move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
         }
-        $sql = "UPDATE news SET title = '$title' , content = '$content' ,image = '$target_file', date = '$date' WHERE id = $id";
+        $sql = "UPDATE news SET title = '$title' , content = '$content' ,image = '$target_file', date = '$date', status_news = '$status_news' WHERE id = $id";
         $query = $conn->prepare($sql);
         $query_excute = $query->execute();
         if ($query_excute) {
@@ -99,7 +102,8 @@ if (isset($_GET['id'])) {
     <?php
     include "../include/link-css.php";
     ?>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css-admin/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./css-admin/style.css">
 </head>
 
 <body>
@@ -112,70 +116,75 @@ if (isset($_GET['id'])) {
         <div class="main-infor-in">
             <div class="main-infor-chil">
                 <div class="container-sevice main-infor-chil-in">
-                    <h1 class="title-infor">
-                        Tin tức
-                    </h1>
-                    <div class="line-h1">
-                        <div class="line-in"></div>
-                        <i class="fas fa-star"></i>
-                        <i class="center fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <div class="line-in"></div>
-                    </div>
-                    <div class="add-infor">
-                        <input class="btn-add-sevice" type="submit" name="btn-add-sevice" value="Thêm tin tức">
+                    <div class="title-show-top-1">
+                        <div class="add-infor add-slider1">
+                            <input class="btn-add-sevice" type="submit" name="btn-add-sevice" value="Thêm tin tức">
+                        </div>
+                        <div class="title-show-top title-show-top2"><i class="fas fa-paw"></i>
+                            <h1>Quản lý tin tức</h1><i class="fas fa-paw"></i>
+                        </div>
                     </div>
                     <div class="form-infor">
                         <form action="" method="POST">
-                            <div class="table">
-                                <div class="row blue">
-                                    <div class="cell cell-title">
-                                        STT
-                                    </div>
-                                    <div class="cell cell-title cell-title-title">
-                                        Tiêu đề
-                                    </div>
-                                    <div class="cell cell-title">
-                                        Hình ảnh
-                                    </div>
-                                    <div class="cell cell-title">
-                                        Nội dung
-                                    </div>
-                                    <div class="cell cell-title cell-title-time">
-                                        Thời gian
-                                    </div>
-                                    <div class="cell cell-title">
-                                        <i class="fas fa-cog"></i>
-                                    </div>
-                                </div>
-                                <?php foreach ($result_sv as $key => $value) { ?>
-                                    <div class="row">
-                                        <div class="cell">
-                                            <?php echo $key + 1 ?>
-                                        </div>
-                                        <div class="cell">
-                                            <?php echo $value->title ?>
-                                        </div>
-                                        <div class="cell cell-img-sv">
-                                            <img src=".<?php echo $value->image ?>" alt="image">
-                                        </div>
-                                        <div class="cell">
-                                            <?php echo $value->content ?>
-                                        </div>
-                                        <div class="cell">
-                                            <?php echo $value->date ?>
-                                        </div>
-                                        <div class="cell cell-change">
-                                            <div class="btn-edit-pre">
-                                                <a class="btn-edit btn-edit-sevice" href="./news.php?id=<?php echo $value->id ?>">Sửa</a>
-                                            </div>
-                                            <div class="btn-delete-pre">
-                                                <a class="btn-delete" href="./news.php?delete_sv=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                            <table id="my-table" cellpadding="2" cellspacing="2">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            STT
+                                        </th>
+                                        <th>
+                                            Tiêu đề
+                                        </th>
+                                        <th>
+                                            Hình ảnh
+                                        </th>
+                                        <th>
+                                            Thời gian
+                                        </th>
+                                        <th>
+                                            Trạng thái
+                                        </th>
+                                        <th class="button-edit-delete">
+                                            <i class="fas fa-cog"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($result_sv as $key => $value) { ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $key + 1 ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value->title ?>
+                                            </td>
+                                            <td>
+                                                <img style="width: 65px; height: 65px ;" src=".<?php echo $value->image ?>" alt="image">
+                                            </td>
+                                            <td>
+                                                <?php echo $value->date ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($value->status_news == 1) { ?>
+                                                    <?php echo "Đang hiện thị" ?>
+                                                <?php } else { ?>
+                                                    <?php echo "Đã ẩn"; ?>
+                                                <?php } ?>
+                                            </td>
+                                            <td>
+                                                <div class="button-edit-delete">
+                                                    <div class="btn-edit-pre">
+                                                        <a class="btn-edit btn-edit-sevice" href="./news.php?id=<?php echo $value->id ?>"><i class="fas fa-edit"></i></a>
+                                                    </div>
+                                                    <div class="btn-delete-pre">
+                                                        <a class="btn-delete" href="./news.php?delete_sv=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </form>
                     </div>
                 </div>
@@ -196,14 +205,28 @@ if (isset($_GET['id'])) {
                         <p>Nhập nội dung</p>
                         <textarea class="desc-infor" name="desc" id="desc"></textarea>
                     </div>
-                    <div class="flex-news">
-                        <div class="input-add">
-                            <p>Chọn ảnh</p>
-                            <input type="file" name="image">
+                    <div class="group-add-news-img-status">
+                        <div class="display-image-news-all">
+                            <div class="input-add">
+                                <p>Chọn ảnh</p>
+                                <input id="add-id-news-image" type="file" name="image" onchange="ImageFileAsUrlAddNews()">
+                            </div>
+                            <div id="display-news-image">
+                                <p>ảnh mới chọn</p>
+                                <div id="display-news-image-chil"></div>
+                            </div>
                         </div>
-                        <div class="input-add">
+                        <div class="input-add add-time-input1">
                             <p>Chọn thời gian</p>
                             <input class="date-news" type="date" name="date">
+                        </div>
+                        <div class="input-select-news">
+                            <p>Trạng thái</p>
+                            <select name="status_news" id="status_news" class="status_news">
+                                <option value="">--Trạng thái--</option>
+                                <option value="0">Ẩn</option>
+                                <option value="1">Hiện</option>
+                            </select>
                         </div>
                     </div>
                     <div class="btn-add-in">
@@ -228,14 +251,32 @@ if (isset($_GET['id'])) {
                             <p>Nhập nội dung</p>
                             <textarea style="height:330px" class="desc-infor" value="" name="descc" id="descc"><?php echo $result->content ?></textarea>
                         </div>
-                        <div class="flex-news">
-                            <div class="input-edit">
-                                <p>Chọn ảnh</p>
-                                <input type="file" name="image">
+                        <div class="group-edit-news-img-status">
+                            <div class="display-image-news-all">
+                                <div class="input-edit">
+                                    <p>Chọn ảnh</p>
+                                    <input id="edit-id-news-image" type="file" name="image" onchange="ImageFileAsUrlEditNews()">
+                                </div>
+                                <div id="display-news-image">
+                                    <p>ảnh mới chọn</p>
+                                    <div id="display-news-image-chil-edit"></div>
+                                </div>
                             </div>
-                            <div class="input-edit">
+                            <div class="display-news-image-chil-1">
+                                <p>ảnh đã chọn</p>
+                                <img src=".<?php echo $result->image ?>" alt="image">
+                            </div>
+                            <div class="input-edit edit-time-input1">
                                 <p>Chọn thời gian</p>
                                 <input class="date-news" value="<?php echo $result->date ?>" type="date" name="date">
+                            </div>
+                            <div class="input-select-news-edit">
+                                <p>Trạng thái</p>
+                                <select name="status_news" id="status_news" class="status_news">
+                                    <option value="">--Trạng thái--</option>
+                                    <option value="0">Ẩn</option>
+                                    <option value="1">Hiện</option>
+                                </select>
                             </div>
                         </div>
                         <div class="btn-edit-in">
@@ -255,6 +296,18 @@ if (isset($_GET['id'])) {
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="../lib/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#my-table").DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
+            },
+            pageLength: 10,
+            lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
+        });
+    });
+</script>
 
 </html>

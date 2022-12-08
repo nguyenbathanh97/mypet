@@ -10,10 +10,12 @@ $result = $query->fetchAll(PDO::FETCH_OBJ);
 if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
     $title = $_POST['title'];
     $content = $_POST['desc'];
-    $sql = "INSERT INTO hotel (title, content) VALUES (:title, :desc)";
+    $status_hotel = $_POST['status_hotel'];
+    $sql = "INSERT INTO hotel (title, content, status_hotel) VALUES (:title, :desc, :status_hotel)";
     $query = $conn->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':desc', $content, PDO::PARAM_STR);
+    $query->bindParam(':status_hotel', $status_hotel, PDO::PARAM_STR);
     $query_excute = $query->execute();
     if ($query_excute) {
         $_SESSION['message'] = 'Đã thêm!';
@@ -46,7 +48,8 @@ if (isset($_GET['id'])) {
     if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
         $title = $_POST['title'];
         $content = $_POST['descc'];
-        $sql = "UPDATE hotel SET title = '$title', content = '$content' WHERE id = $id";
+        $status_hotel = $_POST['status_hotel'];
+        $sql = "UPDATE hotel SET title = '$title', content = '$content', status_hotel = '$status_hotel' WHERE id = $id";
         $query = $conn->prepare($sql);
         $query->execute();
         if ($query) {
@@ -71,7 +74,8 @@ if (isset($_GET['id'])) {
     <?php
     include "../include/link-css.php";
     ?>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css-admin/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./css-admin/style.css">
 </head>
 
 <body>
@@ -84,58 +88,63 @@ if (isset($_GET['id'])) {
         <div class="main-infor-in">
             <div class="main-infor-chil">
                 <div class="infor-container main-infor-chil-in">
-                    <h1 class="title-infor">
-                        Khách sạn Mypet
-                    </h1>
-                    <div class="line-h1">
-                        <div class="line-in"></div>
-                        <i class="fas fa-star"></i>
-                        <i class="center fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <div class="line-in"></div>
-                    </div>
-                    <div class="add-infor">
-                        <input class="btn-add-infor" type="submit" name="btn-add-infor" value="Thêm thông tin">
+                    <div class="title-show-top-1">
+                        <div class="add-infor add-slider1">
+                            <input class="btn-add-infor" type="submit" name="btn-add-infor" value="Thêm thông tin">
+                        </div>
+                        <div class="title-show-top title-show-top2"><i class="fas fa-paw"></i>
+                            <h1>Quản lý khách sạn thú cưng</h1><i class="fas fa-paw"></i>
+                        </div>
                     </div>
                     <div class="form-infor">
                         <form action="" method="POST">
-                            <div class="table">
-                                <div class="row blue">
-                                    <div class="cell cell-title">
-                                        STT
-                                    </div>
-                                    <div class="cell cell-title">
-                                        Tiêu đề
-                                    </div>
-                                    <div class="cell cell-title">
-                                        Mô tả
-                                    </div>
-                                    <div class="cell cell-title">
-                                        <i class="fas fa-cog"></i>
-                                    </div>
-                                </div>
-                                <?php foreach ($result as $key => $value) { ?>
-                                    <div class="row">
-                                        <div class="cell">
-                                            <?php echo $key + 1 ?>
-                                        </div>
-                                        <div class="cell">
-                                            <?php echo $value->title ?>
-                                        </div>
-                                        <div class="cell">
-                                            <?php echo $value->content ?>
-                                        </div>
-                                        <div class="cell cell-change">
-                                            <div class="btn-edit-pre">
-                                                <a class="btn-edit" href="./hotel.php?id=<?php echo $value->id ?>">Sửa</a>
-                                            </div>
-                                            <div class="btn-delete-pre">
-                                                <a class="btn-delete" href="./hotel.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                            <table id="my-table" cellpadding="2" cellspacing="2">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            STT
+                                        </th>
+                                        <th>
+                                            Tiêu đề
+                                        </th>
+                                        <th>
+                                            Trạng thái
+                                        </th>
+                                        <th class="button-edit-delete">
+                                            <i class="fas fa-cog"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($result as $key => $value) { ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $key + 1 ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value->title ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($value->status_hotel == 1) { ?>
+                                                    <?php echo "Đang hiện thị" ?>
+                                                <?php } else { ?>
+                                                    <?php echo "Đã ẩn"; ?>
+                                                <?php } ?>
+                                            </td>
+                                            <td>
+                                                <div class="button-edit-delete">
+                                                    <div class="btn-edit-pre">
+                                                        <a class="btn-edit" href="./hotel.php?id=<?php echo $value->id ?>"><i class="fas fa-edit"></i></a>
+                                                    </div>
+                                                    <div class="btn-delete-pre">
+                                                        <a class="btn-delete" href="./hotel.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </form>
                     </div>
                 </div>
@@ -155,6 +164,15 @@ if (isset($_GET['id'])) {
                     <div class="input-add">
                         <p>Nhập nội dung</p>
                         <textarea class="desc-infor" name="desc" id="desc"></textarea>
+                    </div>
+                    <div class="group-hotel">
+                        <p class="status-img">Trạng thái</p>
+                        <select name="status_hotel" id="status_hotel" class="status_hotel">
+                            <option value="">--Trạng thái--</option>
+                            <option value="0">Ẩn</option>
+                            <option value="1">Hiện</option>
+                        </select>
+                        <p class="message-slider"></p>
                     </div>
                     <div class="btn-add-in">
                         <input type="submit" id="choose-file" name="btn-add-form" value="Thêm" class="btn-add-form">
@@ -178,6 +196,14 @@ if (isset($_GET['id'])) {
                             <p>Nhập nội dung</p>
                             <textarea class="desc-infor" value="" name="descc" id="descc"><?php echo $result_edit->content ?></textarea>
                         </div>
+                        <div class="group-hotel">
+                            <p class="status-img">Trạng thái</p>
+                            <select name="status_hotel" id="status_hotel" class="status_hotel">
+                                <option value="0" <?php if ($result_edit->status_hotel == 0) echo "selected" ?>>Ẩn</option>
+                                <option value="1" <?php if ($result_edit->status_hotel == 1) echo "selected" ?>>Hiện</option>
+                            </select>
+                            <p class="message-hotel"></p>
+                        </div>
                         <div class="btn-edit-in">
                             <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
                         </div>
@@ -195,6 +221,18 @@ if (isset($_GET['id'])) {
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="../lib/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#my-table").DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
+            },
+            pageLength: 10,
+            lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
+        });
+    });
+</script>
 
 </html>

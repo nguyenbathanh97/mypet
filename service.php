@@ -1,11 +1,11 @@
 <?php
 include './include/config.php';
-$sql = "SELECT * FROM sevice";
+$sql = "SELECT * FROM sevice WHERE status_sevice = 1";
 $query = $conn->prepare($sql);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
 
-$sql_news = "SELECT * FROM news";
+$sql_news = "SELECT * FROM news WHERE status_news = 1";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);

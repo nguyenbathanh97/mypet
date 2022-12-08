@@ -1,6 +1,6 @@
 <?php
 include './include/config.php';
-$sql ="SELECT * FROM about";
+$sql ="SELECT * FROM about WHERE status_about = 1";
 $query= $conn -> prepare($sql);
 $query-> execute();
 $result = $query->fetch(PDO::FETCH_OBJ);
