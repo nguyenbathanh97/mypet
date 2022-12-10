@@ -15,7 +15,9 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
     <title>Admin</title>
     <link href='//fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css-admin/jquery.dataTables.min.css">
     <link rel="stylesheet" href="./css-admin/style.css">
 </head>
@@ -53,7 +55,11 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
                         </li>
                         <li><a href="./sevice.php"><i class="material-icons fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a>
                         </li>
-                        <li><a href="./sevice.php"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span></a>
+                        <li class="menu-li-par"><a href="#"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span><i class="down-shop-i fas fa-chevron-down"></i></a>
+                            <ul id="menu-chil-ul">
+                                <li class="menu-chil-li"><a href="./category-shop.php"><i class="fas fa-stream"></i><span>Danh mục</span></a></li>
+                                <li class="menu-chil-li"><a href="./pet-shop.php"><i class="fas fa-gifts"></i><span>Sản phẩm</span></a></li>
+                            </ul>
                         </li>
                         <li><a href="./hotel.php"><i class="material-icons fas fa-hotel"></i><span>Khách sạn</span></a>
                         </li>

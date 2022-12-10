@@ -66,10 +66,14 @@ if (isset($_GET['id'])) {
         $status_sevice = $_POST['status_sevice'];
         if (isset($_FILES["image"])) {
             $imagePNG = basename($_FILES["image"]["name"]);
-            $imageName = strtolower(vn2en($imagePNG));
-            $target_dir = "./image/";
-            $target_file = $target_dir . $imageName;
-            move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            if (empty( $imagePNG)) {
+                $target_file = $result->image;
+            } else {
+                $imageName = strtolower(vn2en($imagePNG));
+                $target_dir = "./image/";
+                $target_file = $target_dir . $imageName;
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            }
         }
         $sql = "UPDATE sevice SET title = '$title',image = '$target_file', status_sevice = '$status_sevice', content = '$content' WHERE id = $id";
         $query = $conn->prepare($sql);
@@ -195,7 +199,7 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="input-add">
                         <p>Nhập nội dung</p>
-                        <textarea class="desc-infor" name="desc" id="desc"></textarea>
+                        <textarea class="desc-infor" name="desc"></textarea>
                     </div>
                     <div class="group-add-sevice-img-status">
                         <div class="display-image-sevice-all">
@@ -285,6 +289,9 @@ if (isset($_GET['id'])) {
         });
     });
 </script>
+<script>
+    CKEDITOR.replace('desc');
+    CKEDITOR.replace('descc');
 </script>
 
 </html>

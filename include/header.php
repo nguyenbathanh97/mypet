@@ -1,10 +1,16 @@
 <?php
 include 'config.php';
-$sql_header = "SELECT * FROM sevice";
+$sql_header = "SELECT * FROM sevice WHERE status_sevice = 1";
 $query_header = $conn->prepare($sql_header);
 $query_header->execute();
 $result_header = $query_header->fetchAll(PDO::FETCH_OBJ);
+
+$sql_header_shop = "SELECT * FROM category_shop WHERE status_category_shop = 1";
+$query_header_shop = $conn->prepare($sql_header_shop);
+$query_header_shop->execute();
+$result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,10 +60,9 @@ $result_header = $query_header->fetchAll(PDO::FETCH_OBJ);
                             </li>
                             <li><a href="petshop.php">Pet shop <i class="fas fa-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="pet-shop-chil.php">thức ăn, dinh dưỡng</a></li>
-                                    <li><a href="pet-shop-chil.php">Nhà chuồng nệm</a></li>
-                                    <li><a href="pet-shop-chil.php">Phụ kiện thú cưng</a></li>
-                                    <li><a href="pet-shop-chil.php">Thời trang thú cưng</a></li>
+                                    <?php foreach ($result_header_shop as $key => $value) { ?>
+                                        <li><a href="pet-shop-chil.php?id=<?php echo $value->id ?>"><?php echo $value->category_title ?></a></li>
+                                    <?php } ?>
                                 </ul>
                             </li>
                             <li><a href="hotel.php">Khách sạn</a>

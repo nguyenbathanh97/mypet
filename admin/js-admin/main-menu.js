@@ -1,6 +1,11 @@
 $(document).ready(function () {
     $(".down-click").click(function () {
         $(".down-logout").toggle("1500, 0.6");
+    });
+    //menu chil show
+    $(".menu-li-par").click(function () {
+        $("#menu-chil-ul").slideToggle("slow");
+        $(".down-shop-i").toggleClass('flip');
     })
 });
 

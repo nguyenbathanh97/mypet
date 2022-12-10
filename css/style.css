@@ -321,8 +321,8 @@ li {
   color: #024f72;
   font-weight: bold;
   margin: 10px 0;
-  text-emphasis: center;
   word-spacing: 3px;
+  text-align: center;
 }
 .why-change-us-right p,
 .why-change-us-left p {
@@ -331,6 +331,7 @@ li {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-align: center;
 }
 .why-change-us-left,
 .why-change-us-right {
@@ -710,7 +711,7 @@ li {
 }
 .pet-show {
   width: 100%;
-  height: 1040px;
+  height: 1100px;
   background: #024f72;
   padding-top: 40px;
 }
@@ -738,10 +739,10 @@ li {
 }
 .pet-shop-chil-in {
   background: #ffffff;
-  height: 355px;
+  height: 380px;
 }
 .pet-shop-chil {
-  height: 355px;
+  height: 380px;
   background: #024f72;
   margin-bottom: 20px;
 }
@@ -759,6 +760,7 @@ li {
   margin: 10px 0;
   padding: 0 10px;
   font-weight: 400;
+  height: 55px;
 }
 .pet-shop-chil:hover {
   transform: scale(1.05, 1.05);
@@ -1075,6 +1077,10 @@ li {
   color: #00415f;
   margin-top: 1px;
 }
+.product-h1{
+  color: #006bb8 !important;
+  font-size: 50px !important;
+}
 .tell-service-all {
   display: flex;
   justify-content: space-between;
@@ -1130,7 +1136,7 @@ li {
 }
 /*pet shop*/
 .pet-product-chil .pet-shop-product {
-  height: 355px;
+  height: 380px;
   object-fit: cover;
   /* border: 1px solid #024f72; */
   cursor: pointer;
@@ -1159,6 +1165,7 @@ li {
   padding: 0 10px;
   margin-top: 10px;
   font-weight: 400;
+  height: 55px;
 }
 .pet-product-chil .pet-shop-product .more {
   margin: 10px 0;
@@ -1168,6 +1175,9 @@ li {
 }
 .pet-product-chil .pet-shop-product .more {
   font-size: 16px;
+}
+.pet-product-chil .pet-shop-product .more p:hover {
+  color: #c30000;
 }
 .pet-product-chil .pet-shop-product .more i {
   font-size: 12px;
@@ -1365,4 +1375,28 @@ li {
   margin-top: -20px;
   margin-bottom: 20px;
   color: #00ff2f;
+}
+.price-product{
+  color: #c30000;
+  font-size: 16px;
+  right: 10px;
+  display: flex;
+  justify-content: end;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.show-more-product{
+  font-size: 18px;
+  text-align: center;
+  margin: 20px 0 50px 0;
+}
+.show-more-product a{
+  color: #ffffff;
+  padding: 8px 15px;
+  background: #00940d;
+  border-radius: 5px;
+}
+.show-more-product:hover a{
+  background: #006bb8;
+  color: #ff0000;
 }

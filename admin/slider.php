@@ -48,10 +48,14 @@ if (isset($_GET['id'])) {
         $status_slider = $_POST['status_slider'];
         if (isset($_FILES["image"])) {
             $imagePNG = basename($_FILES["image"]["name"]);
-            $imageName = strtolower(vn2en($imagePNG));
-            $target_dir = "./image/";
-            $target_file = $target_dir . $imageName;
-            move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            if (empty($imagePNG)) {
+                $target_file = $result_Sl1->image;
+            } else {
+                $imageName = strtolower(vn2en($imagePNG));
+                $target_dir = "./image/";
+                $target_file = $target_dir . $imageName;
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            }
         }
         $sql = "UPDATE slider SET image = '$target_file', status_slider = '$status_slider' WHERE id = $id";
         $query = $conn->prepare($sql);

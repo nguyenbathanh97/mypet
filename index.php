@@ -17,13 +17,19 @@ $query_sevice->execute();
 $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result_sevice); die();
 
+//  shop
+$sql_shop = "SELECT * FROM shop WHERE status_shop = 1";
+$query_shop = $conn->prepare($sql_shop);
+$query_shop->execute();
+$result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
+// var_dump($result); die();
+
 //  news
 $sql_news = "SELECT * FROM news WHERE status_news = 1";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result); die();
-
 // isset($_POST['btn-add-form']) && ($_POST['btn-add-form']);
 $success_booking = "";
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -108,33 +114,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="row">
                             <div class="col-3">
                                 <div class="why-change-us-right">
-                                    <img src="./image/us.png" alt="image">
+                                    <img  src="./image/us.png" alt="image">
                                     <h5 class="title">
                                         ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
                                     </h5>
                                     <p class="describe">
-                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                        kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.
+                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất.
                                     </p>
                                 </div>
                                 <div class="why-change-us-right">
                                     <img src="./image/us.png" alt="image">
                                     <h5 class="title">
-                                        ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
+                                        UY TÍN TẬN TÂM
                                     </h5>
                                     <p class="describe">
-                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                        kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.
+                                        Tất cả các trang thiết bị tại phòng chuyên môn đều đạt tiêu chuẩn của Bộ NN.
                                     </p>
                                 </div>
                                 <div class="why-change-us-right">
                                     <img src="./image/us.png" alt="image">
                                     <h5 class="title">
-                                        ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
+                                        TƯ VẤN MIỄN PHÍ
                                     </h5>
                                     <p class="describe">
-                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                        kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.
+                                        Chúng tôi sẵn sàng giúp bạn giải đáp mọi thắc mắc với đội ngũ giàu kinh nghiệm.
                                     </p>
                                 </div>
                             </div>
@@ -147,31 +150,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <div class="why-change-us-left">
                                     <img src="./image/us.png" alt="image">
                                     <h5 class="title">
-                                        ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
+                                        TRÁCH NHIỆM NHIỆT TÌNH
                                     </h5>
                                     <p class="describe">
-                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                        kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.
+                                        Để đáp ứng nhu cầu của khách hàng chúng tôi phục vụ tất cả các ngày trong năm.
                                     </p>
                                 </div>
                                 <div class="why-change-us-left">
                                     <img src="./image/us.png" alt="image">
                                     <h5 class="title">
-                                        ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
+                                        GIÁ CẢ HỢP LÝ
                                     </h5>
                                     <p class="describe">
-                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                        kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.
+                                        Giá cả hợp lý phù hợp tất cả đối tượng khách hàng khác nhau.
                                     </p>
                                 </div>
                                 <div class="why-change-us-left">
                                     <img src="./image/us.png" alt="image">
                                     <h5 class="title">
-                                        ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
+                                        PHỤC KHẨN CẤP 24/7
                                     </h5>
                                     <p class="describe">
-                                        Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                        kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.
+                                        Đội ngũ bác sĩ luôn thường trực cấp cứu các trường hợp khẩn cấp.
                                     </p>
                                 </div>
                             </div>
@@ -192,8 +192,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="row service-us-fath">
                             <?php foreach ($result_sevice as $key => $value) { ?>
                                 <div class="service-us-left col-3">
-                                    <img src="<?php echo $value->image ?>" alt="">
-                                    <h4><?php echo $value->title ?></h4>
+                                    <a href="./service-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt=""></a>
+                                    <a href="./service-chil.php?id= <?php echo $value->id ?>">
+                                        <h4><?php echo $value->title ?></h4>
+                                    </a>
                                     <div class="p"><?php echo $value->content ?></div>
                                 </div>
                             <?php } ?>
@@ -281,8 +283,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="post-service-slide">
                     <?php foreach ($result_news as $key => $value) { ?>
                         <div class="post-all">
-                            <a href="#"><img src="<?php echo $value->image ?>" alt="" class="post-img"></a>
-                            <a href="#">
+                            <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="" class="post-img"></a>
+                            <a href="./news-chil.php?id= <?php echo $value->id ?>">
                                 <h1 class="post-title"><?php echo $value->title ?></h1>
                             </a>
                             <div class="post-desc"><?php echo $value->content ?></div>
@@ -302,90 +304,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <p>Cung cấp các loại sản phẩm cho thú cưng</p>
             </div>
             <div class="row pet-show-in">
-                <div class="col-3 pet-shop-chil">
-                    <div class="pet-shop-chil-in">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="pet-shop-img"></a>
-                        <a class="pet-shop-title" href="#">Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó</a>
-                        <div class="more">
-                            <a href="#">
-                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                            </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pet-shop-chil">
-                    <div class="pet-shop-chil-in">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="pet-shop-img"></a>
-                        <a class="pet-shop-title" href="#">Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó</a>
-                        <div class="more">
-                            <a href="#">
-                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                            </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
+                <?php foreach ($result_shop as $key => $value) { ?>
+                    <div class="col-3 pet-shop-chil">
+                        <div class="pet-shop-chil-in">
+                            <a href="#"><img src="<?php echo $value->image ?>" alt="image" class="pet-shop-img"></a>
+                            <a class="pet-shop-title" href="#"><?php echo $value->title ?></a>
+                            <h5 class="price-product"><?php echo $value->price ?></h5>
+                            <div class="more">
+                                <a href="#">
+                                    <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
+                                </a>
+                            </div>
+                            <div class="icon-buy">
+                                <i class="buy fas fa-shopping-cart"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-3 pet-shop-chil">
-                    <div class="pet-shop-chil-in">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="pet-shop-img"></a>
-                        <a class="pet-shop-title" href="#">Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó</a>
-                        <div class="more">
-                            <a href="#">
-                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                            </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pet-shop-chil">
-                    <div class="pet-shop-chil-in">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="pet-shop-img"></a>
-                        <a class="pet-shop-title" href="#">Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó</a>
-                        <div class="more">
-                            <a href="#">
-                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                            </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pet-shop-chil">
-                    <div class="pet-shop-chil-in">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="pet-shop-img"></a>
-                        <a class="pet-shop-title" href="#">Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó</a>
-                        <div class="more">
-                            <a href="#">
-                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                            </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pet-shop-chil">
-                    <div class="pet-shop-chil-in">
-                        <a href="#"><img src="./image/khambenh.jpg" alt="" class="pet-shop-img"></a>
-                        <a class="pet-shop-title" href="#">Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó Rọ mõm hình mỏ vịt chó</a>
-                        <div class="more">
-                            <a href="#">
-                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                            </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -401,10 +336,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php foreach ($result_news as $key => $value) { ?>
                     <div class="col-6 news-chil">
                         <div class="news-chil-image">
-                            <a href="#"><img src="<?php echo $value->image ?>" alt="image"></a>
+                            <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
                         </div>
                         <div class="news-chil-title">
-                            <a href="#">
+                            <a href="./news-chil.php?id= <?php echo $value->id ?>">
                                 <h1><?php echo $value->title ?></h1>
                             </a>
                             <div class="desc-p"><?php echo $value->content ?></div>

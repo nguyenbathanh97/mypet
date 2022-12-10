@@ -68,10 +68,14 @@ if (isset($_GET['id'])) {
         $status_news = $_POST['status_news'];
         if (isset($_FILES["image"])) {
             $imagePNG = basename($_FILES["image"]["name"]);
-            $imageName = strtolower(vn2en($imagePNG));
-            $target_dir = "./image/";
-            $target_file = $target_dir . $imageName;
-            move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            if (empty($imagePNG)) {
+                $target_file = $result->image;
+            } else {
+                $imageName = strtolower(vn2en($imagePNG));
+                $target_dir = "./image/";
+                $target_file = $target_dir . $imageName;
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            }
         }
         $sql = "UPDATE news SET title = '$title' , content = '$content' ,image = '$target_file', date = '$date', status_news = '$status_news' WHERE id = $id";
         $query = $conn->prepare($sql);
@@ -308,6 +312,10 @@ if (isset($_GET['id'])) {
             lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
         });
     });
+</script>
+<script>
+    CKEDITOR.replace('desc');
+    CKEDITOR.replace('descc');
 </script>
 
 </html>

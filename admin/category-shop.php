@@ -3,57 +3,53 @@
 include '../include/slug.php';
 include '../include/config.php';
 
-$sqlSl = "SELECT * FROM hotel";
-$query = $conn->prepare($sqlSl);
-$query->execute();
-$result = $query->fetchAll(PDO::FETCH_OBJ);
+
+$sqlSl_sv = "SELECT * FROM category_shop";
+$query_sv = $conn->prepare($sqlSl_sv);
+$query_sv->execute();
+$result_sv = $query_sv->fetchAll(PDO::FETCH_OBJ);
 if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
-    $title = $_POST['title'];
-    $content = $_POST['desc'];
-    $status_hotel = $_POST['status_hotel'];
-    $sql = "INSERT INTO hotel (title, content, status_hotel) VALUES (:title, :desc, :status_hotel)";
+    $category_title = $_POST['category_title'];
+    $status_category_shop = $_POST['status_category_shop'];
+    $sql = "INSERT INTO category_shop (category_title, status_category_shop) VALUES (:category_title, :status_category_shop)";
     $query = $conn->prepare($sql);
-    $query->bindParam(':title', $title, PDO::PARAM_STR);
-    $query->bindParam(':desc', $content, PDO::PARAM_STR);
-    $query->bindParam(':status_hotel', $status_hotel, PDO::PARAM_STR);
+    $query->bindParam(':category_title', $category_title, PDO::PARAM_STR);
+    $query->bindParam(':status_category_shop', $status_category_shop, PDO::PARAM_STR);
     $query_excute = $query->execute();
     if ($query_excute) {
-        $_SESSION['message'] = 'Đã thêm!';
-        header('location: ./hotel.php');
-        exit(0);
+        header('location: ./category-shop.php');
     } else {
-        $_SESSION['message'] = 'Lỗi!';
-        header('location: ./hotel.php');
-        exit(0);
+        header('location: ./category-shop.php');
     }
 }
-if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
-    $delete = intval($_GET['delete']);
-    $sql = "DELETE FROM hotel WHERE id = $delete";
-    $query = $conn->prepare($sql);
-    $query->execute();
-    if ($query) {
-        header("Location: ./hotel.php");
+if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
+    $delete_sv = intval($_GET['delete_sv']);
+    //     var_dump($delete_sv);
+    // die();
+    $sql_sv = "DELETE FROM category_shop WHERE id = $delete_sv";
+    $query_sv = $conn->prepare($sql_sv);
+    $query_sv->execute();
+    if ($query_sv) {
+        header("Location: ./category-shop.php");
     } else {
         echo "Lỗi!";
     }
 }
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql_edit = "SELECT * FROM hotel WHERE id = $id";
+    $sql_edit = "SELECT * FROM category_shop  WHERE id = $id";
     $query_edit = $conn->prepare($sql_edit);
     $query_edit->execute();
     $result_edit = $query_edit->fetch(PDO::FETCH_OBJ);
     $id = $_GET['id'];
     if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
-        $title = $_POST['title'];
-        $content = $_POST['descc'];
-        $status_hotel = $_POST['status_hotel'];
-        $sql = "UPDATE hotel SET title = '$title', content = '$content', status_hotel = '$status_hotel' WHERE id = $id";
+        $category_title = $_POST['category_title'];
+        $status_category_shop = $_POST['status_category_shop'];
+        $sql = "UPDATE category_shop SET category_title = '$category_title', status_category_shop = '$status_category_shop' WHERE id = $id";
         $query = $conn->prepare($sql);
         $query->execute();
         if ($query) {
-            header("Location: ./hotel.php");
+            header("Location: ./category-shop.php");
         } else {
             echo "lỗi!";
         }
@@ -68,7 +64,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khách sạn</title>
+    <title>Dịch vụ</title>
     <link href='//fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
     <?php
@@ -85,18 +81,18 @@ if (isset($_GET['id'])) {
     ?>
     <!-- menu  -->
     <div class="main-infor">
-        <div class="main-infor-in">
-            <div class="main-infor-chil">
-                <div class="infor-container main-infor-chil-in">
+        <div class="main-category-in">
+            <div class="main-category-chil">
+                <div class="container-sevice main-category-chil-in">
                     <div class="title-show-top-1">
-                        <div class="add-infor add-slider1">
-                            <input class="btn-add-infor" type="submit" name="btn-add-infor" value="Thêm thông tin">
+                        <div class="add-infor">
+                            <input class="btn-add-shop-category" type="submit" name="btn-add-shop-category" value="Thêm danh mục">
                         </div>
                         <div class="title-show-top title-show-top2"><i class="fas fa-paw"></i>
-                            <h1>Quản lý khách sạn thú cưng</h1><i class="fas fa-paw"></i>
+                            <h1>Quản danh mục cửa hàng pet shop</h1><i class="fas fa-paw"></i>
                         </div>
                     </div>
-                    <div class="form-infor">
+                    <div class="form-category-shop">
                         <form action="" method="POST">
                             <table id="my-table" cellpadding="2" cellspacing="2">
                                 <thead>
@@ -110,22 +106,22 @@ if (isset($_GET['id'])) {
                                         <th>
                                             Trạng thái
                                         </th>
-                                        <th class="button-edit-delete">
+                                        <th>
                                             <i class="fas fa-cog"></i>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($result as $key => $value) { ?>
+                                    <?php foreach ($result_sv as $key => $value) { ?>
                                         <tr>
                                             <td>
                                                 <?php echo $key + 1 ?>
                                             </td>
                                             <td>
-                                                <?php echo $value->title ?>
+                                                <?php echo $value->category_title ?>
                                             </td>
                                             <td>
-                                                <?php if ($value->status_hotel == 1) { ?>
+                                                <?php if ($value->status_category_shop == 1) { ?>
                                                     <?php echo "Đang hiện thị" ?>
                                                 <?php } else { ?>
                                                     <?php echo "Đã ẩn"; ?>
@@ -134,10 +130,10 @@ if (isset($_GET['id'])) {
                                             <td>
                                                 <div class="button-edit-delete">
                                                     <div class="btn-edit-pre">
-                                                        <a class="btn-edit" href="./hotel.php?id=<?php echo $value->id ?>"><i class="fas fa-edit"></i></a>
+                                                        <a class="btn-edit btn-edit-sevice" href="./category-shop.php?id=<?php echo $value->id ?>"><i class="fas fa-edit"></i></a>
                                                     </div>
                                                     <div class="btn-delete-pre">
-                                                        <a class="btn-delete" href="./hotel.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
+                                                        <a class="btn-delete" href="./category-shop.php?delete_sv=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -150,8 +146,8 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </div>
-        <div class="form-add-infor">
-            <div class="container-add-infor form-add-chil show-hotel">
+        <div class="form-add-infor form-add-category-shop">
+            <div class="container-add-infor form-add-chil show-category-shop">
                 <div class="title-form-add show-top-all">
                     <h1>Thêm thông tin khách sạn mypet</h1>
                     <a class="close-add" href="#"><i class="fas fa-times"></i></a>
@@ -159,15 +155,11 @@ if (isset($_GET['id'])) {
                 <form action="" method="POST" enctype='multipart/form-data'>
                     <div class="input-add title-input">
                         <p>Tiêu đề</p>
-                        <input type="text" name="title">
+                        <input type="text" name="category_title">
                     </div>
-                    <div class="input-add">
-                        <p>Nhập nội dung</p>
-                        <textarea class="desc-infor" name="desc" id="desc"></textarea>
-                    </div>
-                    <div class="group-hotel">
+                    <div class="group-category-shop">
                         <p class="status-img">Trạng thái</p>
-                        <select name="status_hotel" id="status_hotel" class="status_hotel">
+                        <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
                             <option value="">--Trạng thái--</option>
                             <option value="0">Ẩn</option>
                             <option value="1">Hiện</option>
@@ -182,25 +174,21 @@ if (isset($_GET['id'])) {
         </div>
         <?php if (isset($_GET['id'])) { ?>
             <div class="form-edit">
-                <div class="infor-edit-container form-edit-chil show-hotel">
+                <div class="infor-edit-container form-edit-chil show-category">
                     <div class="title-form-edit show-top-all">
-                        <h1>Cập nhật thông tin</h1>
-                        <a class="close-edit" href="./hotel.php"><i class="fas fa-times"></i></a>
+                        <h1>Cập nhật danh mục sản phẩm</h1>
+                        <a class="close-edit" href="./category-shop.php"><i class="fas fa-times"></i></a>
                     </div>
                     <form action="" method="POST" enctype='multipart/form-data'>
                         <div class="input-add title-input">
                             <p>Tiêu đề</p>
-                            <input class="input-mypet" type="text" value="<?php echo $result_edit->title ?>" name="title">
-                        </div>
-                        <div class="input-add">
-                            <p>Nhập nội dung</p>
-                            <textarea class="desc-infor" value="" name="descc"><?php echo $result_edit->content ?></textarea>
+                            <input class="input-mypet" type="text" value="<?php echo $result_edit->category_title ?>" name="category_title">
                         </div>
                         <div class="group-hotel">
                             <p class="status-img">Trạng thái</p>
-                            <select name="status_hotel" id="status_hotel" class="status_hotel">
-                                <option value="0" <?php if ($result_edit->status_hotel == 0) echo "selected" ?>>Ẩn</option>
-                                <option value="1" <?php if ($result_edit->status_hotel == 1) echo "selected" ?>>Hiện</option>
+                            <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
+                                <option value="0" <?php if ($result_edit->status_category_shop == 0) echo "selected" ?>>Ẩn</option>
+                                <option value="1" <?php if ($result_edit->status_category_shop == 1) echo "selected" ?>>Hiện</option>
                             </select>
                             <p class="message-hotel"></p>
                         </div>
@@ -233,10 +221,6 @@ if (isset($_GET['id'])) {
             lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
         });
     });
-</script>
-<script>
-    CKEDITOR.replace('desc');
-    CKEDITOR.replace('descc');
 </script>
 
 </html>

@@ -24,7 +24,21 @@ $(document).ready(function () {
     $(".close-add").click(function () {
         $("#form-add-sevice-edit").fadeIn(500);
     })
-});
+    // add category shop
+    $(".btn-add-shop-category").click(function () {
+        $(".form-add-category-shop").fadeIn(500);
+    })
+    $(".close-add").click(function () {
+        $(".form-add-category-shop").fadeOut(500);
+    })
+    //  add shop
+    $(".btn-add-shop1").click(function () {
+        $(".show-pet-shop-add").fadeIn(500);
+    })
+    $(".close-add").click(function () {
+        $(".show-pet-shop-add").fadeOut(500);
+    })
+});fform-add-pet-shop
 //edit slide
 function ImageFileAsUrlEditSlider() {
     var fileSelected = document.getElementById("edit-img-slider").files;
@@ -135,5 +149,3 @@ function ImageFileAsUrlEditNews() {
         }
     }
 };
-CKEDITOR.replace('desc');
-CKEDITOR.replace('descc');

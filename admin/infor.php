@@ -163,7 +163,7 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="input-add">
                         <p>Nhập nội dung</p>
-                        <textarea class="desc-infor" name="desc" id="desc"></textarea>
+                        <textarea class="desc-infor" name="desc"></textarea>
                     </div>
                     <select name="status_about" id="status_about" class="status_about">
                         <option value="">--Trạng thái--</option>
@@ -229,6 +229,10 @@ if (isset($_GET['id'])) {
             lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
         });
     });
+</script>
+<script>
+    CKEDITOR.replace('desc');
+    CKEDITOR.replace('descc');
 </script>
 
 </html>
