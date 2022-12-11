@@ -1005,7 +1005,7 @@ li {
   top: 160px;
   left: 50%;
   transform: translateX(-50%);
-  color: #015988;
+  color: #ff0000;
 }
 .main-service-chil .service-h5 {
   color: #015988;
@@ -1019,7 +1019,7 @@ li {
   left: 50%;
   transform: translateX(-50%);
   font-size: 25px;
-  color: #015988;
+  color: #ff0000;
   font-weight: bold;
 }
 .post-all-service {
@@ -1150,6 +1150,14 @@ li {
   -webkit-box-shadow: 0px 0px 8px 0px #ccc;
   box-shadow: 0px 0px 8px 0px #ccc;
   margin-bottom: 25px;
+  position: relative;
+}
+.sale-promotion{
+  position: absolute;
+  top: 0;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 10px 0 0 10px;
 }
 .pet-product-chil .pet-shop-product img {
   width: 100%;
@@ -1396,7 +1404,17 @@ li {
   background: #00940d;
   border-radius: 5px;
 }
-.show-more-product:hover a{
-  background: #006bb8;
-  color: #ff0000;
+.price-promotion{
+  text-decoration: line-through;
+  font-size: 16px;
+  color: #c30000;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.promotion-div{
+  display: flex;
+  justify-content: space-between;
+}
+.price-product-promo{
+  color: #00ce11;
 }

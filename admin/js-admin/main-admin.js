@@ -77,9 +77,9 @@ function ImageFileAsUrlAddSlider() {
     }
 };
 
-//add sevice
-function ImageFileAsUrlAddSevice() {
-    var fileSelected = document.getElementById("add-id-image").files;
+//add shop
+function ImageFileAsUrlAddShop() {
+    var fileSelected = document.getElementById("add-id-shop-image").files;
     console.log(fileSelected.length);
     if (fileSelected.length > 0) {
         for (var i = 0; i < fileSelected.length; i++) {
@@ -89,7 +89,80 @@ function ImageFileAsUrlAddSevice() {
                 var srcData = fileLoaderEvent.target.result;
                 var newImage = document.createElement("img");
                 newImage.src = srcData;
-                document.getElementById("display-seviec-image").innerHTML += newImage.outerHTML;
+                document.getElementById("display-shop-image-chil").innerHTML += newImage.outerHTML;
+            };
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+};
+
+//Edit shop
+function ImageFileAsUrlEditShop() {
+    var fileSelected = document.getElementById("img-input-pet-shop").files;
+    console.log(fileSelected.length);
+    if (fileSelected.length > 0) {
+        for (var i = 0; i < fileSelected.length; i++) {
+            var fileToLoad = fileSelected[i];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoaderEvent) {
+                var srcData = fileLoaderEvent.target.result;
+                var newImage = document.createElement("img");
+                newImage.src = srcData;
+                document.getElementById("display-edit-un-shop-show").innerHTML += newImage.outerHTML;
+            };
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+};
+//add category shop
+function ImageFileAsUrlAddCategory() {
+    var fileSelected = document.getElementById("add-categoy-img-slider").files;
+    console.log(fileSelected.length);
+    if (fileSelected.length > 0) {
+        for (var i = 0; i < fileSelected.length; i++) {
+            var fileToLoad = fileSelected[i];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoaderEvent) {
+                var srcData = fileLoaderEvent.target.result;
+                var newImage = document.createElement("img");
+                newImage.src = srcData;
+                document.getElementById("display-add-categoy-slider").innerHTML += newImage.outerHTML;
+            };
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+};
+//edit category shop
+function ImageFileAsUrlEditCategory() {
+    var fileSelected = document.getElementById("edit-categoy-img-slider").files;
+    console.log(fileSelected.length);
+    if (fileSelected.length > 0) {
+        for (var i = 0; i < fileSelected.length; i++) {
+            var fileToLoad = fileSelected[i];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoaderEvent) {
+                var srcData = fileLoaderEvent.target.result;
+                var newImage = document.createElement("img");
+                newImage.src = srcData;
+                document.getElementById("display-edit-categoy-slider1").innerHTML += newImage.outerHTML;
+            };
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+};
+//add sevice
+function ImageFileAsUrlAddSevice() {
+    var fileSelected = document.getElementById("add-categoy-img").files;
+    console.log(fileSelected.length);
+    if (fileSelected.length > 0) {
+        for (var i = 0; i < fileSelected.length; i++) {
+            var fileToLoad = fileSelected[i];
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoaderEvent) {
+                var srcData = fileLoaderEvent.target.result;
+                var newImage = document.createElement("img");
+                newImage.src = srcData;
+                document.getElementById("display-add-categoy").innerHTML += newImage.outerHTML;
             };
             fileReader.readAsDataURL(fileToLoad);
         }

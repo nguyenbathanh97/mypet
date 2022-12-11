@@ -4,6 +4,11 @@ include '../include/slug.php';
 include '../include/config.php';
 
 
+$sqlSl_sv1 = "SELECT * FROM category_shop";
+$query_sv1 = $conn->prepare($sqlSl_sv1);
+$query_sv1->execute();
+$result_sv1 = $query_sv1->fetch(PDO::FETCH_OBJ);
+
 $sqlSl_sv = "SELECT * FROM category_shop";
 $query_sv = $conn->prepare($sqlSl_sv);
 $query_sv->execute();
@@ -11,10 +16,18 @@ $result_sv = $query_sv->fetchAll(PDO::FETCH_OBJ);
 if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
     $category_title = $_POST['category_title'];
     $status_category_shop = $_POST['status_category_shop'];
-    $sql = "INSERT INTO category_shop (category_title, status_category_shop) VALUES (:category_title, :status_category_shop)";
+    if (isset($_FILES["image"])) {
+        $imagePNG = basename($_FILES["image"]["name"]);
+        $imageName = strtolower(vn2en($imagePNG));
+        $target_dir = "./image/";
+        $target_file = $target_dir . $imageName;
+        move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+    }
+    $sql = "INSERT INTO category_shop (category_title, status_category_shop, slider) VALUES (:category_title, :status_category_shop, :image)";
     $query = $conn->prepare($sql);
     $query->bindParam(':category_title', $category_title, PDO::PARAM_STR);
     $query->bindParam(':status_category_shop', $status_category_shop, PDO::PARAM_STR);
+    $query->bindParam(':image', $target_file, PDO::PARAM_STR);
     $query_excute = $query->execute();
     if ($query_excute) {
         header('location: ./category-shop.php');
@@ -45,7 +58,18 @@ if (isset($_GET['id'])) {
     if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
         $category_title = $_POST['category_title'];
         $status_category_shop = $_POST['status_category_shop'];
-        $sql = "UPDATE category_shop SET category_title = '$category_title', status_category_shop = '$status_category_shop' WHERE id = $id";
+        if (isset($_FILES["image"])) {
+            $imagePNG = basename($_FILES["image"]["name"]);
+            if (empty($imagePNG)) {
+                $target_file = $result_edit->image;
+            } else {
+                $imageName = strtolower(vn2en($imagePNG));
+                $target_dir = "./image/";
+                $target_file = $target_dir . $imageName;
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            }
+        }
+        $sql = "UPDATE category_shop SET category_title = '$category_title', slider = '$target_file', status_category_shop = '$status_category_shop' WHERE id = $id";
         $query = $conn->prepare($sql);
         $query->execute();
         if ($query) {
@@ -104,6 +128,9 @@ if (isset($_GET['id'])) {
                                             Tiêu đề
                                         </th>
                                         <th>
+                                            Hình ảnh
+                                        </th>
+                                        <th>
                                             Trạng thái
                                         </th>
                                         <th>
@@ -119,6 +146,9 @@ if (isset($_GET['id'])) {
                                             </td>
                                             <td>
                                                 <?php echo $value->category_title ?>
+                                            </td>
+                                            <td>
+                                                <img style="width: 125px ; heigth: 125px" src=".<?php echo $value->slider ?>" alt="image">
                                             </td>
                                             <td>
                                                 <?php if ($value->status_category_shop == 1) { ?>
@@ -157,14 +187,21 @@ if (isset($_GET['id'])) {
                         <p>Tiêu đề</p>
                         <input type="text" name="category_title">
                     </div>
-                    <div class="group-category-shop">
-                        <p class="status-img">Trạng thái</p>
-                        <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
-                            <option value="">--Trạng thái--</option>
-                            <option value="0">Ẩn</option>
-                            <option value="1">Hiện</option>
-                        </select>
-                        <p class="message-slider"></p>
+                    <div class="flex-slider-category">
+                        <div class="image-slider-category">
+                            <p class="slider-category">Thêm ảnh</p>
+                            <input id="add-categoy-img-slider" type="file" name="image" onchange="ImageFileAsUrlAddCategory()">
+                        </div>
+                        <div id="display-add-categoy-slider"></div>
+                        <div class="group-category-shop">
+                            <p class="status-img">Trạng thái</p>
+                            <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
+                                <option value="">--Trạng thái--</option>
+                                <option value="0">Ẩn</option>
+                                <option value="1">Hiện</option>
+                            </select>
+                            <p class="message-slider"></p>
+                        </div>
                     </div>
                     <div class="btn-add-in">
                         <input type="submit" id="choose-file" name="btn-add-form" value="Thêm" class="btn-add-form">
@@ -184,13 +221,31 @@ if (isset($_GET['id'])) {
                             <p>Tiêu đề</p>
                             <input class="input-mypet" type="text" value="<?php echo $result_edit->category_title ?>" name="category_title">
                         </div>
-                        <div class="group-hotel">
-                            <p class="status-img">Trạng thái</p>
-                            <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
-                                <option value="0" <?php if ($result_edit->status_category_shop == 0) echo "selected" ?>>Ẩn</option>
-                                <option value="1" <?php if ($result_edit->status_category_shop == 1) echo "selected" ?>>Hiện</option>
-                            </select>
-                            <p class="message-hotel"></p>
+                        <div class="flex-slider-category">
+                            <div class="group-img-category-shop">
+                                <div class="image-slider-category">
+                                    <p class="slider-category">Thêm ảnh</p>
+                                    <input id="edit-categoy-img-slider" type="file" name="image" onchange="ImageFileAsUrlEditCategory()">
+                                </div>
+                                <div class="show-img-category-shop1">
+                                    <p>Ảnh mới chọn</p>
+                                    <div id="display-edit-categoy-slider1"></div>
+                                </div>
+                                <div class="show-img-category-shop">
+                                    <p>Ảnh trước</p>
+                                    <div id="display-edit-categoy-slider">
+                                        <img src=".<?php echo $result_edit->slider ?>" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group-hotel">
+                                <p class="status-img">Trạng thái</p>
+                                <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
+                                    <option value="0" <?php if ($result_edit->status_category_shop == 0) echo "selected" ?>>Ẩn</option>
+                                    <option value="1" <?php if ($result_edit->status_category_shop == 1) echo "selected" ?>>Hiện</option>
+                                </select>
+                                <p class="message-hotel"></p>
+                            </div>
                         </div>
                         <div class="btn-edit-in">
                             <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">

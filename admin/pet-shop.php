@@ -3,17 +3,12 @@
 include '../include/slug.php';
 include '../include/config.php';
 
-$sqlSl_sv_shop = "SELECT * FROM category_shop";
-$query_sv_shop = $conn->prepare($sqlSl_sv_shop);
-$query_sv_shop->execute();
-$result_sv_shop = $query_sv_shop->fetch(PDO::FETCH_OBJ);
-
 $sqlSl_sv_shop1 = "SELECT * FROM category_shop";
 $query_sv_shop1 = $conn->prepare($sqlSl_sv_shop1);
 $query_sv_shop1->execute();
 $result_sv_shop1 = $query_sv_shop1->fetchAll(PDO::FETCH_OBJ);
 
-$sqlSl_sv = "SELECT * FROM shop";
+$sqlSl_sv = "SELECT * FROM category_shop a join shop b on a.id = b.id_category";
 $query_sv = $conn->prepare($sqlSl_sv);
 $query_sv->execute();
 $result_sv = $query_sv->fetchAll(PDO::FETCH_OBJ);
@@ -61,6 +56,44 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
         header("Location: ./pet-shop.php");
     } else {
         echo "Lỗi!";
+    }
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM shop WHERE id = $id";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_OBJ);
+    if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
+        $title = $_POST['title'];
+        $content = $_POST['descc'];
+        $price = $_POST['price'];
+        $id_category = $_POST['id_category'];
+        $status_shop = $_POST['status_shop'];
+        if (isset($_FILES["image"])) {
+            $imagePNG = basename($_FILES["image"]["name"]);
+            if (empty($imagePNG)) {
+                $target_file = $result->image;
+            } else {
+                $imageName = strtolower(vn2en($imagePNG));
+                $target_dir = "./image/";
+                $target_file = $target_dir . $imageName;
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
+            }
+        }
+        $sql = "UPDATE shop SET title = '$title',image = '$target_file', content = '$content', price = '$price', id_category = '$id_category', status_shop = '$status_shop' WHERE id = $id";
+        $query = $conn->prepare($sql);
+        $query_excute = $query->execute();
+        if ($query_excute) {
+            $_SESSION['message'] = 'Đã thêm!';
+            header('location: ./pet-shop.php');
+            exit(0);
+        } else {
+            $_SESSION['message'] = 'Lỗi!';
+            header('location: ./pet-shop.php');
+            exit(0);
+        }
     }
 }
 ?>
@@ -121,6 +154,9 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                                             Giá
                                         </th>
                                         <th>
+                                            Khuyến mãi
+                                        </th>
+                                        <th>
                                             Mô tả
                                         </th>
                                         <th>
@@ -137,11 +173,11 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                                             <td>
                                                 <?php echo $key + 1 ?>
                                             </td>
-                                            <td>
+                                            <td style="width:200px">
                                                 <?php echo $value->title ?>
                                             </td>
                                             <td>
-                                                <?php echo $result_sv_shop->category_title ?>
+                                                <?php echo $value->category_title ?>
                                             </td>
                                             <td>
                                                 <img style="width: 125px; height: 125px ;" src=".<?php echo $value->image ?>" alt="image">
@@ -149,10 +185,17 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                                             <td>
                                                 <?php echo $value->price ?>
                                             </td>
+                                            <td>
+                                                <?php if ($value->promotion == 0) { ?>
+                                                    <?php echo "Không" ?>
+                                                <?php } else { ?>
+                                                    <?php echo $value->promotion ?>
+                                                <?php } ?>
+                                            </td>
                                             <td class="desc-content-shop">
                                                 <?php echo $value->content ?>
                                             </td>
-                                            <td>
+                                            <td class="status_pet_shop">
                                                 <?php if ($value->status_shop == 1) { ?>
                                                     <?php echo "Đang hiện thị" ?>
                                                 <?php } else { ?>
@@ -201,13 +244,13 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                     </div>
                     <div class="input-add">
                         <p>Nhập nội dung</p>
-                        <textarea class="desc-infor" name="desc"></textarea>
+                        <textarea class="desc-infor desc-infor-shop" name="desc"></textarea>
                     </div>
                     <div class="group-add-news-img-status">
                         <div class="display-image-news-all">
                             <div class="input-add">
                                 <p>Chọn ảnh</p>
-                                <input id="add-id-shop-image" type="file" name="image" onchange="ImageFileAsUrlAddNews()">
+                                <input id="add-id-shop-image" type="file" name="image" onchange="ImageFileAsUrlAddShop()">
                             </div>
                             <div id="display-news-image">
                                 <p>ảnh mới chọn</p>
@@ -227,12 +270,71 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="btn-add-in">
-                        <input type="submit" id="choose-file" name="btn-add-form" value="Thêm" class="btn-add-form">
+                    <div class="btn-add-in btn-add-in-shop">
+                        <input type="submit" id="choose-file" name="btn-add-form" value="Thêm" class="btn-add-form btn-add-form-shop">
                     </div>
                 </form>
             </div>
         </div>
+        <?php if (isset($_GET['id'])) { ?>
+            <div class="form-edit form-edit-sevice" style="display: block;">
+                <div class="edit-sevice-chil form-edit-chil form-edit-chil-sv show-sevice">
+                    <div class="title-form-edit show-top-all">
+                        <h1>Cập nhật sản phẩm</h1>
+                        <a class="close-edit" href="./pet-shop.php"><i class="fas fa-times"></i></a>
+                    </div>
+                    <form action="" method="POST" enctype='multipart/form-data'>
+                        <div class="edit-top-shop">
+                            <div class="input-edit input-edit-shop">
+                                <p>Tiêu đề</p>
+                                <input type="text" value="<?php echo $result->title ?>" name="title">
+                            </div>
+                            <div class="input-add-category">
+                                <p>Chọn danh mục sản phẩm</p>
+                                <select name="id_category" id="">
+                                    <?php foreach ($result_sv_shop1 as $key => $value) { ?>
+                                        <option value="<?php echo $value->id ?>"><?php echo $value->category_title ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-edit">
+                            <p>Nhập nội dung</p>
+                            <textarea style="height:330px" class="desc-infor" value="" name="descc" id="descc"><?php echo $result->content ?></textarea>
+                        </div>
+                        <div class="flex-sevice-edit-button">
+                            <div class="input-edit">
+                                <p>Chọn ảnh</p>
+                                <input id="img-input-pet-shop" type="file" name="image" onchange="ImageFileAsUrlEditShop()">
+                            </div>
+                            <div id="display-edit-un-shop">
+                                <p>ảnh chọn mới</p>
+                                <div id="display-edit-un-shop-show"></div>
+                            </div>
+                            <div id="display-edit-un-sevice1">
+                                <p class="status-img">ảnh ban đầu</p>
+                                <img src=".<?php echo $result->image ?>" alt="image">
+                            </div>
+                            <div class="input-add add-time-input2">
+                                <p>Giá sản phẩm</p>
+                                <input class="price" value="<?php echo $result->price ?>" type="number" name="price">
+                            </div>
+                            <div class="group-sevice-img">
+                                <p class="status-img">Trạng thái</p>
+                                <select name="status_shop" id="status_shop" class="status_shop">
+                                    <option value="0" <?php if ($result->status_shop == 0) echo "selected" ?>>Ẩn</option>
+                                    <option value="1" <?php if ($result->status_shop == 1) echo "selected" ?>>Hiện</option>
+                                </select>
+                                <p class="message-slider"></p>
+                            </div>
+                        </div>
+                        <div class="btn-edit-in">
+                            <input type="submit" id="choose-file" name="btn-edit-form" value="Cập nhật" class="btn-edit-form">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
