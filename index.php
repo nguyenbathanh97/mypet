@@ -18,10 +18,11 @@ $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result_sevice); die();
 
 //  shop
-$sql_shop = "SELECT * FROM shop WHERE status_shop = 1";
+$sql_shop = "SELECT * FROM shop  WHERE status_shop = 1";
 $query_shop = $conn->prepare($sql_shop);
 $query_shop->execute();
 $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
+
 // var_dump($result); die();
 
 //  news
@@ -114,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="row">
                             <div class="col-3">
                                 <div class="why-change-us-right">
-                                    <img  src="./image/us.png" alt="image">
+                                    <img src="./image/us.png" alt="image">
                                     <h5 class="title">
                                         ĐỘI NGŨ BÁC SĨ CHUYÊN NGHIỆP
                                     </h5>
@@ -190,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="row">
                     <div class="col-8">
                         <div class="row service-us-fath">
+                            <?php $i_sevice = 0 ?>
                             <?php foreach ($result_sevice as $key => $value) { ?>
                                 <div class="service-us-left col-3">
                                     <a href="./service-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt=""></a>
@@ -198,6 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     </a>
                                     <div class="p"><?php echo $value->content ?></div>
                                 </div>
+                                <?php if (++$i_sevice == 6) break ?>
                             <?php } ?>
                         </div>
                     </div>
@@ -303,13 +306,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <h1>Pet shop</h1>
                 <p>Cung cấp các loại sản phẩm cho thú cưng</p>
             </div>
+            <?php $i_shop = 0; ?>
             <div class="row pet-show-in">
                 <?php foreach ($result_shop as $key => $value) { ?>
                     <div class="col-3 pet-shop-chil">
                         <div class="pet-shop-chil-in">
                             <a href="#"><img src="<?php echo $value->image ?>" alt="image" class="pet-shop-img"></a>
                             <a class="pet-shop-title" href="#"><?php echo $value->title ?></a>
-                            <h5 class="price-product"><?php echo $value->price ?></h5>
+                            <?php if ($value->promotion > 0) { ?>
+                                <div class="promotion-div">
+                                    <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
+                                    <h5 class="price-product price-product-promo"><?php echo $value->promotion ?> VNĐ</h5>
+                                </div>
+                                <div class="promotion-img">
+                                    <img src="./image/sale.png" alt="sale" class="sale-promotion">
+                                </div>
+                            <?php } else { ?>
+                                <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
+                            <?php } ?>
                             <div class="more">
                                 <a href="#">
                                     <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
@@ -320,6 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </div>
                         </div>
                     </div>
+                    <?php if (++$i_shop == 8) break ?>
                 <?php } ?>
             </div>
         </div>
@@ -330,9 +345,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="logo">
                     <img src="./image/logo-pethealth.png" alt="logo">
                 </div>
-                <h1>Tin tức nổi bật</h1>
+                <h1>Tin tức Pet shop</h1>
             </div>
             <div class="row">
+                <?php $i_news = 0 ?>
                 <?php foreach ($result_news as $key => $value) { ?>
                     <div class="col-6 news-chil">
                         <div class="news-chil-image">
@@ -345,6 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <div class="desc-p"><?php echo $value->content ?></div>
                         </div>
                     </div>
+                    <?php if (++$i_news == 10) break ?>
                 <?php } ?>
             </div>
         </div>

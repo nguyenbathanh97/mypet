@@ -16,6 +16,7 @@ if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
     $title = $_POST['title'];
     $content = $_POST['desc'];
     $price = $_POST['price'];
+    $promotion = $_POST['promotion'];
     $id_category = $_POST['id_category'];
     $status_shop = $_POST['status_shop'];
     if (isset($_FILES["image"])) {
@@ -25,11 +26,12 @@ if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
         $target_file = $target_dir . $imageName;
         move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
     }
-    $sql = "INSERT INTO shop (title, content, price, id_category, image, status_shop) VALUES (:title, :desc, :price, :id_category, :image, :status_shop)";
+    $sql = "INSERT INTO shop (title, content, price, promotion, id_category, image, status_shop) VALUES (:title, :desc, :price, :promotion, :id_category, :image, :status_shop)";
     $query = $conn->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':desc', $content, PDO::PARAM_STR);
     $query->bindParam(':price', $price, PDO::PARAM_STR);
+    $query->bindParam(':promotion', $promotion, PDO::PARAM_STR);
     $query->bindParam(':id_category', $id_category, PDO::PARAM_STR);
     $query->bindParam(':image', $target_file, PDO::PARAM_STR);
     $query->bindParam(':status_shop', $status_shop, PDO::PARAM_STR);
@@ -69,6 +71,7 @@ if (isset($_GET['id'])) {
         $title = $_POST['title'];
         $content = $_POST['descc'];
         $price = $_POST['price'];
+        $promotion = $_POST['promotion'];
         $id_category = $_POST['id_category'];
         $status_shop = $_POST['status_shop'];
         if (isset($_FILES["image"])) {
@@ -82,7 +85,7 @@ if (isset($_GET['id'])) {
                 move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
             }
         }
-        $sql = "UPDATE shop SET title = '$title',image = '$target_file', content = '$content', price = '$price', id_category = '$id_category', status_shop = '$status_shop' WHERE id = $id";
+        $sql = "UPDATE shop SET title = '$title',image = '$target_file', content = '$content', price = '$price', promotion = '$promotion', id_category = '$id_category', status_shop = '$status_shop' WHERE id = $id";
         $query = $conn->prepare($sql);
         $query_excute = $query->execute();
         if ($query_excute) {
@@ -261,6 +264,10 @@ if (isset($_GET['id'])) {
                             <p>Giá sản phẩm</p>
                             <input class="price" type="number" name="price">
                         </div>
+                        <div class="input-add add-time-input1">
+                            <p>Giá khuyến mãi</p>
+                            <input class="price" type="number" name="promotion">
+                        </div>
                         <div class="input-select-news">
                             <p>Trạng thái</p>
                             <select name="status_shop" id="status_shop" class="status_shop">
@@ -318,6 +325,10 @@ if (isset($_GET['id'])) {
                             <div class="input-add add-time-input2">
                                 <p>Giá sản phẩm</p>
                                 <input class="price" value="<?php echo $result->price ?>" type="number" name="price">
+                            </div>
+                            <div class="input-add add-time-input2">
+                                <p>Giá sản phẩm</p>
+                                <input class="price" value="<?php echo $result->promotion ?>" type="number" name="promotion">
                             </div>
                             <div class="group-sevice-img">
                                 <p class="status-img">Trạng thái</p>

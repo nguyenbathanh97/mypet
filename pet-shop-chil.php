@@ -45,9 +45,9 @@ if (isset($_GET['id'])) {
         <div class="container">
             <div class="home-product">
                 <div class="home-product-left">
-                    <a href="#" class="back-home"><i class="fas fa-home"></i></a>
-                    <i class="fas fa-angle-double-right"></i>
-                    <a class="product-home" href="#">Phụ kiện thú cưng</a>
+                    <a href="./index.php" class="back-home"><i class="fas fa-home"></i></a>
+                    <i class="fas fa-caret-right"></i>
+                    <a class="product-home" href="#"><?php echo $result_category->category_title ?></a>
                 </div>
                 <div class="home-product-right">
                     <i class="filter fas fa-filter"></i>
@@ -69,7 +69,9 @@ if (isset($_GET['id'])) {
                                     <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
                                     <h5 class="price-product price-product-promo"><?php echo $value->promotion ?> VNĐ</h5>
                                 </div>
-                                <img src="./image/sale.png" alt="sale" class="sale-promotion">
+                                <div class="promotion-img">
+                                    <img src="./image/sale.png" alt="sale" class="sale-promotion">
+                                </div>
                             <?php } else { ?>
                                 <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
                             <?php } ?>
@@ -84,6 +86,9 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 <?php } ?>
+            </div>
+            <div class="show-more-product">
+                <a href="#">Xem thêm</a>
             </div>
         </div>
     </div>

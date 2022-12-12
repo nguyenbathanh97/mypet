@@ -516,7 +516,6 @@ li {
   transform: translate(-50%);
   position: relative;
   border-radius: 5px;
-
 }
 .form-booking form .title-booking {
   font-size: 25px;
@@ -526,8 +525,8 @@ li {
   margin-bottom: 0;
   padding: 10px 0;
 }
-.form-booking-change form .title-booking-here{
-  font-size: 25px ;
+.form-booking-change form .title-booking-here {
+  font-size: 25px;
   font-weight: 600;
   margin-left: 10px;
   color: #ffffff;
@@ -592,7 +591,7 @@ li {
 .form-booking form .line-5 {
   padding: 0 10px 0 10px;
 }
-.booking-message{
+.booking-message {
   font-size: 13px;
   margin-bottom: 0;
   margin-left: 5px;
@@ -1077,8 +1076,8 @@ li {
   color: #00415f;
   margin-top: 1px;
 }
-.product-h1{
-  color: #006bb8 !important;
+.product-h1 {
+  color: #3eb800 !important;
   font-size: 50px !important;
 }
 .tell-service-all {
@@ -1109,6 +1108,9 @@ li {
   background: #c30000;
   color: #ffffff;
 }
+.back-home i:hover{
+  color: #00d1e3;
+}
 .home-product {
   color: #00415f;
   font-size: 20px;
@@ -1116,6 +1118,7 @@ li {
   font-weight: bold;
   margin-bottom: 20px;
   display: flex;
+  justify-content: space-between;
 }
 .home-product a {
   color: #00415f;
@@ -1152,12 +1155,89 @@ li {
   margin-bottom: 25px;
   position: relative;
 }
-.sale-promotion{
+.promotion-img{
+  animation: text-flicker 4s linear infinite;
+}
+.sale-promotion {
   position: absolute;
   top: 0;
   width: 40px !important;
   height: 40px !important;
   margin: 10px 0 0 10px;
+  animation: letter-flicker 2s linear infinite;
+}
+@keyframes text-flicker {
+  0% {
+    opacity: 0.1;
+
+    text-shadow: 0px 0px 29px rgb(22, 161, 242);
+  }
+
+  2% {
+    opacity: 1;
+
+    text-shadow: 0px 0px 29px rgb(22, 161, 242);
+  }
+
+  8% {
+    opacity: 0.1;
+
+    text-shadow: 0px 0px 29px rgb(22, 161, 242);
+  }
+
+  9% {
+    opacity: 1;
+
+    text-shadow: 0px 0px 29px rgb(22, 161, 242);
+  }
+
+  12% {
+    opacity: 0.1;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  20% {
+    opacity: 1;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  25% {
+    opacity: 0.3;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  30% {
+    opacity: 1;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  70% {
+    opacity: 0.7;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  72% {
+    opacity: 0.2;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  77% {
+    opacity: 0.9;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
+
+  100% {
+    opacity: 0.9;
+
+    text-shadow: 0px 0px rgb(22, 161, 242);
+  }
 }
 .pet-product-chil .pet-shop-product img {
   width: 100%;
@@ -1300,23 +1380,23 @@ li {
   color: #000000;
   border-radius: 5px;
 }
-.title-contact{
+.title-contact {
   color: #ffffff;
   font-size: 16px;
   margin-left: 5px;
 }
-.contact-message{
+.contact-message {
   margin-top: 5px;
   font-size: 14px;
   color: #ff0101;
 }
-.invalid{
+.invalid {
   color: #ff0000;
 }
-.contact-group input{
+.contact-group input {
   border: 1px solid #00a21e !important;
 }
-.invalid input{
+.invalid input {
   border: 1px solid red !important;
 }
 .contact-us-rq {
@@ -1377,14 +1457,14 @@ li {
   transform: translateX(-72%);
   color: #00415f;
 }
-.succ-contact{
+.succ-contact {
   text-align: center;
   font-size: 14px;
   margin-top: -20px;
   margin-bottom: 20px;
   color: #00ff2f;
 }
-.price-product{
+.price-product {
   color: #c30000;
   font-size: 16px;
   right: 10px;
@@ -1393,28 +1473,28 @@ li {
   margin-right: 10px;
   font-weight: bold;
 }
-.show-more-product{
+.show-more-product {
   font-size: 18px;
   text-align: center;
   margin: 20px 0 50px 0;
 }
-.show-more-product a{
+.show-more-product a {
   color: #ffffff;
   padding: 8px 15px;
   background: #00940d;
   border-radius: 5px;
 }
-.price-promotion{
+.price-promotion {
   text-decoration: line-through;
   font-size: 16px;
   color: #c30000;
   font-weight: bold;
   margin-left: 10px;
 }
-.promotion-div{
+.promotion-div {
   display: flex;
   justify-content: space-between;
 }
-.price-product-promo{
+.price-product-promo {
   color: #00ce11;
 }
