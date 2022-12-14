@@ -49,7 +49,7 @@ if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
 
 if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
     $delete_sv = intval($_GET['delete_sv']);
-    $sql_sv = "DELETE FROM shop WHERE id = $delete_sv";
+    $sql_sv = "DELETE FROM shop WHERE id_shop = $delete_sv";
     // var_dump($sql_sv);
     // die();
     $query_sv = $conn->prepare($sql_sv);
@@ -61,9 +61,9 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
     }
 }
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM shop WHERE id = $id";
+if (isset($_GET['id_shop'])) {
+    $id = $_GET['id_shop'];
+    $sql = "SELECT * FROM shop WHERE id_shop = $id";
     $query = $conn->prepare($sql);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_OBJ);
@@ -85,7 +85,7 @@ if (isset($_GET['id'])) {
                 move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
             }
         }
-        $sql = "UPDATE shop SET title = '$title',image = '$target_file', content = '$content', price = '$price', promotion = '$promotion', id_category = '$id_category', status_shop = '$status_shop' WHERE id = $id";
+        $sql = "UPDATE shop SET title = '$title',image = '$target_file', content = '$content', price = '$price', promotion = '$promotion', id_category = '$id_category', status_shop = '$status_shop' WHERE id_shop = $id";
         $query = $conn->prepare($sql);
         $query_excute = $query->execute();
         if ($query_excute) {
@@ -208,10 +208,10 @@ if (isset($_GET['id'])) {
                                             <td>
                                                 <div class="button-edit-delete">
                                                     <div class="btn-edit-pre">
-                                                        <a class="btn-edit btn-edit-sevice" href="./pet-shop.php?id=<?php echo $value->id ?>"><i class="fas fa-edit"></i></a>
+                                                        <a class="btn-edit btn-edit-sevice" href="./pet-shop.php?id_shop=<?php echo $value->id_shop ?>"><i class="fas fa-edit"></i></a>
                                                     </div>
                                                     <div class="btn-delete-pre">
-                                                        <a class="btn-delete" href="./pet-shop.php?delete_sv=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
+                                                        <a class="btn-delete" href="./pet-shop.php?delete_sv=<?php echo $value->id_shop ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -283,7 +283,7 @@ if (isset($_GET['id'])) {
                 </form>
             </div>
         </div>
-        <?php if (isset($_GET['id'])) { ?>
+        <?php if (isset($_GET['id_shop'])) { ?>
             <div class="form-edit form-edit-sevice" style="display: block;">
                 <div class="edit-sevice-chil form-edit-chil form-edit-chil-sv show-sevice">
                     <div class="title-form-edit show-top-all">

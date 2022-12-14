@@ -11,6 +11,7 @@ $result_sv = $query_sv->fetchAll(PDO::FETCH_OBJ);
 if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
     $title = $_POST['title'];
     $content = $_POST['desc'];
+    $price = $_POST['price'];
     $status_sevice = $_POST['status_sevice'];
     if (isset($_FILES["image"])) {
         $imagePNG = basename($_FILES["image"]["name"]);
@@ -19,10 +20,11 @@ if (isset($_POST['btn-add-form']) && ($_POST['btn-add-form'])) {
         $target_file = $target_dir . $imageName;
         move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
     }
-    $sql = "INSERT INTO sevice (title, content, image, status_sevice) VALUES (:title, :desc, :image, :status_sevice)";
+    $sql = "INSERT INTO sevice (title, content, price, image, status_sevice) VALUES (:title, :desc, :price, :image, :status_sevice)";
     $query = $conn->prepare($sql);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':desc', $content, PDO::PARAM_STR);
+    $query->bindParam(':price', $price, PDO::PARAM_STR);
     $query->bindParam(':image', $target_file, PDO::PARAM_STR);
     $query->bindParam(':status_sevice', $status_sevice, PDO::PARAM_STR);
     $query_excute = $query->execute();
@@ -63,10 +65,11 @@ if (isset($_GET['id'])) {
     if (isset($_POST['btn-edit-form']) && ($_POST['btn-edit-form'])) {
         $title = $_POST['title'];
         $content = $_POST['descc'];
+        $price = $_POST['price'];
         $status_sevice = $_POST['status_sevice'];
         if (isset($_FILES["image"])) {
             $imagePNG = basename($_FILES["image"]["name"]);
-            if (empty( $imagePNG)) {
+            if (empty($imagePNG)) {
                 $target_file = $result->image;
             } else {
                 $imageName = strtolower(vn2en($imagePNG));
@@ -75,7 +78,7 @@ if (isset($_GET['id'])) {
                 move_uploaded_file($_FILES["image"]["tmp_name"], "../image/" . $imageName);
             }
         }
-        $sql = "UPDATE sevice SET title = '$title',image = '$target_file', status_sevice = '$status_sevice', content = '$content' WHERE id = $id";
+        $sql = "UPDATE sevice SET title = '$title',image = '$target_file',price = '$price',  status_sevice = '$status_sevice', content = '$content' WHERE id = $id";
         $query = $conn->prepare($sql);
         $query_excute = $query->execute();
         if ($query_excute) {
@@ -141,6 +144,9 @@ if (isset($_GET['id'])) {
                                             Hình ảnh
                                         </th>
                                         <th>
+                                            Giá
+                                        </th>
+                                        <th>
                                             Trạng thái
                                         </th>
                                         <th class="button-edit-delete">
@@ -159,6 +165,9 @@ if (isset($_GET['id'])) {
                                             </td>
                                             <td>
                                                 <img style="width: 125px; height: 125px ;" src=".<?php echo $value->image ?>" alt="image">
+                                            </td>
+                                            <td>
+                                                <?php echo $value->price ?>
                                             </td>
                                             <td>
                                                 <?php if ($value->status_sevice == 1) { ?>
@@ -209,6 +218,10 @@ if (isset($_GET['id'])) {
                             </div>
                             <div id="display-seviec-image"></div>
                         </div>
+                        <div class="price">
+                            <p>Giá dịch vụ</p>
+                            <input type="number" name="price">
+                        </div>
                         <select name="status_sevice" id="status_sevice" class="status_sevice">
                             <option value="">--Trạng thái--</option>
                             <option value="0">Ẩn</option>
@@ -250,9 +263,13 @@ if (isset($_GET['id'])) {
                                 <p class="status-img">ảnh ban đầu</p>
                                 <img src=".<?php echo $result->image ?>" alt="image">
                             </div>
+                            <div class="price">
+                                <p>Giá dịch vụ</p>
+                                <input type="number" name="price" value="<?php echo $result->price ?>">
+                            </div>
                             <div class="group-sevice-img">
                                 <p class="status-img">Trạng thái</p>
-                                <select name="status_slider" id="status_slider" class="status_slider">
+                                <select name="status_sevice" id="status_sevice" class="status_sevice status_sevice1">
                                     <option value="0" <?php if ($result->status_sevice == 0) echo "selected" ?>>Ẩn</option>
                                     <option value="1" <?php if ($result->status_sevice == 1) echo "selected" ?>>Hiện</option>
                                 </select>

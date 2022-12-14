@@ -1094,6 +1094,7 @@ table.dataTable tbody tr:last-child{
 .group-add-sevice-img-status{
   display: flex;
   width: 100%;
+  justify-content: space-between;
 }
 .group-add-sevice-img-status .display-image-sevice-all{
   width: 60%;
@@ -1463,4 +1464,123 @@ table.dataTable tbody tr:last-child{
 }
 .btn-add-in-shop{
   margin-top: 0 !important;
+}
+
+/* control  */
+.main-control{
+  width: 85%;
+  float: right;
+  padding: 10px 10px 0 10px;
+}
+.main-control .title-control h1{
+  font-size: 25px;
+  color: #00606c;
+  margin-bottom: 20px;
+}
+.group-add-sevice-img-status .price{
+  margin-top: 25px;
+}
+.group-add-sevice-img-status .price input{
+  border: 1px solid #006c05;
+  color: #009e22;
+}
+.group-add-sevice-img-status .price p{
+  color: #005da5;
+  font-weight: bold;
+
+}
+.flex-sevice-edit-button .price{
+  margin-top: 25px;
+}
+.flex-sevice-edit-button .price input{
+  border: 1px solid #006c05;
+  color: #009e22;
+}
+.flex-sevice-edit-button .price p{
+  color: #005da5;
+  font-weight: bold;
+}
+.status_sevice1{
+  margin-top: 10px;
+}
+.input-add-all{
+  display: flex;
+  justify-content: space-between;
+}
+.input-add-all input{
+  width: 500px !important;
+}
+.input-add input{
+  padding-left: 10px;
+}
+.id_employee_t{
+  width: 400px;
+  border: 1px solid #009e22;
+  color: #00538a;
+  font-size: 16px;
+  font-weight: bold;
+}
+.flex-time-day{
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.flex-time-day .check-box-time{
+  color: #00538a;
+  font-size: 16px;
+  font-weight: bold;
+}
+.flex-shifts{
+  display: flex;
+  justify-content: space-between;
+  width: 51%;
+  color: #00538a;
+  font-size: 16px;
+  font-weight: bold;
+}
+.box-control{
+  width: 100%;
+  height: 40px;
+  background: #003c70;
+  border-radius: 50px 50px 0 0;
+  -moz-box-shadow: 0px 0px 8px 0px #ccc;
+  -webkit-box-shadow: 0px 0px 8px 0px #ccc;
+  box-shadow: 0px 0px 8px 0px #ccc;
+}
+.box-control h5{
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #ffffff;
+}
+.box-control-under{
+  width: 100%;
+  height: 100px;
+  background: #efeeee;
+  border-radius:  0 0 50px 50px;
+  /* box-shadow: ngang dọc độ-tràn-màu khoảng-cách mã-màu; */
+  -moz-box-shadow: 0px 0px 8px 0px #ccc;
+  -webkit-box-shadow: 0px 0px 8px 0px #ccc;
+  box-shadow: 0px 0px 8px 0px #ccc;
+}
+.box-control-under a{
+  display: flex;
+  justify-content: center;
+}
+.box-control-under a i{
+  color: #00575a;
+  font-size: 40px;
+  line-height: 100px;
+}
+.box-control-under a i:hover{
+  color: #0084dd;
+}
+.margin-under-control{
+  margin-bottom: 30px;
+}
+.box-control-under-store{
+  display: flex;
+  justify-content:space-around;
 }

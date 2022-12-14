@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login']['email'] = $results->email;
         $_SESSION['login']['phone'] = $results->phone;
         $_SESSION['login']['address'] = $results->address;
-        header('location: menu.php');
+        header('location: control.php');
         } else {
             $err = "1";
         }

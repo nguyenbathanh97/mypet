@@ -311,8 +311,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php foreach ($result_shop as $key => $value) { ?>
                     <div class="col-3 pet-shop-chil">
                         <div class="pet-shop-chil-in">
-                            <a href="#"><img src="<?php echo $value->image ?>" alt="image" class="pet-shop-img"></a>
-                            <a class="pet-shop-title" href="#"><?php echo $value->title ?></a>
+                            <a href="detail.php?id_shop=<?php echo $value->id_shop ?>"><img src="<?php echo $value->image ?>" alt="image" class="pet-shop-img"></a>
+                            <a class="pet-shop-title" href="detail.php?id_shop=<?php echo $value->id_shop ?>"><?php echo $value->title ?></a>
                             <?php if ($value->promotion > 0) { ?>
                                 <div class="promotion-div">
                                     <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
@@ -325,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
                             <?php } ?>
                             <div class="more">
-                                <a href="#">
+                                <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
                                     <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
                                 </a>
                             </div>

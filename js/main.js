@@ -29,6 +29,16 @@ $(document).ready(function(){
     prevArrow: `<button type='button' class='slick-prev slick-prev1 pull-left slick-arrow' ><i class="fa-solid fa-chevron-left"></i></button>`,
     nextArrow: `<button type='button' class='slick-next slick-next1 pull-right slick-arrow'><i class="fa-solid fa-chevron-right"></i></button>`,
   });
+  $('.slider-show-similar-pre').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1800,
+    adaptiveHeight: true,
+    prevArrow: `<button type='button' class='slick-prev slick-prev1 pull-left slick-arrow' ><i class="fa-solid fa-chevron-left"></i></button>`,
+    nextArrow: `<button type='button' class='slick-next slick-next1 pull-right slick-arrow'><i class="fa-solid fa-chevron-right"></i></button>`,
+});
 });
 
 // admin
@@ -72,3 +82,24 @@ $(document).ready(function () {
   });
 });
 
+// number detail
+//<![CDATA[
+  $('input.input-qty').each(function() {
+    var $this = $(this),
+      qty = $this.parent().find('.is-form'),
+      min = Number($this.attr('min')),
+      max = Number($this.attr('max'))
+    if (min == 0) {
+      var d = 0
+    } else d = min
+    $(qty).on('click', function() {
+      if ($(this).hasClass('minus')) {
+        if (d > min) d += -1
+      } else if ($(this).hasClass('plus')) {
+        var x = Number($this.val()) + 1
+        if (x <= max) d += 1
+      }
+      $this.attr('value', d).val(d)
+    })
+  })
+  //]]>

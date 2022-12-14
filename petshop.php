@@ -6,11 +6,16 @@ include './include/config.php';
 // $query_shop->execute();
 // $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
 
+//page
+$page = 1;
+$limit = 10;
+$start = ($page-1) * $limit;
 
-$sql_pet = "SELECT * FROM shop a join category_shop b ON a.id_category = b.id WHERE a.status_shop = 1";
+$sql_pet = "SELECT * FROM shop a join category_shop b on a.id_category = b.id  WHERE status_shop = 1";
 $query_pet = $conn->prepare($sql_pet);
 $query_pet->execute();
 $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
+
 ?>
 
 <!DOCTYPE html>
@@ -59,8 +64,8 @@ $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
                 <?php foreach ($result_pet as $key => $value) { ?>
                     <div class="col-3 pet-product-chil">
                         <div class="pet-shop-product">
-                            <a href="#"><img src="<?php echo $value->image ?>" alt="" class="pet-shop-img"></a>
-                            <a class="pet-shop-title" href="#"><?php echo $value->title ?></a>
+                            <a href="detail.php?id_shop=<?php echo $value->id_shop ?>"><img src="<?php echo $value->image ?>" alt="" class="pet-shop-img"></a>
+                            <a class="pet-shop-title" href="detail.php?id_shop=<?php echo $value->id_shop ?>"><?php echo $value->title ?></a>
                             <?php if ($value->promotion > 0) { ?>
                                 <div class="promotion-div">
                                     <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
@@ -73,7 +78,7 @@ $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
                                 <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
                             <?php } ?>
                             <div class="more">
-                                <a href="#">
+                                <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
                                     <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
                                 </a>
                             </div>

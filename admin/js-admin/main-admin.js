@@ -152,7 +152,7 @@ function ImageFileAsUrlEditCategory() {
 };
 //add sevice
 function ImageFileAsUrlAddSevice() {
-    var fileSelected = document.getElementById("add-categoy-img").files;
+    var fileSelected = document.getElementById("add-id-image").files;
     console.log(fileSelected.length);
     if (fileSelected.length > 0) {
         for (var i = 0; i < fileSelected.length; i++) {
@@ -162,7 +162,7 @@ function ImageFileAsUrlAddSevice() {
                 var srcData = fileLoaderEvent.target.result;
                 var newImage = document.createElement("img");
                 newImage.src = srcData;
-                document.getElementById("display-add-categoy").innerHTML += newImage.outerHTML;
+                document.getElementById("display-seviec-image").innerHTML += newImage.outerHTML;
             };
             fileReader.readAsDataURL(fileToLoad);
         }

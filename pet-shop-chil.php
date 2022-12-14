@@ -62,8 +62,8 @@ if (isset($_GET['id'])) {
                 <?php foreach ($result as $key => $value) { ?>
                     <div class="col-3 pet-product-chil">
                         <div class="pet-shop-product">
-                            <a href="#"><img src="<?php echo $value->image ?>" alt="" class="pet-shop-img"></a>
-                            <a class="pet-shop-title" href="#"><?php echo $value->title ?></a>
+                            <a href="detail.php?id_shop=<?php echo $value->id_shop ?>"><img src="<?php echo $value->image ?>" alt="" class="pet-shop-img"></a>
+                            <a class="pet-shop-title" href="detail.php?id_shop=<?php echo $value->id_shop ?>"><?php echo $value->title ?></a>
                             <?php if ($value->promotion > 0) { ?>
                                 <div class="promotion-div">
                                     <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
                                 <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
                             <?php } ?>
                             <div class="more">
-                                <a href="#">
+                                <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
                                     <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
                                 </a>
                             </div>

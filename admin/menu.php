@@ -49,6 +49,8 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
                     <ul>
                         <li><a href="../index.php"><i class="material-icons fas fa-home"></i><span>Trang chủ</span></a>
                         </li>
+                        <li><a href="./control.php"><i class="material-icons fab fa-elementor"></i><span>Bảng điều khiển</span></a>
+                        </li>
                         <li><a href="./slider.php"><i class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
                         </li>
                         <li><a href="./infor.php"><i class="material-icons fas fa-info-circle"></i><span>Giới thiệu</span></a>
@@ -66,6 +68,10 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
                         <li><a href="./news.php"><i class="material-icons fas fa-newspaper"></i><span>Tin tức</span></a>
                         </li>
                         <li><a href="./contact.php"><i class="material-icons fas fa-address-book"></i><span>Liên hệ</span></a>
+                        <li><a href="./employee.php"><i class="material-icons fas fa-user-md"></i><span>Nhân viên</span></a>
+                        </li>
+                        <li><a href="./calendar.php"><i class="material-icons fas fa-calendar-alt"></i><span>Lịch biểu</span></a>
+                        </li>
                         <li><a href="./booking.php"><i class="material-icons fas fa-book"></i><span>Lịch đặt</span></a>
                         </li>
                     </ul>
