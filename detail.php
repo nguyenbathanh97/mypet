@@ -30,6 +30,9 @@ if (isset($_GET['id_shop'])) {
         $query_comment->bindParam(':content_comment', $content_comment, PDO::PARAM_STR);
         $query_comment->bindParam(':id', $id, PDO::PARAM_STR);
         $query_comment_ex = $query_comment->execute();
+        if(($query_comment_ex)){
+            header("location: ./detail.php?id_shop=$result_pet->id_shop");
+        }
     }
 }
 
