@@ -53,19 +53,21 @@ $result_user = $query_user->fetch(PDO::FETCH_OBJ);
                         </li>
                         <li><a href="./slider.php"><i class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
                         </li>
-                        <li><a href="./infor.php"><i class="material-icons fas fa-info-circle"></i><span>Giới thiệu</span></a>
-                        </li>
-                        <li><a href="./sevice.php"><i class="material-icons fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a>
-                        </li>
-                        <li class="menu-li-par"><a href="#"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span><i class="down-shop-i fas fa-chevron-down"></i></a>
+                        <li class="menu-li-par"><a href="#"><i class="material-icons fas fa-info-circle"></i><span>Thông tin</span><i class="down-shop-i fas fa-chevron-down"></i></a>
                             <ul id="menu-chil-ul">
-                                <li class="menu-chil-li"><a href="./category-shop.php"><i class="fas fa-stream"></i><span>Danh mục</span></a></li>
-                                <li class="menu-chil-li"><a href="./pet-shop.php"><i class="fas fa-gifts"></i><span>Sản phẩm</span></a></li>
+                                <li class="menu-chil-li"><a href="./infor.php"><i class="fas fa-info-circle"></i><span>Giới thiệu</span></a></li>
+                                <li class="menu-chil-li"><a href="./sevice.php"><i class="fas fa-suitcase-rolling"></i><span>Dịch vụ</span></a></li>
+                                <li class="menu-chil-li"><a href="./hotel.php"><i class=" fas fa-hotel"></i><span>Khách sạn</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="./hotel.php"><i class="material-icons fas fa-hotel"></i><span>Khách sạn</span></a>
-                        </li>
                         <li><a href="./news.php"><i class="material-icons fas fa-newspaper"></i><span>Tin tức</span></a>
+                        </li>
+                        <li class="menu-li-par1"><a href="#"><i class="material-icons fas fa-store"></i><span>Cửa hàng</span><i class="down-shop-i1 fas fa-chevron-down"></i></a>
+                            <ul id="menu-chil-ul1">
+                                <li class="menu-chil-li"><a href="./category-shop.php"><i class="fas fa-stream"></i><span>Danh mục</span></a></li>
+                                <li class="menu-chil-li"><a href="./pet-shop.php"><i class="fas fa-gifts"></i><span>Sản phẩm</span></a></li>
+                                <li class="menu-chil-li"><a href="./comment.php"><i class="fas fa-comments"></i><span>Đánh giá</span></a></li>
+                            </ul>
                         </li>
                         <li><a href="./contact.php"><i class="material-icons fas fa-address-book"></i><span>Liên hệ</span></a>
                         <li><a href="./employee.php"><i class="material-icons fas fa-user-md"></i><span>Nhân viên</span></a>

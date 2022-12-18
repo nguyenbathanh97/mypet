@@ -7,6 +7,14 @@ $(document).ready(function () {
         $("#menu-chil-ul").slideToggle("slow");
         $(".down-shop-i").toggleClass('flip');
     })
+    $(".menu-li-par1").click(function () {
+        $("#menu-chil-ul1").slideToggle("slow");
+        $(".down-shop-i1").toggleClass('flip1');
+    })
+    $(".menu-li-par2").click(function () {
+        $("#menu-chil-ul2").slideToggle("slow");
+        $(".down-shop-i2").toggleClass('flip2');
+    })
 });
 
 

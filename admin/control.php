@@ -131,5 +131,4 @@ include '../include/config.php';
 <script src="../lib/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
-
 </html>

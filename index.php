@@ -361,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <div class="desc-p"><?php echo $value->content ?></div>
                         </div>
                     </div>
-                    <?php if (++$i_news == 10) break ?>
+                    <?php if (++$i_news == 8) break ?>
                 <?php } ?>
             </div>
         </div>

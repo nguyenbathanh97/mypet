@@ -12,6 +12,27 @@ $show = $result_pet->id;
 // var_dump($show);
 // die();
 
+
+if (isset($_GET['id_shop'])) {
+    $id = $_GET['id_shop'];
+    // var_dump($id);
+    // die();
+    $sql_cmt = "SELECT * FROM comment a join shop b on a.id_shop_fk = b.id_shop WHERE $id = a.id_shop_fk";
+    $result_cmt = $conn->prepare($sql_cmt);
+    $result_cmt->execute();
+    $result_cmt_ex = $result_cmt->fetchAll(PDO::FETCH_OBJ);
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $name = $_POST['name'];
+        $content_comment = $_POST['content_comment'];
+        $sql = "INSERT INTO comment (name, content_comment, id_shop_fk) VALUES (:name, :content_comment, :id)";
+        $query_comment = $conn->prepare($sql);
+        $query_comment->bindParam(':name', $name, PDO::PARAM_STR);
+        $query_comment->bindParam(':content_comment', $content_comment, PDO::PARAM_STR);
+        $query_comment->bindParam(':id', $id, PDO::PARAM_STR);
+        $query_comment_ex = $query_comment->execute();
+    }
+}
+
 $sql_shop = "SELECT * FROM shop a join category_shop b on a.id_category = b.id WHERE b.id = $show  ";
 $query_shop = $conn->prepare($sql_shop);
 $query_shop->execute();
@@ -47,9 +68,9 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                 </div>
                 <div class="detail-product-detail">
                     <div class="detail-back-home">
-                        <a href="">Trang chủ</a>
+                        <a href="./index.php">Trang chủ</a>
                         <span>/</span>
-                        <a href=""><?php echo $result_pet->category_title ?></a>
+                        <a href="#"><?php echo $result_pet->category_title ?></a>
                     </div>
                     <h5 class="detail-title"><?php echo $result_pet->title ?></h5>
                     <div class="detail-line"></div>
@@ -104,7 +125,7 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                                 <div class="slider-show-similar">
                                     <a href="detail.php?id_shop=<?php echo $value->id_shop ?>" class="img-similar"><img src="<?php echo $value->image ?>" alt="image"></a>
                                     <div class="slider-show-similar-under">
-                                        <a href="detail.php?id_shop=<?php echo $value->id_shop ?>" class="title-similar"><?php echo $value->title?></a>
+                                        <a href="detail.php?id_shop=<?php echo $value->id_shop ?>" class="title-similar"><?php echo $value->title ?></a>
                                         <div class="price-similar">
                                             <?php if ($value->promotion > 0) { ?>
                                                 <p class="price price-desc"><?php echo $value->price ?> VNĐ</p>
@@ -134,7 +155,38 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                 </div>
             </div>
         </div>
-
+        <div class="container">
+            <div class="comment-detail">
+                <div class="line-comment"></div>
+                <h5>Bình luận</h5>
+                <form action="" method="POST" id="form-comment">
+                    <div class="group-comment">
+                        <input type="text" name="name" id="name-comment-input" class="name-comment-input" placeholder="Họ tên">
+                        <p id="display-commnet-message"></p>
+                    </div>
+                    <div class="group-comment">
+                        <textarea class="comment-text" placeholder="Nội dung" name="content_comment" id="comment-text" cols="30" rows="10"></textarea>
+                        <p id="display-commnet-message"></p>
+                    </div>
+                    <div class="button-comment">
+                        <input type="submit" name="btn-comment" value="Bình luận" id="btn-comment" class="btn-comment">
+                    </div>
+                </form>
+                <?php foreach ($result_cmt_ex as $key => $value) { ?>
+                    <div class="comment">
+                    <div class="avatar-comment">
+                        <a href="#">
+                            <img src="./image/avatar-comment.jpg" alt="image">
+                        </a>
+                    </div>
+                    <div class="display-comment">
+                        <h5 class="name-comment"><?php echo $value->name ?></h5>
+                        <p><?php echo $value->content_comment ?></p>
+                    </div>
+                </div>
+               <?php } ?>
+            </div>
+        </div>
     </div>
     <!-- footer  -->
     <?php
@@ -142,5 +194,17 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
     ?>
     <!-- /footer  -->
 </body>
+<script src="./js/validator.js"></script>
+<script>
+    Validator({
+        form: '#form-comment',
+        formGroupSelector: '.group-comment',
+        errorSelector: "#display-commnet-message",
+        rules: [
+            Validator.isRequired('#name-comment-input', 'Vui lòng nhập đầy đủ họ tên!'),
+            Validator.isRequired('#comment-text', 'Vui lòng nhập nội dung!'),
+        ],
+    });
+</script>
 
 </html>

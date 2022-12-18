@@ -276,7 +276,19 @@ li {
 .down-shop-i{
   margin-left: 25px;
 }
+.down-shop-i1{
+  margin-left: 25px;
+}
+.down-shop-i2{
+  margin-left: 25px;
+}
 .flip {
+  transform: rotate(-180deg);
+}
+.flip1 {
+  transform: rotate(-180deg);
+}
+.flip2 {
   transform: rotate(-180deg);
 }
 .menu-toogle div {

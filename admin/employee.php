@@ -47,6 +47,8 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
 }
 if (isset($_GET['id_employee'])) {
     $id = $_GET['id_employee'];
+    // var_dump($id);
+    // die();
     $sql_edit = "SELECT * FROM sevice a join employee b on a.id = b.id_sevice  WHERE b.id_employee = $id";
     $query_edit = $conn->prepare($sql_edit);
     $query_edit->execute();
@@ -227,7 +229,7 @@ if (isset($_GET['id_employee'])) {
                             <p>Chuyên môn</p>
                             <select name="id_sevice" id="">
                                 <?php foreach ($result as $key => $value) { ?>
-                                    <option value=""<?php if($value->id == $result_edit->id_sevice) echo "selected"  ?>><?php echo $value->title ?></option>
+                                    <option value="<?php echo $value->id ?>"<?php if($value->id == $result_edit->id_sevice) echo "selected"  ?>><?php echo $value->title ?></option>
                                 <?php } ?>
                             </select>
                         </div>
