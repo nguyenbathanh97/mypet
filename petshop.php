@@ -7,15 +7,22 @@ include './include/config.php';
 // $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
 
 //page
-$page = 1;
-$limit = 10;
-$start = ($page-1) * $limit;
-
-$sql_pet = "SELECT * FROM shop a join category_shop b on a.id_category = b.id  WHERE status_shop = 1";
+$page = !empty($_GET['per_page']) ? $_GET['per_page'] : 12;
+$current_page = !empty($_GET['page']) ? $_GET['page'] : 1; //Trang hien tai
+$offset = ($current_page - 1) * $page;
+$sql_pet = "SELECT * FROM shop a join category_shop b on a.id_category = b.id WHERE a.status_shop=1 ORDER BY 'id_shop' ASC LIMIT " . $page . " OFFSET " . $offset . "";
 $query_pet = $conn->prepare($sql_pet);
 $query_pet->execute();
 $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
-
+$total_product = "SELECT count(*) FROM shop WHERE status_shop=1";
+$query_total = $conn->prepare($total_product);
+$query_total->execute();
+$result_total = $query_total->fetchColumn();
+// var_dump($result_total);
+// die();
+$total_page = ceil($result_total / $page);
+// var_dump($total_page);
+// die();
 ?>
 
 <!DOCTYPE html>
@@ -51,14 +58,17 @@ $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
                     <i class="next-icon-product fas fa-angle-double-right"></i>
                     <a class="product-home" href="#">Cửa hàng thú cưng</a>
                 </div>
-                <div class="home-product-right">
-                    <i class="filter fas fa-filter"></i>
-                    <select class="select" name="" id="">
-                        <option value="0">Mới nhất</option>
-                        <option value="1">Giá thấp</option>
-                        <option value="2">Giá cao</option>
-                    </select>
-                </div>
+                <form action="" method="POST">
+                    <div class="home-product-right">
+                        <i class="filter fas fa-filter"></i>
+                        <select class="select" name="select" id="">
+                            <option value="0">Mới nhất</option>
+                            <option value="1">Giá thấp</option>
+                            <option value="2">Giá cao</option>
+                        </select>
+                        <input type="submit" name="btn-order-by" value="Sắp xếp" class="price-order-by">
+                    </div>
+                </form>
             </div>
             <div class="row pet-product">
                 <?php foreach ($result_pet as $key => $value) { ?>
@@ -89,9 +99,7 @@ $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
                     </div>
                 <?php } ?>
             </div>
-            <div class="show-more-product">
-                <a href="#">Xem thêm</a>
-            </div>
+            <?php include "./page.php"; ?>
         </div>
 
     </div>

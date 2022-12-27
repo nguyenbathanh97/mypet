@@ -11,8 +11,6 @@ if (isset($_GET['id_shop'])) {
 $show = $result_pet->id;
 // var_dump($show);
 // die();
-
-
 if (isset($_GET['id_shop'])) {
     $id = $_GET['id_shop'];
     // var_dump($id);

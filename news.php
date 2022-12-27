@@ -1,9 +1,25 @@
 <?php
 include './include/config.php';
-$sql_news = "SELECT * FROM news WHERE status_news = 1";
+$sql_news1 = "SELECT * FROM news  WHERE status_news = 1 LiMIT 12 ";
+$query_news1 = $conn->prepare($sql_news1);
+$query_news1->execute();
+$result_news1 = $query_news1->fetchAll(PDO::FETCH_OBJ);
+$page = !empty($_GET['per_page'])?$_GET['per_page']:5;
+$current_page = !empty($_GET['page'])?$_GET['page']:1;//Trang hien tai
+$offset = ($current_page-1)*$page;
+$sql_news = "SELECT * FROM news  WHERE status_news = 1 ORDER BY 'id_news' ASC LIMIT ".$page." OFFSET ".$offset."";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
+$total_product = "SELECT count(*) FROM news  WHERE status_news = 1";
+$query_total = $conn->prepare($total_product);
+$query_total->execute();
+$result_total = $query_total->fetchColumn();
+// var_dump($result_total);
+// die();
+$total_page = ceil($result_total / $page);
+// var_dump($total_page);
+// die();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +61,7 @@ $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
                             </div>
                         </div>
                     <?php } ?>
+                    <?php include "./page.php" ?>
                 </div>
                 <div class="col-4 right-service">
                     <div class="search search-service">
@@ -55,7 +72,7 @@ $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
                     </div>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
-                        <?php foreach ($result_news as $key => $value) { ?>
+                        <?php foreach ($result_news1 as $key => $value) { ?>
                             <div class="title-news-service-chil">
                                 <div class="news-service-chil">
                                     <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>

@@ -1,15 +1,34 @@
 <?php
 include './include/config.php';
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM shop a join category_shop b ON a.id_category = b.id WHERE b.id = $id and a.status_shop = 1";
-    $query = $conn->prepare($sql);
-    $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_OBJ);
+    $_SESSION["id"] = $id;
+    $id1 = $_SESSION["id"];
+    // $sql = "SELECT * FROM shop a join category_shop b ON a.id_category = b.id WHERE b.id = $id and a.status_shop = 1";
+    // $query = $conn->prepare($sql);
+    // $query->execute();
+    // $result = $query->fetchAll(PDO::FETCH_OBJ);
+    $page = !empty($_GET['per_page']) ? $_GET['per_page'] : 12;
+    $current_page = !empty($_GET['page']) ? $_GET['page'] : 1; //Trang hien tai
+    $offset = ($current_page - 1) * $page;
+    $sql_pet = "SELECT * FROM shop a join category_shop b ON a.id_category = b.id WHERE b.id = $id and a.status_shop = 1 ORDER BY a.id_shop ASC  LIMIT " . $page . " OFFSET " . $offset . "";
+    $query_pet = $conn->prepare($sql_pet);
+    $query_pet->execute();
+    $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
+    $total_product = "SELECT count(*) FROM shop a join category_shop b ON a.id_category = b.id WHERE b.id = $id and a.status_shop = 1";
+    $query_total = $conn->prepare($total_product);
+    $query_total->execute();
+    $result_total = $query_total->fetchColumn();
+    // var_dump($result_total);
+    // die();
+    $total_page = ceil($result_total / $page);
+    // var_dump($total_page);
+    // die();
 }
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql_category = "SELECT * FROM category_shop WHERE $id = id  AND status_category_shop = 1";
+    $sql_category = "SELECT * FROM category_shop WHERE id = $id AND status_category_shop = 1";
     $query_category = $conn->prepare($sql_category);
     $query_category->execute();
     $result_category = $query_category->fetch(PDO::FETCH_OBJ);
@@ -49,17 +68,20 @@ if (isset($_GET['id'])) {
                     <i class="fas fa-caret-right"></i>
                     <a class="product-home" href="#"><?php echo $result_category->category_title ?></a>
                 </div>
-                <div class="home-product-right">
-                    <i class="filter fas fa-filter"></i>
-                    <select class="select" name="" id="">
-                        <option value="0">Mới nhất</option>
-                        <option value="1">Giá thấp</option>
-                        <option value="2">Giá cao</option>
-                    </select>
-                </div>
+                <form action="" method="POST">
+                    <div class="home-product-right">
+                        <i class="filter fas fa-filter"></i>
+                        <select class="select" name="select" id="">
+                            <option value="0">Mới nhất</option>
+                            <option value="1">Giá thấp</option>
+                            <option value="2">Giá cao</option>
+                        </select>
+                        <input type="submit" name="btn-order-by" value="Sắp xếp" class="price-order-by">
+                    </div>
+                </form>
             </div>
             <div class="row pet-product">
-                <?php foreach ($result as $key => $value) { ?>
+                <?php foreach ($result_pet as $key => $value) { ?>
                     <div class="col-3 pet-product-chil">
                         <div class="pet-shop-product">
                             <a href="detail.php?id_shop=<?php echo $value->id_shop ?>"><img src="<?php echo $value->image ?>" alt="" class="pet-shop-img"></a>
@@ -87,9 +109,7 @@ if (isset($_GET['id'])) {
                     </div>
                 <?php } ?>
             </div>
-            <div class="show-more-product">
-                <a href="#">Xem thêm</a>
-            </div>
+            <?php include "./page-chil.php"; ?>
         </div>
     </div>
     <!-- footer  -->
