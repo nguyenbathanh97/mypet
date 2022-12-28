@@ -1,14 +1,40 @@
 <?php
 include './include/config.php';
+
+if (!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)) {
+    $_SESSION['product_filter'] = $_POST;
+    // header('Location:petshop.php');exit;
+}
+if (!empty($_SESSION['product_filter'])) {
+    $where = "";
+    foreach ($_SESSION['product_filter'] as $field => $value) {
+        if (!empty($value)) {
+            switch ($field) {
+                case 'title':
+                    $where = (!empty($where)) ? " AND " . "`" . $field . "` LIKE '%" . $value . "%'" : "`" . $field . "` LIKE '%" . $value . "%'";
+                    break;
+            }
+        }
+    }
+    extract($_SESSION['product_filter']); //Tạo ra các biến từ mảng
+    // var_dump($where);
+    // die();
+}
+//news new
+if(!empty($where)){
+    $sql_news = "SELECT * FROM news WHERE (".$where.") AND status_news = 1";
+}else{
+    $sql_news = "SELECT * FROM news WHERE status_news = 1";
+}
+$query_news = $conn->prepare($sql_news);
+$query_news->execute();
+$result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
+//sevice
 $sql = "SELECT * FROM sevice WHERE status_sevice = 1";
 $query = $conn->prepare($sql);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
 
-$sql_news = "SELECT * FROM news WHERE status_news = 1";
-$query_news = $conn->prepare($sql_news);
-$query_news->execute();
-$result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,12 +75,12 @@ $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
                     <?php } ?>
                 </div>
                 <div class="col-4 right-service">
-                    <div class="search search-service">
-                        <input type="text" placeholder="Tìm kiếm">
-                        <div class="icon">
-                            <i class="fas fa-search"></i>
+                    <form action="service.php?action=search" method="POST">
+                        <div class="search search-service">
+                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon" type="submit" value="Tìm" id="">
                         </div>
-                    </div>
+                    </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
                         <?php foreach ($result_news as $key => $value) { ?>

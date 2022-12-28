@@ -1,14 +1,38 @@
 <?php
 include './include/config.php';
-$sql = "SELECT * FROM hotel WHERE status_hotel = 1";
+
+if (!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)) {
+    $_SESSION['product_filter'] = $_POST;
+    // header('Location:petshop.php');exit;
+}
+if (!empty($_SESSION['product_filter'])) {
+    $where = "";
+    foreach ($_SESSION['product_filter'] as $field => $value) {
+        if (!empty($value)) {
+            switch ($field) {
+                case 'title':
+                    $where = (!empty($where)) ? " AND " . "`" . $field . "` LIKE '%" . $value . "%'" : "`" . $field . "` LIKE '%" . $value . "%'";
+                    break;
+            }
+        }
+    }
+    extract($_SESSION['product_filter']); //Tạo ra các biến từ mảng
+}
+
+$sql = "SELECT * FROM hotel WHERE status_hotel = 1 LIMIT 1";
 $query = $conn->prepare($sql);
 $query->execute();
 $result = $query->fetch(PDO::FETCH_OBJ);
 
-$sql_news = "SELECT * FROM news WHERE status_news = 1";
-$query_news = $conn->prepare($sql_news);
-$query_news->execute();
-$result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
+//news new
+if (!empty($where)) {
+    $sql_news1 = "SELECT * FROM news  WHERE (" . $where . ") AND status_news = 1 LiMIT 12 ";
+} else {
+    $sql_news1 = "SELECT * FROM news  WHERE status_news = 1 LiMIT 12 ";
+}
+$query_news1 = $conn->prepare($sql_news1);
+$query_news1->execute();
+$result_news1 = $query_news1->fetchAll(PDO::FETCH_OBJ);
 
 // sevice
 $sql_sevice = "SELECT * FROM sevice WHERE status_sevice = 1";
@@ -17,7 +41,7 @@ $query_sevice->execute();
 $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
 
 $success_booking = "";
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
     $name = $_POST['name'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
@@ -166,15 +190,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                 </div>
                 <div class="col-4 right-service">
-                    <div class="search search-service">
-                        <input type="text" placeholder="Tìm kiếm">
-                        <div class="icon">
-                            <i class="fas fa-search"></i>
+                    <form action="hotel.php?action=search" method="POST">
+                        <div class="search search-service">
+                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon" name="btn-search" type="submit" value="Tìm" id="">
                         </div>
-                    </div>
+                    </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
-                        <?php foreach ($result_news as $key => $value) { ?>
+                        <?php foreach ($result_news1 as $key => $value) { ?>
                             <div class="title-news-service-chil">
                                 <div class="news-service-chil">
                                     <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>

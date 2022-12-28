@@ -1,6 +1,31 @@
 <?php
 include './include/config.php';
-$sql_news = "SELECT * FROM news WHERE status_news = 1";
+
+if (isset($_POST['btn-search']) && ($_POST['btn-search'])) {
+    if (!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)) {
+        $_SESSION['product_filter'] = $_POST;
+        // header('Location:petshop.php');exit;
+    }
+    if (!empty($_SESSION['product_filter'])) {
+        $where = "";
+        foreach ($_SESSION['product_filter'] as $field => $value) {
+            if (!empty($value)) {
+                switch ($field) {
+                    case 'title':
+                        $where = (!empty($where)) ? " AND " . "`" . $field . "` LIKE '%" . $value . "%'" : "`" . $field . "` LIKE '%" . $value . "%'";
+                        break;
+                }
+            }
+        }
+        extract($_SESSION['product_filter']); //Tạo ra các biến từ mảng
+    }
+}
+
+if(!empty($where)){
+    $sql_news = "SELECT * FROM news WHERE (".$where.") AND status_news = 1";
+}else{
+    $sql_news = "SELECT * FROM news WHERE status_news = 1";
+}
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
@@ -22,7 +47,7 @@ $result_sevice = $query_sevice->fetchAll(PDO::FETCH_OBJ);
 
 // isset($_POST['btn-add-form']) && ($_POST['btn-add-form']);
 $success_booking = "";
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
     $name = $_POST['name'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
@@ -178,12 +203,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                 </div>
                 <div class="col-4 right-service">
-                    <div class="search search-service">
-                        <input type="text" placeholder="Tìm kiếm">
-                        <div class="icon">
-                            <i class="fas fa-search"></i>
+                    <form action="service-chil.php?action=search&id=<?php if(isset($id)){echo '&id='.$id;} ?>" method="POST">
+                        <div class="search search-service">
+                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon" name="btn-search" type="submit" value="Tìm" id="">
                         </div>
-                    </div>
+                    </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
                         <?php foreach ($result_news as $key => $value) { ?>
