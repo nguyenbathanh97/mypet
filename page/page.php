@@ -10,7 +10,7 @@
 
 <body>
     <div class="page_page">
-        <?php if ($current_page > 3) {
+        <?php if ($current_page > 2) {
             $first_page = 1 ?>
             <a class="page-item" href="?per_page=<?= $page ?>&page=<?= $first_page ?>">first</a>
         <?php } ?>
@@ -31,7 +31,7 @@
             $next_page = $current_page + 1 ?>
             <a class="page-item" href="?per_page=<?= $page ?>&page=<?= $next_page ?>"><i class="fas fa-chevron-right"></i></a>
         <?php } ?>
-        <?php if ($current_page < $total_page - 3) {
+        <?php if ($current_page < $total_page - 1) {
             $end_page = $total_page ?>
             <a class="page-item" href="?per_page=<?= $page ?>&page=<?= $end_page ?>">end</a>
         <?php } ?>

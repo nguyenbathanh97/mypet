@@ -1,13 +1,37 @@
 <?php
 include './include/config.php';
-$sql_news1 = "SELECT * FROM news  WHERE status_news = 1 LiMIT 12 ";
+if (!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)) {
+    $_SESSION['product_filter'] = $_POST;
+    // header('Location:petshop.php');exit;
+}
+if (!empty($_SESSION['product_filter'])) {
+    $where = "";
+    foreach ($_SESSION['product_filter'] as $field => $value) {
+        if (!empty($value)) {
+            switch ($field) {
+                case 'title':
+                    $where = (!empty($where)) ? " AND " . "`" . $field . "` LIKE '%" . $value . "%'" : "`" . $field . "` LIKE '%" . $value . "%'";
+                    break;
+            }
+        }
+    }
+    extract($_SESSION['product_filter']); //Tạo ra các biến từ mảng
+}
+//news new
+if (!empty($where)) {
+    $sql_news1 = "SELECT * FROM news  WHERE (".$where.") AND status_news = 1 LiMIT 12 ";
+} else {
+    $sql_news1 = "SELECT * FROM news  WHERE status_news = 1 LiMIT 12 ";
+}
 $query_news1 = $conn->prepare($sql_news1);
 $query_news1->execute();
 $result_news1 = $query_news1->fetchAll(PDO::FETCH_OBJ);
-$page = !empty($_GET['per_page'])?$_GET['per_page']:5;
-$current_page = !empty($_GET['page'])?$_GET['page']:1;//Trang hien tai
-$offset = ($current_page-1)*$page;
-$sql_news = "SELECT * FROM news  WHERE status_news = 1 ORDER BY 'id_news' ASC LIMIT ".$page." OFFSET ".$offset."";
+
+//list news
+$page = !empty($_GET['per_page']) ? $_GET['per_page'] : 5;
+$current_page = !empty($_GET['page']) ? $_GET['page'] : 1; //Trang hien tai
+$offset = ($current_page - 1) * $page;
+$sql_news = "SELECT * FROM news  WHERE status_news = 1 ORDER BY 'id_news' ASC LIMIT " . $page . " OFFSET " . $offset . "";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
@@ -61,15 +85,15 @@ $total_page = ceil($result_total / $page);
                             </div>
                         </div>
                     <?php } ?>
-                    <?php include "./page.php" ?>
+                    <?php include "./page/page.php" ?>
                 </div>
                 <div class="col-4 right-service">
-                    <div class="search search-service">
-                        <input type="text" placeholder="Tìm kiếm">
-                        <div class="icon">
-                            <i class="fas fa-search"></i>
+                    <form  action="news.php?action=search" method="POST">
+                        <div class="search search-service">
+                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon" type="submit" value="Tìm" id="">
                         </div>
-                    </div>
+                    </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
                         <?php foreach ($result_news1 as $key => $value) { ?>

@@ -5,12 +5,34 @@ include './include/config.php';
 // $query_shop = $conn->prepare($sql_shop);
 // $query_shop->execute();
 // $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
-
+if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
+    $_SESSION['product_filter'] = $_POST;
+    // header('Location:petshop.php');exit;
+}
+if(!empty($_SESSION['product_filter'])){
+    $where = "";
+    foreach ($_SESSION['product_filter'] as $field => $value) {
+        if(!empty($value)){
+            switch($field){
+                case 'title':
+                    $where = (!empty($where))?" AND "."`".$field."` LIKE '%".$value."%'" : "`".$field."` LIKE '%".$value."%'";
+                break;
+            }
+        }
+    }
+    extract($_SESSION['product_filter']); //Tạo ra các biến từ mảng
+    // var_dump($where);
+    // die();
+}
 //page
 $page = !empty($_GET['per_page']) ? $_GET['per_page'] : 12;
 $current_page = !empty($_GET['page']) ? $_GET['page'] : 1; //Trang hien tai
 $offset = ($current_page - 1) * $page;
-$sql_pet = "SELECT * FROM shop a join category_shop b on a.id_category = b.id WHERE a.status_shop=1 ORDER BY 'id_shop' ASC LIMIT " . $page . " OFFSET " . $offset . "";
+if(!empty($where)){
+    $sql_pet = "SELECT * FROM shop a join category_shop b on a.id_category = b.id WHERE (".$where.") AND a.status_shop=1  ORDER BY 'id_shop' ASC LIMIT " . $page . " OFFSET " . $offset . "";
+}else{
+    $sql_pet = "SELECT * FROM shop a join category_shop b on a.id_category = b.id WHERE a.status_shop=1 ORDER BY 'id_shop' ASC LIMIT " . $page . " OFFSET " . $offset . "";
+}
 $query_pet = $conn->prepare($sql_pet);
 $query_pet->execute();
 $result_pet = $query_pet->fetchAll(PDO::FETCH_OBJ);
@@ -58,15 +80,14 @@ $total_page = ceil($result_total / $page);
                     <i class="next-icon-product fas fa-angle-double-right"></i>
                     <a class="product-home" href="#">Cửa hàng thú cưng</a>
                 </div>
-                <form action="" method="POST">
+                <form  action="petshop.php?action=search" method="POST">
                     <div class="home-product-right">
-                        <i class="filter fas fa-filter"></i>
-                        <select class="select" name="select" id="">
-                            <option value="0">Mới nhất</option>
-                            <option value="1">Giá thấp</option>
-                            <option value="2">Giá cao</option>
-                        </select>
-                        <input type="submit" name="btn-order-by" value="Sắp xếp" class="price-order-by">
+                        <fieldset class="fiel">
+                            <legend>Tìm kiếm sản phẩm:</legend>
+                            <i class="filter fas fa-filter"></i>
+                            <input type="text" name="title" class="search-input" value="<?=!empty($title)?$title:""?>">
+                            <input type="submit" name="btn-order-by" value="Tìm kiếm" class="price-order-by">
+                        </fieldset>
                     </div>
                 </form>
             </div>
@@ -99,7 +120,7 @@ $total_page = ceil($result_total / $page);
                     </div>
                 <?php } ?>
             </div>
-            <?php include "./page.php"; ?>
+            <?php include "./page/page.php"; ?>
         </div>
 
     </div>

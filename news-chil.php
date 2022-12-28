@@ -180,10 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </div>
                 <div class="col-4 right-service">
                     <div class="search search-service">
-                        <input type="text" placeholder="Tìm kiếm">
-                        <div class="icon">
-                            <i class="fas fa-search"></i>
-                        </div>
+                        <input type="text" name="title" placeholder="Tìm kiếm">
+                        <input class="icon" type="submit" value="Tìm" id="">
                     </div>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
