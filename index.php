@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $date = $_POST['date'];
     $select = $_POST['select'];
     $content = $_POST['desc'];
-    $sql = "INSERT INTO booking (name, phone, email, date, id_sevice, content_booking) VALUES(:name, :phone, :email, :date, :select, :desc)";
+    $employee = $_POST['select-employee'];
+    $sql = "INSERT INTO booking (name_bk, phone, email, date, id_sevice, content_booking, id_employee_f) VALUES(:name, :phone, :email, :date, :select, :desc, :employee)";
     $query = $conn->prepare($sql);
     $query->bindParam(':name', $name, PDO::PARAM_STR);
     $query->bindParam(':phone', $phone, PDO::PARAM_STR);
@@ -48,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $query->bindParam(':date', $date, PDO::PARAM_STR);
     $query->bindParam(':select', $select, PDO::PARAM_STR);
     $query->bindParam(':desc', $content, PDO::PARAM_STR);
+    $query->bindParam(':employee', $employee, PDO::PARAM_STR);
     $query_booking = $query->execute();
     // if ($query_booking) {
     //     $success_booking = 5;
@@ -225,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
     </div>
     <div class="form-booking">
-        <form class="form-booking-chil" action="" method="POST">
+        <form class="form-booking-chil" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="line-1">
                 <p class="title-booking">Đăng ký lịch hẹn khám tại My Pet</p>
                 <i class="booking-close fas fa-times"></i>
@@ -253,10 +255,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="line-4">
                 <div class="group-booking">
                     <select name="select" id="select-booking">
-                        <option value="">--Lựa chọn dịch vụ--</option>
-                        <?php foreach ($result_sevice as $key => $value) { ?>
-                            <option value="<?php echo $value->id ?>"><?php echo $value->title ?></option>
-                        <?php } ?>
+                        <!-- <option value="0">chọn dịch vụ</option> -->
+                    </select>
+                    <p class="booking-message"></p>
+                </div>
+                <div class="group-booking">
+                    <select name="select-employee" id="select-booking-e">
+                        <!-- <option value="">---Lựa chọn nhân viên---</option> -->
                     </select>
                     <p class="booking-message"></p>
                 </div>
@@ -372,6 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ?>
     <!-- /footer  -->
     <script src="./js/validator.js"></script>
+
     <script>
         Validator({
             form: '.form-booking-chil',
@@ -385,9 +391,53 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 Validator.isEmail('#email'),
                 Validator.isRequired('#date-time', 'Vui lòng lựa chọn ngày!'),
                 Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
+                Validator.isRequired('#select-booking-e', 'Vui lòng lựa chọn nhân viên!'),
                 Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
             ],
         });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:8081/mypet/get_json/get_sevice.php",
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data);
+                    $("#select-booking").html("");
+                    for (i = 0; i < data.length; i++) {
+                        var sevice = data[i];
+                        var str = `
+                    <option value="${sevice['id']}">
+                        ${sevice['title']}
+                    </option>`;
+                        $("#select-booking").append(str);
+                    }
+                    $("#select-booking").on("change", function(e) {
+                        getemployee();
+                    });
+                }
+            });
+        })
+    </script>
+    <script>
+        function getemployee() {
+            var idsevice = $("#select-booking").val();
+            $.ajax({
+                url: "http://localhost:8081/mypet/get_json/get_employee.php?id_sevice=" + idsevice,
+                dataType: 'json',
+                success: function(data) {
+                    $("#select-booking-e").html("");
+                    for (i = 0; i < data.length; i++) {
+                        var employee = data[i];
+                        var str = `
+                    <option value="${employee['id_employee']}">
+                        ${employee['name']}
+                    </option>`;
+                        $("#select-booking-e").append(str);
+                    }
+                }
+            });
+        }
     </script>
 </body>
 

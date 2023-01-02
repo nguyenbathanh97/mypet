@@ -615,6 +615,11 @@ li {
 .form-booking form .line-4 {
   padding: 0 10px 0 10px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.form-booking form .line-4 .group-booking{
+  width: 228px;
 }
 .form-booking form .line-4 select {
   width: 100%;

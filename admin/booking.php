@@ -3,19 +3,48 @@
 include '../include/slug.php';
 include '../include/config.php';
 
-$sqlSl = "SELECT * FROM booking a join sevice b on a.id_sevice = b.id";
+$sqlSl = "SELECT * FROM booking a join sevice b on a.id_sevice = b.id  join employee c on a.id_employee_f = c.id_employee ORDER BY id_bk ASC ";
 $query = $conn->prepare($sqlSl);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
-if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
-    $delete = intval($_GET['delete']);
-    $sql = "DELETE FROM content WHERE id = $delete";
+if (isset($_REQUEST['status']) && ($_REQUEST['status'])) {
+    $status = intval($_GET['status']);
+    $sql = "UPDATE booking SET status_bk = 1 WHERE id_bk = $status";
     $query = $conn->prepare($sql);
     $query->execute();
     if ($query) {
-        header("Location: ./content.php");
+        header("Location: ./booking.php");
+    }
+};
+if (isset($_REQUEST['status_xn']) && ($_REQUEST['status_xn'])) {
+    $status = intval($_GET['status_xn']);
+    $sql = "UPDATE booking SET status_bk = 2 WHERE id_bk = $status";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    if ($query) {
+        header("Location: ./booking.php");
+    }
+};
+if (isset($_REQUEST['status_h']) && ($_REQUEST['status_h'])) {
+    $status = intval($_GET['status_h']);
+    $sql = "UPDATE booking SET status_bk = 1 WHERE id_bk = $status";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    if ($query) {
+        header("Location: ./booking.php");
+    }
+};
+if (isset($_REQUEST['del']) && ($_REQUEST['del'])) {
+    $del = intval($_GET['del']);
+    // var_dump($del);
+    // die;
+    $sql = "DELETE FROM booking WHERE id_bk = $del";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    if ($query) {
+        header("Location: ./booking.php");
     } else {
-        echo "Lỗi!";
+        echo "<label>Lỗi</label>";
     }
 }
 ?>
@@ -76,8 +105,14 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                         <th>
                                             loại dịch vụ
                                         </th>
+                                        <th>
+                                            Bác sĩ
+                                        </th>
                                         <th class="content-booking-th">
                                             Nội dung yêu cầu
+                                        </th>
+                                        <th>
+                                            Trạng thái
                                         </th>
                                         <th>
                                             <i class="fas fa-cog"></i>
@@ -91,7 +126,7 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                                 <?php echo $key + 1 ?>
                                             </td>
                                             <td>
-                                                <?php echo $value->name ?>
+                                                <?php echo $value->name_bk ?>
                                             </td>
                                             <td>
                                                 <?php echo $value->phone ?>
@@ -106,11 +141,23 @@ if (isset($_REQUEST['delete']) && ($_REQUEST['delete'])) {
                                                 <?php echo $value->title ?>
                                             </td>
                                             <td>
+                                                <?php echo $value->name ?>
+                                            </td>
+                                            <td class="content_bk">
                                                 <?php echo $value->content_booking ?>
                                             </td>
+                                            <th>
+                                                <?php if ($value->status_bk == 0) { ?>
+                                                    <a class="btn_booking_xn" href="./booking.php?status=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn xác nhận lịch?');">Chưa xác nhận</a>
+                                                <?php }else if($value->status_bk == 1){ ?>
+                                                    <a class="btn_booking_xn" href="./booking.php?status_xn=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn hủy lịch?');">Đã xác nhận</a>
+                                                    <?php }else{ ?>
+                                                        <a class="btn_booking_xn" href="./booking.php?status_h=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn xác nhận lại lịch?');">Đã hoàn thành</a>
+                                                        <?php } ?>
+                                            </th>
                                             <td>
                                                 <div class="btn-delete-pre">
-                                                    <a class="btn-delete" href="./booking.php?delete=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
+                                                    <a class="btn-delete" href="./booking.php?del=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

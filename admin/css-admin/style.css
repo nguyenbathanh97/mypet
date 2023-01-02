@@ -1033,7 +1033,13 @@ table.dataTable tbody tr:last-child{
   width: 330px;
 }
 .content-booking-th{
-  width: 290px;
+  width: 100px;
+}
+.btn_booking_xn{
+  padding: 5px 10px;
+  background: #004d90;
+  border-radius: 5px;
+  color: #ffffff;
 }
 .status_slider{
   width: 120px;
