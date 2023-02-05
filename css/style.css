@@ -928,6 +928,17 @@ li {
   color: #000000;
   font-size: 18px;
 }
+.view-news-news{
+  position: relative;
+}
+.show-view-news-news{
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #00415f;
+}
 .right-service {
   padding: 20px;
   margin-bottom: 25px;
@@ -1925,4 +1936,22 @@ li {
 }
 .price-order-by:hover{
   background-color: #0072a7;
+}
+.group-new-home{
+  position: relative;
+}
+.news-chil-image-home a{
+  position: absolute;
+}
+.view-news-home{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 85px;
+  display: flex;
+  font-size: 13px;
+  font-weight: bold;
+  color: #05008f;
+  background: rgba(0, 238, 255, 0.383);
+  justify-content: center;
 }

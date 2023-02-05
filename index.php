@@ -26,7 +26,7 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result); die();
 
 //  news
-$sql_news = "SELECT * FROM news WHERE status_news = 1";
+$sql_news = "SELECT * FROM news WHERE status_news = 1 ORDER BY view DESC LIMIT 6";
 $query_news = $conn->prepare($sql_news);
 $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
@@ -248,7 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <p class="booking-message"></p>
                 </div>
                 <div class="group-booking">
-                    <input id="date-time" type="date" placeholder="Ngày" name="date">
+                    <input id="date_time" type="date" placeholder="Ngày" name="date">
                     <p class="booking-message"></p>
                 </div>
             </div>
@@ -350,14 +350,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="logo">
                     <img src="./image/logo-pethealth.png" alt="logo">
                 </div>
-                <h1>Tin tức Pet shop</h1>
+                <h1>Tin tức nổi bật Pet shop</h1>
             </div>
             <div class="row">
-                <?php $i_news = 0 ?>
                 <?php foreach ($result_news as $key => $value) { ?>
                     <div class="col-6 news-chil">
                         <div class="news-chil-image">
-                            <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
+                            <div class="group-new-home">
+                                <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
+                                <p class="view-news-home">Lượt xem: <?php echo $value->view ?></p>
+                            </div>
                         </div>
                         <div class="news-chil-title">
                             <a href="./news-chil.php?id= <?php echo $value->id ?>">
@@ -366,7 +368,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <div class="desc-p"><?php echo $value->content ?></div>
                         </div>
                     </div>
-                    <?php if (++$i_news == 8) break ?>
                 <?php } ?>
             </div>
         </div>
@@ -389,7 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 Validator.isPhone('#phone', 'Số điện thoại gồm 10 số và bắt đầu từ số 0'),
                 Validator.isRequired('#email', 'Vui lòng nhập địa chỉ mail!'),
                 Validator.isEmail('#email'),
-                Validator.isRequired('#date-time', 'Vui lòng lựa chọn ngày!'),
+                Validator.isRequired('#date_time', 'Vui lòng lựa chọn ngày!'),
                 Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
                 Validator.isRequired('#select-booking-e', 'Vui lòng lựa chọn nhân viên!'),
                 Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
@@ -438,6 +439,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             });
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            date_time.min = new Date().toISOString().split("T")[0];
+        });
     </script>
 </body>
 

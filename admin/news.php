@@ -148,6 +148,9 @@ if (isset($_GET['id'])) {
                                         <th>
                                             Trạng thái
                                         </th>
+                                        <th>
+                                            Lượt xem
+                                        </th>
                                         <th class="button-edit-delete">
                                             <i class="fas fa-cog"></i>
                                         </th>
@@ -174,6 +177,9 @@ if (isset($_GET['id'])) {
                                                 <?php } else { ?>
                                                     <?php echo "Đã ẩn"; ?>
                                                 <?php } ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value->view ?>
                                             </td>
                                             <td>
                                                 <div class="button-edit-delete">

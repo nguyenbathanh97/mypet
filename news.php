@@ -19,7 +19,7 @@ if (!empty($_SESSION['product_filter'])) {
 }
 //news new
 if (!empty($where)) {
-    $sql_news1 = "SELECT * FROM news  WHERE (".$where.") AND status_news = 1 LiMIT 12 ";
+    $sql_news1 = "SELECT * FROM news  WHERE (" . $where . ") AND status_news = 1 LiMIT 12 ";
 } else {
     $sql_news1 = "SELECT * FROM news  WHERE status_news = 1 LiMIT 12 ";
 }
@@ -44,6 +44,7 @@ $result_total = $query_total->fetchColumn();
 $total_page = ceil($result_total / $page);
 // var_dump($total_page);
 // die();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,18 +78,19 @@ $total_page = ceil($result_total / $page);
                             <div class="time">
                                 <h5><?php echo $value->date ?></h5>
                             </div>
-                            <div class="service-title">
+                            <div class="service-title view-news-news">
                                 <a href="news-chil.php?id=<?php echo $value->id ?>">
                                     <h2 class="title"><?php echo $value->title ?></h2>
                                     <div class="desc"><?php echo $value->content ?></div>
                                 </a>
+                                <p class="show-view-news-news">Lượt xem: <?php echo $value->view ?></p>
                             </div>
                         </div>
                     <?php } ?>
                     <?php include "./page/page.php" ?>
                 </div>
                 <div class="col-4 right-service">
-                    <form  action="news.php?action=search" method="POST">
+                    <form action="news.php?action=search" method="POST">
                         <div class="search search-service">
                             <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
                             <input class="icon" type="submit" value="Tìm" id="">

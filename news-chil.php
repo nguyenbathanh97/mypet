@@ -74,6 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
     // var_dump($success_booking);
     // die();
 }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "UPDATE news SET view = view + 1 WHERE id = $id";
+    $query = $conn->prepare($sql);
+    $query_excute = $query->execute();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -204,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
                     </div>
                 </div>
                 <div class="col-4 right-service">
-                    <form action="news-chil.php?action=search&id=<?php if(isset($id)){echo '&id='.$id;} ?>" method="POST">
+                    <form action="news-chil.php?action=search&id=<?php if (isset($id)) { echo '&id='.$id;} ?>" method="POST">
                         <div class="search search-service">
                             <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
                             <input class="icon" name="btn-search" type="submit" value="Tìm" id="">
