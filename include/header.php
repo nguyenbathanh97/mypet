@@ -20,7 +20,8 @@ $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./lib/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="./lib/Bootstrap/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -42,10 +43,34 @@ $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
                             <i class="fas fa-search"></i>
                         </div>
                     </div>
+                    <div class="login-header">
+                        <div class="login-user">
+                            <?php if (isset($_SESSION['logins']['username'])) { ?>
+                            <img src="./image/use-use.png" alt="image">
+                            <span><?php echo $_SESSION['logins']['name'] ?></span>
+                            <?php } else { ?>
+                            <div class="login-register">
+                                <span><a href="register.php">Đăng ký</a> / <a href="login.php">Đăng
+                                        nhập</a></span>
+                            </div>
+                            <?php } ?>
+                            <div class="down-icon">
+                                <?php if (isset($_SESSION['logins']['username'])) { ?>
+                                <div class="icon-down">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <div class="login-down">
+                                    <span><a href="logout.php">Đăng xuất</a> </span>
+                                    <span style=" display:none"><a href="login.php">Đăng nhập</a> </span>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="menu-header">
                     <a href="#" class="logo">
-                        <img src="./image/avatar-footer.png" alt="logo">
+                        <img src="./image/logo.png" alt="logo">
                     </a>
                     <div class="menu">
                         <ul>
@@ -54,14 +79,18 @@ $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
                             <li><a href="service.php">Dịch vụ <i class="fas fa-chevron-down"></i></a>
                                 <ul>
                                     <?php foreach ($result_header as $key => $value) { ?>
-                                        <li><a href="service-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a></li>
+                                    <li><a
+                                            href="service-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
+                                    </li>
                                     <?php } ?>
                                 </ul>
                             </li>
                             <li><a href="petshop.php">Pet shop <i class="fas fa-chevron-down"></i></a>
                                 <ul>
                                     <?php foreach ($result_header_shop as $key => $value) { ?>
-                                        <li><a href="pet-shop-chil.php?id=<?php echo $value->id ?>"><?php echo $value->category_title ?></a></li>
+                                    <li><a
+                                            href="pet-shop-chil.php?id=<?php echo $value->id ?>"><?php echo $value->category_title ?></a>
+                                    </li>
                                     <?php } ?>
                                 </ul>
                             </li>
@@ -69,11 +98,19 @@ $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
                             </li>
                             <li><a href="news.php">Tin tức</a></li>
                             <li><a href="contact.php">Liên hệ</a></li>
-                            <li><a href="#"><i class="header-bag fas fa-shopping-bag"></i></a>
-                                <ul>
-                                    <li><a href="#">Giỏ hàng</a></li>
-                                </ul>
+                            <?php if (isset($_SESSION['logins']['id'])) { ?>
+                            <li><a class="cart-li" href="cart.php">
+                                    <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) >= 1) { ?>
+                                    <div class="cart-number">
+                                        <span>
+                                            <?php echo count($_SESSION['cart']) ?>
+                                        </span>
+                                    </div>
+                                    <?php } ?>
+                                    <img src="./image/add-to-cart.png" alt="image">
+                                </a>
                             </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>

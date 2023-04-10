@@ -1,11 +1,11 @@
 <?php
-include '../include//config.php';
+include './include/config.php';
 $err = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    $sql = "SELECT * FROM admin WHERE username=:username";
+    $sql = "SELECT * FROM user WHERE username=:username";
     $query = $conn->prepare($sql);
     $query->bindParam(':username', $user, PDO::PARAM_STR);
     $query->execute();
@@ -17,14 +17,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // var_dump($checkPass);
         // die();
         if ($checkPass) {
-        $_SESSION['login']['id'] = $results->id;
-        $_SESSION['login']['username'] = $results->username;
-        $_SESSION['login']['password'] = $results->password;
-        $_SESSION['login']['name'] = $results->name;
-        $_SESSION['login']['email'] = $results->email;
-        $_SESSION['login']['phone'] = $results->phone;
-        $_SESSION['login']['address'] = $results->address;
-        header('location: control.php');
+            $_SESSION['logins']['id'] = $results->id;
+            $_SESSION['logins']['username'] = $results->username;
+            $_SESSION['logins']['password'] = $results->password;
+            $_SESSION['logins']['name'] = $results->name;
+            $_SESSION['logins']['email'] = $results->email;
+            $_SESSION['logins']['phone'] = $results->phone;
+            $_SESSION['logins']['address'] = $results->address;
+            $_SESSION['logins']['status'] = $results->status;
+            // var_dump($_SESSION['logins']['status']);
+            // die();
+            if ($results->status == 0) {
+                header('location: ./index.php');
+            } else {
+                header('location: ./admin/control.php');
+            }
         } else {
             $err = "1";
         }
@@ -43,7 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ</title>
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="./css-admin/style.css">
+    <link rel="stylesheet" href="./admin/css-admin/style.css">
+
 </head>
 
 <body>
@@ -54,12 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h1 class="title-login">Đăng nhập</h1>
                     <div class="err-all">
                         <?php if ($err == 1) { ?>
-                            <div class="err-all-chil">
-                                <p class="err-p">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                    Mật khẩu hoặc tài khoản không đúng, vui lòng thử lại
-                                </p>
-                            </div>
+                        <div class="err-all-chil">
+                            <p class="err-p">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Mật khẩu hoặc tài khoản không đúng, vui lòng thử lại
+                            </p>
+                        </div>
                         <?php } ?>
                     </div>
                 </div>

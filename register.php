@@ -1,5 +1,5 @@
 <?php
-include "../include/config.php";
+include "./include/config.php";
 //kiểm tra thông tin khi bấm nút submit
 if (isset($_POST['btn-register'])) {
     $name = $_POST['name'];
@@ -23,7 +23,7 @@ if (isset($_POST['btn-register'])) {
         $_SESSION['error'] = 'Mật khẩu không khớp!';
     } else {
         //Kiểm tra người dùng đã tồn tại
-        $sql = "SELECT * FROM admin WHERE username=:username";
+        $sql = "SELECT * FROM user WHERE username=:username";
         $query = $conn->prepare($sql);
         $query->execute(['username' => $username]);
         if ($query->rowCount() > 0) {
@@ -34,11 +34,12 @@ if (isset($_POST['btn-register'])) {
             $_SESSION['email'] = $email;
             $_SESSION['phone'] = $phone;
             $_SESSION['address'] = $address;
+            $_SESSION['status'] = $status = 0;
             //hiển thị lỗi
             $_SESSION['error'] = 'Người dùng đã tồn tại';
         } else {
             $password = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO admin (name, username, password, email, phone, address) VALUES (:name, :username, :password, :email, :phone, :address)";
+            $sql = "INSERT INTO user (name, username, password, email, phone, address) VALUES (:name, :username, :password, :email, :phone, :address)";
             $query = $conn->prepare($sql);
             try {
                 $query->execute(['name' => $name, 'username' => $username, 'password' => $password, 'email' => $email, 'phone' => $phone, 'address' => $address]);
@@ -61,7 +62,7 @@ if (isset($_POST['btn-register'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="./css-admin/style.css">
+    <link rel="stylesheet" href="./admin/css-admin/style.css">
 </head>
 
 <body>

@@ -16,7 +16,7 @@
                 <div class="footer-infor-left col-3">
                     <div class="logo-footer">
                         <a href="#" class="logo">
-                            <img src="./image/avatar-footer.png" alt="logo">
+                            <img src="./image/logo.png" alt="logo">
                         </a>
                     </div>
                     <h1>Bệnh viện thú cưng</h1>

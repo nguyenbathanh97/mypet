@@ -3,7 +3,7 @@
 include '../include/slug.php';
 include '../include/config.php';
 
-$sqlSl_sv = "SELECT * FROM comment a join shop b on a.id_shop_fk = b.id_shop";
+$sqlSl_sv = "SELECT * FROM comment a join shop b on a.id_shop_fk = b.id_shop join user c on c.id = a.id_user";
 $query_sv = $conn->prepare($sqlSl_sv);
 $query_sv->execute();
 $result_sv = $query_sv->fetchAll(PDO::FETCH_OBJ);
@@ -20,6 +20,10 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
         echo "Lỗi!";
     }
 }
+// $sqlSl = "SELECT * FROM comment a join shop b on a.id_shop_fk = b.id_shop";
+// $query = $conn->prepare($sqlSl);
+// $query->execute();
+// $result = $query->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
@@ -81,27 +85,30 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
                                 </thead>
                                 <tbody>
                                     <?php foreach ($result_sv as $key => $value) { ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $key + 1 ?>
-                                            </td>
-                                            <td>
+                                    <tr>
+                                        <td>
+                                            <?php echo $key + 1 ?>
+                                        </td>
+                                        <td>
                                             <?php echo $value->name ?>
-                                            </td>
-                                            <td>
+                                        </td>
+                                        <td>
                                             <?php echo $value->content_comment ?>
-                                            </td>
-                                            <td>
+                                        </td>
+                                        <td>
                                             <?php echo $value->title ?>
-                                            </td>
-                                            <td>
-                                                <div class="button-edit-delete">
-                                                    <div class="btn-delete-pre">
-                                                        <a class="btn-delete" href="./comment.php?delete_sv=<?php echo $value->id_comment ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
+                                        </td>
+                                        <td>
+                                            <div class="button-edit-delete">
+                                                <div class="btn-delete-pre">
+                                                    <a class="btn-delete"
+                                                        href="./comment.php?delete_sv=<?php echo $value->id_comment ?>"
+                                                        onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i
+                                                            class="fas fa-trash-alt"></i></a>
                                                 </div>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -123,19 +130,19 @@ if (isset($_REQUEST['delete_sv']) && ($_REQUEST['delete_sv'])) {
 <script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
 <script>
-    $(document).ready(function() {
-        $("#my-table").DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
-            },
-            pageLength: 10,
-            lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
-        });
+$(document).ready(function() {
+    $("#my-table").DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
+        },
+        pageLength: 10,
+        lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
     });
+});
 </script>
 <script>
-    CKEDITOR.replace('desc');
-    CKEDITOR.replace('descc');
+CKEDITOR.replace('desc');
+CKEDITOR.replace('descc');
 </script>
 
 </html>

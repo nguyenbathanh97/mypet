@@ -2,7 +2,6 @@
 // Database connection
 include '../include/slug.php';
 include '../include/config.php';
-
 ?>
 
 <!DOCTYPE html>
