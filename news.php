@@ -73,39 +73,43 @@ $total_page = ceil($result_total / $page);
             <div class="row">
                 <div class="col-8">
                     <?php foreach ($result_news as $key => $value) { ?>
-                        <div class="service">
-                            <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
-                            <div class="time">
-                                <h5><?php echo $value->date ?></h5>
-                            </div>
-                            <div class="service-title view-news-news">
-                                <a href="news-chil.php?id=<?php echo $value->id ?>">
-                                    <h2 class="title"><?php echo $value->title ?></h2>
-                                    <div class="desc"><?php echo $value->content ?></div>
-                                </a>
-                                <p class="show-view-news-news">Lượt xem: <?php echo $value->view ?></p>
-                            </div>
+                    <div class="service">
+                        <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>"
+                                alt="image"></a>
+                        <div class="time">
+                            <h5><?php echo $value->date ?></h5>
                         </div>
+                        <div class="service-title view-news-news">
+                            <a href="news-chil.php?id=<?php echo $value->id ?>">
+                                <h2 class="title"><?php echo $value->title ?></h2>
+                                <div class="desc"><?php echo $value->content ?></div>
+                            </a>
+                            <p class="show-view-news-news">Lượt xem: <?php echo $value->view ?></p>
+                        </div>
+                    </div>
                     <?php } ?>
                     <?php include "./page/page.php" ?>
                 </div>
                 <div class="col-4 right-service">
                     <form action="news.php?action=search" method="POST">
-                        <div class="search search-service">
-                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
-                            <input class="icon" type="submit" value="Tìm" id="">
+                        <div class="search1 search-service1">
+                            <input class="input-ser" type="text" name="title"
+                                value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon1" type="submit" value="Tìm" id="">
                         </div>
                     </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
                         <?php foreach ($result_news1 as $key => $value) { ?>
-                            <div class="title-news-service-chil">
-                                <div class="news-service-chil">
-                                    <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
-                                    <a class="desc" href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
-                                </div>
-                                <div class="line"></div>
+                        <div class="title-news-service-chil">
+                            <div class="news-service-chil">
+                                <a href="news-chil.php?id=<?php echo $value->id ?>"><img
+                                        src="<?php echo $value->image ?>" alt="image"></a>
+                                <a class="desc"
+                                    href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
                             </div>
+                            <div class="line"></div>
+                        </div>
                         <?php } ?>
                     </div>
                 </div>

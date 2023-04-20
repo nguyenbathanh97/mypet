@@ -21,9 +21,9 @@ if (!empty($_SESSION['product_filter'])) {
     // die();
 }
 //news new
-if(!empty($where)){
-    $sql_news = "SELECT * FROM news WHERE (".$where.") AND status_news = 1";
-}else{
+if (!empty($where)) {
+    $sql_news = "SELECT * FROM news WHERE (" . $where . ") AND status_news = 1";
+} else {
     $sql_news = "SELECT * FROM news WHERE status_news = 1";
 }
 $query_news = $conn->prepare($sql_news);
@@ -63,34 +63,38 @@ $result = $query->fetchAll(PDO::FETCH_OBJ);
             <div class="row">
                 <div class="col-8">
                     <?php foreach ($result as $key => $value) { ?>
-                        <div class="service">
-                            <a href="service-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
-                            <div class="service-title">
-                                <a href="service-chil.php?id=<?php echo $value->id ?>">
-                                    <h2 class="title"><?php echo $value->title ?></h2>
-                                    <div class="desc"><?php echo $value->content ?></div>
-                                </a>
-                            </div>
+                    <div class="service">
+                        <a href="service-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>"
+                                alt="image"></a>
+                        <div class="service-title">
+                            <a href="service-chil.php?id=<?php echo $value->id ?>">
+                                <h2 class="title"><?php echo $value->title ?></h2>
+                                <div class="desc"><?php echo $value->content ?></div>
+                            </a>
                         </div>
+                    </div>
                     <?php } ?>
                 </div>
                 <div class="col-4 right-service">
                     <form action="service.php?action=search" method="POST">
-                        <div class="search search-service">
-                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
-                            <input class="icon" type="submit" value="Tìm" id="">
+                        <div class="search1 search-service1">
+                            <input class="input-ser" type="text" name="title"
+                                value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon1" type="submit" value="Tìm" id="">
                         </div>
                     </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
                         <?php foreach ($result_news as $key => $value) { ?>
-                            <div class="title-news-service-chil">
-                                <div class="news-service-chil">
-                                    <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
-                                    <a class="desc" href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
-                                </div>
-                                <div class="line"></div>
+                        <div class="title-news-service-chil">
+                            <div class="news-service-chil">
+                                <a href="news-chil.php?id=<?php echo $value->id ?>"><img
+                                        src="<?php echo $value->image ?>" alt="image"></a>
+                                <a class="desc"
+                                    href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
                             </div>
+                            <div class="line"></div>
+                        </div>
                         <?php } ?>
                     </div>
                 </div>

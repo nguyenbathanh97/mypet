@@ -9,6 +9,22 @@ $sql_header_shop = "SELECT * FROM category_shop WHERE status_category_shop = 1";
 $query_header_shop = $conn->prepare($sql_header_shop);
 $query_header_shop->execute();
 $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
+
+if (isset($_SESSION['logins']['id'])) {
+    $change = $_SESSION['logins']['id'];
+    $sql_setting = "SELECT * FROM user  WHERE id = $change";
+    $query_setting = $conn->prepare($sql_setting);
+    $query_setting->execute();
+    $result_setting = $query_setting->fetch(PDO::FETCH_OBJ);
+}
+
+if (isset($_SESSION['logins']['id'])) {
+    $change = $_SESSION['logins']['id'];
+    $sql_setting = "SELECT * FROM user  WHERE id = $change";
+    $query_setting = $conn->prepare($sql_setting);
+    $query_setting->execute();
+    $result_setting = $query_setting->fetch(PDO::FETCH_OBJ);
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +62,7 @@ $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
                     <div class="login-header">
                         <div class="login-user">
                             <?php if (isset($_SESSION['logins']['username'])) { ?>
-                            <img src="./image/use-use.png" alt="image">
+                            <img src="<?php echo $result_setting->image ?>" alt="image">
                             <span><?php echo $_SESSION['logins']['name'] ?></span>
                             <?php } else { ?>
                             <div class="login-register">
@@ -60,8 +76,17 @@ $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
                                     <i class="fas fa-caret-down"></i>
                                 </div>
                                 <div class="login-down">
-                                    <span><a href="logout.php">Đăng xuất</a> </span>
-                                    <span style=" display:none"><a href="login.php">Đăng nhập</a> </span>
+                                    <ul>
+                                        <li><a class="infor-form" href="setting.php">Thông tin</a></li>
+                                        <?php if (isset($_SESSION['logins']['status'])) { ?>
+                                        <?php $test = $_SESSION['logins']['status'] ?>
+                                        <?php if ($test == 1) { ?>
+                                        <li><a href="admin/control.php">Trang quản trị</a></li>
+                                        <?php } ?>
+                                        <?php } ?>
+                                        <li><a href="infor_cart.php">Đơn hàng của bạn</a></li>
+                                        <li><a href="logout.php">Đăng xuất</a> </li>
+                                    </ul>
                                 </div>
                                 <?php } ?>
                             </div>

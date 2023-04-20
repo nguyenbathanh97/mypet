@@ -7,6 +7,13 @@ include '../include/config.php';
 //     $query_user->execute();
 //     $result_user = $query_user->fetch(PDO::FETCH_OBJ);
 // }
+if (isset($_SESSION['logins']['id'])) {
+    $change = $_SESSION['logins']['id'];
+    $sql_setting = "SELECT * FROM user  WHERE id = $change";
+    $query_setting = $conn->prepare($sql_setting);
+    $query_setting->execute();
+    $result_setting = $query_setting->fetch(PDO::FETCH_OBJ);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +43,7 @@ include '../include/config.php';
                     Xin chào: <span><?php echo $_SESSION['logins']['name'] ?></span>
                 </h5>
                 <a class="img-user" href="#">
-                    <img src="../image/logo-top.jpg" alt="image">
+                    <img src=".<?php echo $result_setting->image ?>" alt="image">
                 </a>
                 <div class="drop-down-user">
                     <i class="down-click fas fa-sort-down"></i>

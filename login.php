@@ -27,11 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['logins']['status'] = $results->status;
             // var_dump($_SESSION['logins']['status']);
             // die();
-            if ($results->status == 0) {
-                header('location: ./index.php');
-            } else {
-                header('location: ./admin/control.php');
-            }
+            header('location: ./index.php');
         } else {
             $err = "1";
         }

@@ -85,13 +85,13 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                     <div class="detail-line"></div>
                     <div class="detail-price">
                         <?php if ($result_pet->promotion > 0) { ?>
-                        <p class="price price-desc"><?php echo $result_pet->price ?> VNĐ</p>
-                        <p class="promotion"><?php echo $result_pet->promotion ?> VNĐ</p>
+                        <p class="price price-desc"><?php echo number_format($result_pet->price, 0, ",", ".") ?> VNĐ</p>
+                        <p class="promotion"><?php echo number_format($result_pet->promotion, 0, ",", ".") ?> VNĐ</p>
                         <div class="promotion-img-detail">
                             <img src="./image/sale.png" alt="sale" class="sale-promotion-detail">
                         </div>
                         <?php } else { ?>
-                        <p class="promotion"><?php echo $result_pet->price ?> VNĐ</p>
+                        <p class="promotion"><?php echo number_format($result_pet->price, 0, ",", ".") ?> VNĐ</p>
                         <?php } ?>
                     </div>
                     <div class="number-product">

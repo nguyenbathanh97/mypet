@@ -1,10 +1,21 @@
 <?php
+include './include/slug.php';
 include './include/config.php';
 // slider
 $sql = "SELECT * FROM slider WHERE status_slider = 1";
 $query = $conn->prepare($sql);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
+
+//user
+if (isset($_SESSION['logins'])) {
+    $id_user = $_SESSION['logins']['id'];
+    $sql_user = "SELECT * FROM user WHERE id = $id_user";
+    $query_user = $conn->prepare($sql_user);
+    $query_user->execute();
+    $result_user = $query_user->fetch(PDO::FETCH_OBJ);
+}
+
 // about
 $sql_about = "SELECT * FROM about WHERE status_about = 1";
 $query_about = $conn->prepare($sql_about);
@@ -32,34 +43,30 @@ $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result); die();
 // isset($_POST['btn-add-form']) && ($_POST['btn-add-form']);
-$success_booking = "";
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $date = $_POST['date'];
-    $select = $_POST['select'];
-    $content = $_POST['desc'];
-    $employee = $_POST['select-employee'];
-    $sql = "INSERT INTO booking (name_bk, phone, email, date, id_sevice, content_booking, id_employee_f) VALUES(:name, :phone, :email, :date, :select, :desc, :employee)";
-    $query = $conn->prepare($sql);
-    $query->bindParam(':name', $name, PDO::PARAM_STR);
-    $query->bindParam(':phone', $phone, PDO::PARAM_STR);
-    $query->bindParam(':email', $email, PDO::PARAM_STR);
-    $query->bindParam(':date', $date, PDO::PARAM_STR);
-    $query->bindParam(':select', $select, PDO::PARAM_STR);
-    $query->bindParam(':desc', $content, PDO::PARAM_STR);
-    $query->bindParam(':employee', $employee, PDO::PARAM_STR);
-    $query_booking = $query->execute();
-    // if ($query_booking) {
-    //     $success_booking = 5;
-    //     $succ_booking = 'Gửi yêu cầu thành công <br> Cảm ơn bạn đã tin tưởng sử dụng dịch vụ của chúng tôi!';
-    // } else {
-    //     $error = 5;
-    //     $err_booking = 'Gửi yêu cầu thất bại';
-    // }
-    // var_dump($success_booking);
-    // die();
+if (isset($_SESSION['logins']['id'])) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        // $_SERVER['REQUEST_METHOD'] == "POST"
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $date = $_POST['date'];
+        $select = $_POST['select'];
+        $content = $_POST['desc'];
+        $employee = $_POST['select-employee'];
+        $sql = "INSERT INTO booking (name_bk, phone, email, date, id_sevice, content_booking, id_employee_f, id_user_fk) VALUES(:name, :phone, :email, :date, :select, :desc, :employee, $id_user)";
+        $query = $conn->prepare($sql);
+        $query->bindParam(':name', $name, PDO::PARAM_STR);
+        $query->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $query->bindParam(':email', $email, PDO::PARAM_STR);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $query->bindParam(':select', $select, PDO::PARAM_STR);
+        $query->bindParam(':desc', $content, PDO::PARAM_STR);
+        $query->bindParam(':employee', $employee, PDO::PARAM_STR);
+        $query_booking = $query->execute();
+        if ($query_booking) {
+            header('location: ./index.php');
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -88,9 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="slide-home">
                 <div id="slide">
                     <?php foreach ($result as $key => $value) { ?>
-                        <div class="item">
-                            <img src="<?php echo $value->image ?>" alt="image">
-                        </div>
+                    <div class="item">
+                        <img src="<?php echo $value->image ?>" alt="image">
+                    </div>
                     <?php } ?>
                 </div>
             </div>
@@ -111,8 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="why-change-us-top">
                             <img src="./image/logo-pethealth.png" alt="image">
                             <h1>Tại sao chọn chúng tôi</h1>
-                            <p>Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ bác sĩ thú y dày dạn
-                                kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ lưỡng nhất.</p>
+                            <p>Chúng tôi cung cấp dịch vụ chăm sóc y tế tận tình, công nghệ tiên tiến nhất, và đội ngũ
+                                bác sĩ thú y dày dạn
+                                kinh nghiệm để đem lại cho thú cưng của các bạn một dịch vụ chu đáo và sự chăm sóc kĩ
+                                lưỡng nhất.</p>
                         </div>
                         <div class="row">
                             <div class="col-3">
@@ -195,14 +204,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <div class="row service-us-fath">
                             <?php $i_sevice = 0 ?>
                             <?php foreach ($result_sevice as $key => $value) { ?>
-                                <div class="service-us-left col-3">
-                                    <a href="./service-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt=""></a>
-                                    <a href="./service-chil.php?id= <?php echo $value->id ?>">
-                                        <h4><?php echo $value->title ?></h4>
-                                    </a>
-                                    <div class="p"><?php echo $value->content ?></div>
-                                </div>
-                                <?php if (++$i_sevice == 6) break ?>
+                            <div class="service-us-left col-3">
+                                <a href="./service-chil.php?id= <?php echo $value->id ?>"><img
+                                        src="<?php echo $value->image ?>" alt=""></a>
+                                <a href="./service-chil.php?id= <?php echo $value->id ?>">
+                                    <h4><?php echo $value->title ?></h4>
+                                </a>
+                                <div class="p"><?php echo $value->content ?></div>
+                            </div>
+                            <?php if (++$i_sevice == 6) break ?>
                             <?php } ?>
                         </div>
                     </div>
@@ -218,7 +228,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             </ul>
                             <h3><i class="fas fa-user-edit"></i> Vui lòng điền đầy đủ thông tin</h3>
                             <p>Chỉ cần hẹn trước để được giúp đỡ từ các chuyên gia của chúng tôi</p>
-                            <input type="submit" name="" class="register-booking" value="Đặt lịch khám bệnh">
+                            <div class="button-bk">
+                                <button class="register-booking" value="">Đặt lịch khám bệnh</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,25 +238,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         </div>
     </div>
+    <!--echo htmlspecialchars($_SERVER["PHP_SELF"]);-->
     <div class="form-booking">
-        <form class="form-booking-chil" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form class="form-booking-chil" enctype='multipart/form-data' action="" method="POST">
             <div class="line-1">
                 <p class="title-booking">Đăng ký lịch hẹn khám tại My Pet</p>
                 <i class="booking-close fas fa-times"></i>
             </div>
             <div class="line-2">
                 <div class="group-booking">
-                    <input id="fullname" type="text" placeholder="Họ tên" name="name">
+                    <input id="fullname" type="text" <?php if (isset($_SESSION['logins'])) { ?>
+                        value="<?php echo $result_user->name ?>" <?php } ?> placeholder="Họ tên" name="name">
                     <p class="booking-message"></p>
                 </div>
                 <div class="group-booking">
-                    <input id="phone" type="text" placeholder="Điện thoại" name="phone">
+                    <input id="phone" type="text" placeholder="Điện thoại" name="phone"
+                        <?php if (isset($_SESSION['logins'])) { ?> value="<?php echo $result_user->phone ?>" <?php } ?>>
                     <p class="booking-message"></p>
                 </div>
             </div>
             <div class="line-3">
                 <div class="group-booking">
-                    <input id="email" type="email" placeholder="Email" name="email">
+                    <input id="email" type="email" placeholder="Email" name="email"
+                        <?php if (isset($_SESSION['logins'])) { ?> value="<?php echo $result_user->email ?>" <?php } ?>>
                     <p class="booking-message"></p>
                 </div>
                 <div class="group-booking">
@@ -268,13 +284,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
             <div class="line-5">
                 <div class="group-booking">
-                    <textarea id="desc" class="decs" name="desc" cols="30" rows="10" placeholder="Nội dung yêu cầu"></textarea>
+                    <textarea id="desc" class="decs" name="desc" cols="30" rows="10"
+                        placeholder="Nội dung yêu cầu"></textarea>
                     <p class="booking-message"></p>
                 </div>
             </div>
             <div class="line-6">
                 <div class="group-booking">
-                    <input type="submit" value="Đăng ký ngay" name="btn btn-register">
+                    <input type="submit" value="Đăng ký ngay" name="btn-register1">
                 </div>
             </div>
         </form>
@@ -290,13 +307,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="row">
                 <div class="post-service-slide">
                     <?php foreach ($result_news as $key => $value) { ?>
-                        <div class="post-all">
-                            <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="" class="post-img"></a>
-                            <a href="./news-chil.php?id= <?php echo $value->id ?>">
-                                <h1 class="post-title"><?php echo $value->title ?></h1>
-                            </a>
-                            <div class="post-desc"><?php echo $value->content ?></div>
-                        </div>
+                    <div class="post-all">
+                        <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>"
+                                alt="" class="post-img"></a>
+                        <a href="./news-chil.php?id= <?php echo $value->id ?>">
+                            <h1 class="post-title"><?php echo $value->title ?></h1>
+                        </a>
+                        <div class="post-desc"><?php echo $value->content ?></div>
+                    </div>
                     <?php } ?>
                 </div>
             </div>
@@ -314,32 +332,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <?php $i_shop = 0; ?>
             <div class="row pet-show-in">
                 <?php foreach ($result_shop as $key => $value) { ?>
-                    <div class="col-3 pet-shop-chil">
-                        <div class="pet-shop-chil-in">
-                            <a href="detail.php?id_shop=<?php echo $value->id_shop ?>"><img src="<?php echo $value->image ?>" alt="image" class="pet-shop-img"></a>
-                            <a class="pet-shop-title" href="detail.php?id_shop=<?php echo $value->id_shop ?>"><?php echo $value->title ?></a>
-                            <?php if ($value->promotion > 0) { ?>
-                                <div class="promotion-div">
-                                    <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
-                                    <h5 class="price-product price-product-promo"><?php echo $value->promotion ?> VNĐ</h5>
-                                </div>
-                                <div class="promotion-img">
-                                    <img src="./image/sale.png" alt="sale" class="sale-promotion">
-                                </div>
-                            <?php } else { ?>
-                                <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
-                            <?php } ?>
-                            <div class="more">
-                                <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
-                                    <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
-                                </a>
-                            </div>
-                            <div class="icon-buy">
-                                <i class="buy fas fa-shopping-cart"></i>
-                            </div>
+                <div class="col-3 pet-shop-chil">
+                    <div class="pet-shop-chil-in">
+                        <a href="detail.php?id_shop=<?php echo $value->id_shop ?>"><img
+                                src="<?php echo $value->image ?>" alt="image" class="pet-shop-img"></a>
+                        <a class="pet-shop-title"
+                            href="detail.php?id_shop=<?php echo $value->id_shop ?>"><?php echo $value->title ?></a>
+                        <?php if ($value->promotion > 0) { ?>
+                        <div class="promotion-div">
+                            <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
+                            <h5 class="price-product price-product-promo"><?php echo $value->promotion ?> VNĐ</h5>
+                        </div>
+                        <div class="promotion-img">
+                            <img src="./image/sale.png" alt="sale" class="sale-promotion">
+                        </div>
+                        <?php } else { ?>
+                        <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
+                        <?php } ?>
+                        <div class="more">
+                            <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
+                                <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
+                            </a>
+                        </div>
+                        <div class="icon-buy">
+                            <i class="buy fas fa-shopping-cart"></i>
                         </div>
                     </div>
-                    <?php if (++$i_shop == 8) break ?>
+                </div>
+                <?php if (++$i_shop == 8) break ?>
                 <?php } ?>
             </div>
         </div>
@@ -354,20 +374,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
             <div class="row">
                 <?php foreach ($result_news as $key => $value) { ?>
-                    <div class="col-6 news-chil">
-                        <div class="news-chil-image">
-                            <div class="group-new-home">
-                                <a href="./news-chil.php?id= <?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
-                                <p class="view-news-home">Lượt xem: <?php echo $value->view ?></p>
-                            </div>
-                        </div>
-                        <div class="news-chil-title">
-                            <a href="./news-chil.php?id= <?php echo $value->id ?>">
-                                <h1><?php echo $value->title ?></h1>
-                            </a>
-                            <div class="desc-p"><?php echo $value->content ?></div>
+                <div class="col-6 news-chil">
+                    <div class="news-chil-image">
+                        <div class="group-new-home">
+                            <a href="./news-chil.php?id= <?php echo $value->id ?>"><img
+                                    src="<?php echo $value->image ?>" alt="image"></a>
+                            <p class="view-news-home">Lượt xem: <?php echo $value->view ?></p>
                         </div>
                     </div>
+                    <div class="news-chil-title">
+                        <a href="./news-chil.php?id= <?php echo $value->id ?>">
+                            <h1><?php echo $value->title ?></h1>
+                        </a>
+                        <div class="desc-p"><?php echo $value->content ?></div>
+                    </div>
+                </div>
                 <?php } ?>
             </div>
         </div>
@@ -380,70 +401,70 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <script src="./js/validator.js"></script>
 
     <script>
-        Validator({
-            form: '.form-booking-chil',
-            formGroupSelector: '.group-booking',
-            errorSelector: ".booking-message",
-            rules: [
-                Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ tên!'),
-                Validator.isRequired('#phone', 'Vui lòng nhập số điện thoại!'),
-                Validator.isPhone('#phone', 'Số điện thoại gồm 10 số và bắt đầu từ số 0'),
-                Validator.isRequired('#email', 'Vui lòng nhập địa chỉ mail!'),
-                Validator.isEmail('#email'),
-                Validator.isRequired('#date_time', 'Vui lòng lựa chọn ngày!'),
-                Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
-                Validator.isRequired('#select-booking-e', 'Vui lòng lựa chọn nhân viên!'),
-                Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
-            ],
-        });
+    Validator({
+        form: '.form-booking-chil',
+        formGroupSelector: '.group-booking',
+        errorSelector: ".booking-message",
+        rules: [
+            Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ tên!'),
+            Validator.isRequired('#phone', 'Vui lòng nhập số điện thoại!'),
+            Validator.isPhone('#phone', 'Số điện thoại gồm 10 số và bắt đầu từ số 0'),
+            Validator.isRequired('#email', 'Vui lòng nhập địa chỉ mail!'),
+            Validator.isEmail('#email'),
+            Validator.isRequired('#date_time', 'Vui lòng lựa chọn ngày!'),
+            Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
+            Validator.isRequired('#select-booking-e', 'Vui lòng lựa chọn nhân viên!'),
+            Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
+        ],
+    });
     </script>
     <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: "http://localhost:8081/mypet/get_json/get_sevice.php",
-                dataType: 'json',
-                success: function(data) {
-                    // console.log(data);
-                    $("#select-booking").html("");
-                    for (i = 0; i < data.length; i++) {
-                        var sevice = data[i];
-                        var str = `
+    $(document).ready(function() {
+        $.ajax({
+            url: "http://localhost:8081/mypet/get_json/get_sevice.php",
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data);
+                $("#select-booking").html("");
+                for (i = 0; i < data.length; i++) {
+                    var sevice = data[i];
+                    var str = `
                     <option value="${sevice['id']}">
                         ${sevice['title']}
                     </option>`;
-                        $("#select-booking").append(str);
-                    }
-                    $("#select-booking").on("change", function(e) {
-                        getemployee();
-                    });
+                    $("#select-booking").append(str);
                 }
-            });
-        })
+                $("#select-booking").on("change", function(e) {
+                    getemployee();
+                });
+            }
+        });
+    })
     </script>
     <script>
-        function getemployee() {
-            var idsevice = $("#select-booking").val();
-            $.ajax({
-                url: "http://localhost:8081/mypet/get_json/get_employee.php?id_sevice=" + idsevice,
-                dataType: 'json',
-                success: function(data) {
-                    $("#select-booking-e").html("");
-                    for (i = 0; i < data.length; i++) {
-                        var employee = data[i];
-                        var str = `
+    function getemployee() {
+        var idsevice = $("#select-booking").val();
+        $.ajax({
+            url: "http://localhost:8081/mypet/get_json/get_employee.php?id_sevice=" + idsevice,
+            dataType: 'json',
+            success: function(data) {
+                $("#select-booking-e").html("");
+                for (i = 0; i < data.length; i++) {
+                    var employee = data[i];
+                    var str = `
                     <option value="${employee['id_employee']}">
                         ${employee['name']}
                     </option>`;
-                        $("#select-booking-e").append(str);
-                    }
+                    $("#select-booking-e").append(str);
                 }
-            });
-        }
+            }
+        });
+    }
     </script>
     <script>
-        $(document).ready(function() {
-            date_time.min = new Date().toISOString().split("T")[0];
-        });
+    $(document).ready(function() {
+        date_time.min = new Date().toISOString().split("T")[0];
+    });
     </script>
 </body>
 

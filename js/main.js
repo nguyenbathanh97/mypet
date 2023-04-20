@@ -13,10 +13,10 @@ $(document).ready(function () {
   });
 
   $(".register-booking").click(function () {
-    $(".form-booking").show();
+    $(".form-booking").slideDown('slow');
   })
   $(".booking-close").click(function () {
-    $(".form-booking").hide();
+    $(".form-booking").slideUp('slideUp');
   })
 
   $('.post-service-slide').slick({
@@ -108,3 +108,71 @@ $(document).ready(function () {
     $('.login-down').fadeToggle();
   })
 })
+
+//add category shop
+function ImageFileAsUrlEditInfor() {
+  var fileSelected = document.getElementById("image-avatars").files;
+  console.log(fileSelected.length);
+  if (fileSelected.length > 0) {
+    for (var i = 0; i < fileSelected.length; i++) {
+      var fileToLoad = fileSelected[i];
+      var fileReader = new FileReader();
+      fileReader.onload = function (fileLoaderEvent) {
+        var srcData = fileLoaderEvent.target.result;
+        var newImage = document.createElement("img");
+        newImage.src = srcData;
+        document.getElementById("display-edit-infor").innerHTML += newImage.outerHTML;
+      };
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  }
+};
+//edit category shop
+function ImageFileAsUrlEditCategory() {
+  var fileSelected = document.getElementById("edit-categoy-img-slider").files;
+  console.log(fileSelected.length);
+  if (fileSelected.length > 0) {
+    for (var i = 0; i < fileSelected.length; i++) {
+      var fileToLoad = fileSelected[i];
+      var fileReader = new FileReader();
+      fileReader.onload = function (fileLoaderEvent) {
+        var srcData = fileLoaderEvent.target.result;
+        var newImage = document.createElement("img");
+        newImage.src = srcData;
+        document.getElementById("display-edit-categoy-slider1").innerHTML += newImage.outerHTML;
+      };
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  }
+};
+
+// $(document).ready(function () {
+//   $('.edit-pass-set').click(function () {
+//     $('.password-password').slideDown('slow')
+//   })
+//   $('.close-form-password').click(function () {
+//     $('.password-password').slideUp('slow')
+//   })
+// })
+$(document).ready(function () {
+  $('.edit-infor-set').click(function () {
+    $('.setting-setting').slideDown('slow')
+  })
+  $('.close-infor').click(function () {
+    $('.setting-setting').slideUp('slow')
+  })
+})
+
+function openTab(event, name) {
+  var i, detail, link;
+  detail = document.getElementsByClassName("show-tab-1");
+  for (i = 0; i < detail.length; i++) {
+    detail[i].style.display = "none";
+  }
+  link = document.getElementsByClassName("link");
+  for (i = 0; i < link.length; i++) {
+    link[i].className = link[i].className.replace(" active1", "");
+  }
+  document.getElementById(name).style.display = "unset";
+  event.currentTarget.className += " active1";
+}

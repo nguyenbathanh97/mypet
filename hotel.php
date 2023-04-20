@@ -113,19 +113,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
                         </div>
                         <div class="contact-service-all">
                             <div class="circle-contact">
-                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i class="fab fa-facebook-f"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i
+                                        class="fab fa-facebook-f"></i></a>
                             </div>
                             <div class="circle-contact">
-                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i
+                                        class="fab fa-twitter"></i></a>
                             </div>
                             <div class="circle-contact">
-                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i class="fas fa-at"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i
+                                        class="fas fa-at"></i></a>
                             </div>
                             <div class="circle-contact">
-                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i class="fab fa-instagram"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i
+                                        class="fab fa-instagram"></i></a>
                             </div>
                             <div class="circle-contact">
-                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i class="fab fa-google-plus"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/ThanhMBlue/"><i
+                                        class="fab fa-google-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
                                     <select name="select" id="select-booking">
                                         <option value="">--Lựa chọn dịch vụ--</option>
                                         <?php foreach ($result_sevice as $key => $value) { ?>
-                                            <option value="<?php echo $value->id ?>"><?php echo $value->title ?></option>
+                                        <option value="<?php echo $value->id ?>"><?php echo $value->title ?></option>
                                         <?php } ?>
                                     </select>
                                     <p class="booking-message"></p>
@@ -177,7 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
                             </div>
                             <div class="line-5">
                                 <div class="group-booking">
-                                    <textarea id="desc" class="decs" name="desc" cols="30" rows="10" placeholder="Nội dung yêu cầu"></textarea>
+                                    <textarea id="desc" class="decs" name="desc" cols="30" rows="10"
+                                        placeholder="Nội dung yêu cầu"></textarea>
                                     <p class="booking-message"></p>
                                 </div>
                             </div>
@@ -191,21 +197,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
                 </div>
                 <div class="col-4 right-service">
                     <form action="hotel.php?action=search" method="POST">
-                        <div class="search search-service">
-                            <input type="text" name="title" value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
-                            <input class="icon" name="btn-search" type="submit" value="Tìm" id="">
+                        <div class="search1 search-service1">
+                            <input class="input-ser" type="text" name="title"
+                                value="<?= !empty($title) ? $title : "" ?>" placeholder="Tìm kiếm">
+                            <input class="icon1" name="btn-search" type="submit" value="Tìm" id="">
                         </div>
                     </form>
                     <h1>bài viết mới nhất</h1>
                     <div class="title-news-service">
                         <?php foreach ($result_news1 as $key => $value) { ?>
-                            <div class="title-news-service-chil">
-                                <div class="news-service-chil">
-                                    <a href="news-chil.php?id=<?php echo $value->id ?>"><img src="<?php echo $value->image ?>" alt="image"></a>
-                                    <a class="desc" href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
-                                </div>
-                                <div class="line"></div>
+                        <div class="title-news-service-chil">
+                            <div class="news-service-chil">
+                                <a href="news-chil.php?id=<?php echo $value->id ?>"><img
+                                        src="<?php echo $value->image ?>" alt="image"></a>
+                                <a class="desc"
+                                    href="news-chil.php?id=<?php echo $value->id ?>"><?php echo $value->title ?></a>
                             </div>
+                            <div class="line"></div>
+                        </div>
                         <?php } ?>
                     </div>
                 </div>
@@ -221,21 +230,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['name'])) {
 
     <script src="./js/validator.js"></script>
     <script>
-        Validator({
-            form: '.form-booking-chil',
-            formGroupSelector: '.group-booking',
-            errorSelector: ".booking-message",
-            rules: [
-                Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ tên!'),
-                Validator.isRequired('#phone', 'Vui lòng nhập số điện thoại!'),
-                Validator.isPhone('#phone', 'Số điện thoại gồm 10 số và bắt đầu từ số 0'),
-                Validator.isRequired('#email', 'Vui lòng nhập địa chỉ mail!'),
-                Validator.isEmail('#email'),
-                Validator.isRequired('#date-time', 'Vui lòng lựa chọn ngày!'),
-                Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
-                Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
-            ],
-        });
+    Validator({
+        form: '.form-booking-chil',
+        formGroupSelector: '.group-booking',
+        errorSelector: ".booking-message",
+        rules: [
+            Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ tên!'),
+            Validator.isRequired('#phone', 'Vui lòng nhập số điện thoại!'),
+            Validator.isPhone('#phone', 'Số điện thoại gồm 10 số và bắt đầu từ số 0'),
+            Validator.isRequired('#email', 'Vui lòng nhập địa chỉ mail!'),
+            Validator.isEmail('#email'),
+            Validator.isRequired('#date-time', 'Vui lòng lựa chọn ngày!'),
+            Validator.isRequired('#select-booking', 'Vui lòng lựa chọn dịch vụ!'),
+            Validator.isRequired('#desc', 'Vui lòng nhập nội dung!'),
+        ],
+    });
     </script>
 </body>
 
