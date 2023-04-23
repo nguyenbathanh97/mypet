@@ -186,7 +186,8 @@ if (!empty($_SESSION['cart'])) {
                                                             echo number_format($price = $value->price, 0, ",", ".") . ' VNĐ';
                                                         } ?></td>
                             <td><input type="number" name="quantity[<?php echo $value->id_shop ?>]"
-                                    value="<?php echo $_SESSION['cart'][$value->id_shop] ?>" class="quantity"></td>
+                                    value="<?php echo $_SESSION['cart'][$value->id_shop] ?>" class="quantity" min="1">
+                            </td>
                             <td class="css-td">
                                 <?php $monney_total = $price * $_SESSION['cart'][$value->id_shop] ?>
                                 <?php echo number_format($monney_total, 0, ",", ".") . ' VNĐ' ?>

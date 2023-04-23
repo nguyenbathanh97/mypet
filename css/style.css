@@ -2884,3 +2884,13 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: normal;
   font-size: 14px;
 }
+.buy-similar1 {
+  display: flex;
+  justify-content: end;
+}
+.buy-similar1 .more a p {
+  color: #00415f;
+}
+.price-similar .promotion-desc1 {
+  color: #00415f;
+}

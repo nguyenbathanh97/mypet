@@ -104,7 +104,11 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                                 <!-- <input class="plus is-form" type="button" value="+"> -->
                             </div>
                             <div class="btn-add-store">
+                                <?php if (isset($_SESSION['logins']['id'])) { ?>
                                 <input type="submit" value="Thêm vào giỏi hàng" name="btn-add-cart">
+                                <?php } else { ?>
+                                <input type="submit" disabled="disabled" value="Thêm vào giỏi hàng" name="btn-add-cart">
+                                <?php } ?>
                             </div>
                         </form>
                     </div>
@@ -148,19 +152,22 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                                         class="title-similar"><?php echo $value->title ?></a>
                                     <div class="price-similar">
                                         <?php if ($value->promotion > 0) { ?>
-                                        <p class="price price-desc"><?php echo $value->price ?> VNĐ</p>
-                                        <p class="promotion-desc"><?php echo $value->promotion ?> VNĐ</p>
+                                        <p class="price price-desc">
+                                            <?php echo number_format($value->price, 0, ",", ".") . ' VNĐ' ?></p>
+                                        <p class="promotion-desc promotion-desc1">
+                                            <?php echo number_format($value->promotion, 0, ",", ".") . ' VNĐ' ?></p>
                                         <div class="promotion-img-detail-under">
                                             <img src="./image/sale.png" alt="sale" class="sale-promotion-detail">
                                         </div>
                                         <?php } else { ?>
-                                        <p class="promotion"><?php echo $value->price ?> VNĐ</p>
+                                        <p class="promotion">
+                                            <?php echo number_format($value->price, 0, ",", ".") . ' VNĐ' ?></p>
                                         <?php } ?>
                                     </div>
-                                    <div class="buy-similar">
-                                        <div class="icon-buy">
+                                    <div class="buy-similar buy-similar1">
+                                        <!-- <div class="icon-buy">
                                             <a href="#"><i class="buy fas fa-shopping-cart"></i></a>
-                                        </div>
+                                        </div> -->
                                         <div class="more">
                                             <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
                                                 <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>

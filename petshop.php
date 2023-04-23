@@ -117,9 +117,9 @@ $total_page = ceil($result_total / $page);
                                 <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
                             </a>
                         </div>
-                        <div class="icon-buy">
+                        <!-- <div class="icon-buy">
                             <i class="buy fas fa-shopping-cart"></i>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <?php } ?>

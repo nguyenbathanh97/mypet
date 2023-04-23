@@ -128,9 +128,6 @@ if (isset($_GET['id'])) {
                                 <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
                             </a>
                         </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
-                        </div>
                     </div>
                 </div>
                 <?php } ?>

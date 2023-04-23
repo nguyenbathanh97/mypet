@@ -340,22 +340,21 @@ if (isset($_SESSION['logins']['id'])) {
                             href="detail.php?id_shop=<?php echo $value->id_shop ?>"><?php echo $value->title ?></a>
                         <?php if ($value->promotion > 0) { ?>
                         <div class="promotion-div">
-                            <h5 class="price-promotion"><?php echo $value->price ?> VNĐ</h5>
-                            <h5 class="price-product price-product-promo"><?php echo $value->promotion ?> VNĐ</h5>
+                            <h5 class="price-promotion"><?php echo number_format($value->price, 0, ",", ".") . ' VNĐ' ?>
+                            </h5>
+                            <h5 class="price-product price-product-promo">
+                                <?php echo number_format($value->promotion, 0, ",", ".") . ' VNĐ' ?></h5>
                         </div>
                         <div class="promotion-img">
                             <img src="./image/sale.png" alt="sale" class="sale-promotion">
                         </div>
                         <?php } else { ?>
-                        <h5 class="price-product"><?php echo $value->price ?> VNĐ</h5>
+                        <h5 class="price-product"><?php echo number_format($value->price, 0, ",", ".") . ' VNĐ' ?></h5>
                         <?php } ?>
                         <div class="more">
                             <a href="detail.php?id_shop=<?php echo $value->id_shop ?>">
                                 <p>Xem thêm <i class="fas fa-angle-double-right"></i></p>
                             </a>
-                        </div>
-                        <div class="icon-buy">
-                            <i class="buy fas fa-shopping-cart"></i>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ include './include/slug.php';
 include './include/config.php';
 if (isset($_SESSION['logins']['id'])) {
     $change = $_SESSION['logins']['id'];
-    $sql_infor_cart = "SELECT b.id as id_detail, a.title, b.price_detail, b.image, b.quantity, b.status_detail  FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail in(0, 1, 2) and  c.id_user_fk = $change";
+    $sql_infor_cart = "SELECT b.id as id_detail, a.title, b.price_detail, b.image, b.quantity, b.status_detail, c.total  FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail in(0, 1, 2) and  c.id_user_fk = $change";
     $query_infor_cart = $conn->prepare($sql_infor_cart);
     $query_infor_cart->execute();
     $result_infor_cart = $query_infor_cart->fetchAll(PDO::FETCH_OBJ);
@@ -22,9 +22,40 @@ if (isset($_SESSION['logins']['id'])) {
         $id = $_GET['id_detail'];
         // var_dump($id);
         // exit;
+        $show = "SELECT * FROM order_detail WHERE status_detail = 4 and id = $id";
+        $query = $conn->prepare($show);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        $num = $result->order_id;
+        // var_dump($num);
+        // exit;
         $sql = "UPDATE order_detail SET status_detail = 4 WHERE id = $id";
         $query = $conn->prepare($sql);
         $query_excute = $query->execute();
+
+        $show = "SELECT * FROM order_detail WHERE  id = $id";
+        $query = $conn->prepare($show);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+
+        $order_id = $result->order_id;
+        $quantity = $result->quantity;
+        $price_detail = $result->price_detail;
+
+
+        $sql_order_od = "SELECT *  FROM  order_od WHERE id = $order_id";
+        $query_order_od = $conn->prepare($sql_order_od);
+        $query_order_od->execute();
+        $result_order_od = $query_order_od->fetch(PDO::FETCH_OBJ);
+
+        $toatl = $result_order_od->total;
+
+        $totalNew = $toatl - ($quantity * $price_detail);
+
+        $sql1 = "UPDATE order_od SET total = $totalNew WHERE id = $order_id ";
+        $query1 = $conn->prepare($sql1);
+        $query_excute1 = $query1->execute();
+
         if ($query_excute) {
             header('Location: ./infor_cart.php');
         }
