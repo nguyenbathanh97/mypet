@@ -78,7 +78,7 @@ if (isset($_GET['id_employee'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông tin</title>
+    <title>Nhân viên</title>
     <link href='//fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
     <?php
@@ -133,33 +133,38 @@ if (isset($_GET['id_employee'])) {
                                 </thead>
                                 <tbody>
                                     <?php foreach ($result1 as $key => $value) { ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $key + 1 ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->name ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->address ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->phone ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->title ?>
-                                            </td>
-                                            <td>
-                                                <div class="button-edit-delete">
-                                                    <div class="btn-edit-pre">
-                                                        <a class="btn-edit" href="./employee.php?id_employee=<?php echo $value->id_employee ?>"><i class="fas fa-edit"></i></a>
-                                                    </div>
-                                                    <div class="btn-delete-pre">
-                                                        <a class="btn-delete" href="./employee.php?delete=<?php echo $value->id_employee ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
+                                    <tr>
+                                        <td>
+                                            <?php echo $key + 1 ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->name ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->address ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->phone ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->title ?>
+                                        </td>
+                                        <td>
+                                            <div class="button-edit-delete">
+                                                <div class="btn-edit-pre">
+                                                    <a class="btn-edit"
+                                                        href="./employee.php?id_employee=<?php echo $value->id_employee ?>"><i
+                                                            class="fas fa-edit"></i></a>
                                                 </div>
-                                            </td>
-                                        </tr>
+                                                <div class="btn-delete-pre">
+                                                    <a class="btn-delete"
+                                                        href="./employee.php?delete=<?php echo $value->id_employee ?>"
+                                                        onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i
+                                                            class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -193,7 +198,7 @@ if (isset($_GET['id_employee'])) {
                         <p>Chuyên môn</p>
                         <select name="id_sevice" id="">
                             <?php foreach ($result as $key => $value) { ?>
-                                <option value="<?php echo $value->id ?>"><?php echo $value->title ?></option>
+                            <option value="<?php echo $value->id ?>"><?php echo $value->title ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -204,41 +209,45 @@ if (isset($_GET['id_employee'])) {
             </div>
         </div>
         <?php if (isset($_GET['id_employee'])) { ?>
-            <div class="form-edit">
-                <div class="infor-edit-container form-edit-chil show-infor">
-                    <div class="title-form-edit show-top-all">
-                        <h1>Cập nhật thông tin nhân viên</h1>
-                        <a class="close-edit" href="./employee.php"><i class="fas fa-times"></i></a>
-                    </div>
-                    <form action="" method="POST" enctype='multipart/form-data'>
-                        <div class="input-add-all">
-                            <div class="input-add">
-                                <p>Họ tên</p>
-                                <input class="input-mypet" type="text" value="<?php echo $result_edit->name ?>" name="name">
-                            </div>
-                            <div class="input-add">
-                                <p>Điện thoại</p>
-                                <input class="input-mypet" type="phone" value="<?php echo $result_edit->phone ?>" name="phone">
-                            </div>
-                        </div>
-                        <div class="input-add">
-                            <p>Địa chỉ</p>
-                            <input class="input-mypet" type="text" value="<?php echo $result_edit->address ?>" name="address">
-                        </div>
-                        <div class="input-add">
-                            <p>Chuyên môn</p>
-                            <select name="id_sevice" id="">
-                                <?php foreach ($result as $key => $value) { ?>
-                                    <option value="<?php echo $value->id ?>"<?php if($value->id == $result_edit->id_sevice) echo "selected"  ?>><?php echo $value->title ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="btn-edit-in">
-                            <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
-                        </div>
-                    </form>
+        <div class="form-edit">
+            <div class="infor-edit-container form-edit-chil show-infor">
+                <div class="title-form-edit show-top-all">
+                    <h1>Cập nhật thông tin nhân viên</h1>
+                    <a class="close-edit" href="./employee.php"><i class="fas fa-times"></i></a>
                 </div>
+                <form action="" method="POST" enctype='multipart/form-data'>
+                    <div class="input-add-all">
+                        <div class="input-add">
+                            <p>Họ tên</p>
+                            <input class="input-mypet" type="text" value="<?php echo $result_edit->name ?>" name="name">
+                        </div>
+                        <div class="input-add">
+                            <p>Điện thoại</p>
+                            <input class="input-mypet" type="phone" value="<?php echo $result_edit->phone ?>"
+                                name="phone">
+                        </div>
+                    </div>
+                    <div class="input-add">
+                        <p>Địa chỉ</p>
+                        <input class="input-mypet" type="text" value="<?php echo $result_edit->address ?>"
+                            name="address">
+                    </div>
+                    <div class="input-add">
+                        <p>Chuyên môn</p>
+                        <select name="id_sevice" id="">
+                            <?php foreach ($result as $key => $value) { ?>
+                            <option value="<?php echo $value->id ?>"
+                                <?php if ($value->id == $result_edit->id_sevice) echo "selected"  ?>>
+                                <?php echo $value->title ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="btn-edit-in">
+                        <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
+                    </div>
+                </form>
             </div>
+        </div>
         <?php } ?>
     </div>
 </body>
@@ -253,15 +262,15 @@ if (isset($_GET['id_employee'])) {
 <script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
 <script>
-    $(document).ready(function() {
-        $("#my-table").DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
-            },
-            pageLength: 10,
-            lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
-        });
+$(document).ready(function() {
+    $("#my-table").DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
+        },
+        pageLength: 10,
+        lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
     });
+});
 </script>
 
 </html>

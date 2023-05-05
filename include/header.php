@@ -85,6 +85,7 @@ if (isset($_SESSION['logins']['id'])) {
                                         <?php } ?>
                                         <?php } ?>
                                         <li><a href="infor_cart.php">Đơn hàng của bạn</a></li>
+                                        <li><a href="infor-booking.php">Lịch khám của bạn</a></li>
                                         <li><a href="logout.php">Đăng xuất</a> </li>
                                     </ul>
                                 </div>

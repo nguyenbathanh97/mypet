@@ -3,12 +3,12 @@ include './include/slug.php';
 include './include/config.php';
 if (isset($_SESSION['logins']['id'])) {
     $change = $_SESSION['logins']['id'];
-    $sql_infor_cart = "SELECT b.id as id_detail, a.title, b.price_detail, b.image, b.quantity, b.status_detail, c.total  FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail in(0, 1, 2) and  c.id_user_fk = $change";
+    $sql_infor_cart = "SELECT c.created as created_od, b.id as id_detail, a.title, b.price_detail, b.image, b.quantity, b.status_detail, c.total  FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail in(0, 1, 2) and  c.id_user_fk = $change";
     $query_infor_cart = $conn->prepare($sql_infor_cart);
     $query_infor_cart->execute();
     $result_infor_cart = $query_infor_cart->fetchAll(PDO::FETCH_OBJ);
 
-    $sql_infor_cart1 = "SELECT * FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail = 4 and c.id_user_fk = $change";
+    $sql_infor_cart1 = "SELECT b.last_update as update_cancel,a.title, b.price_detail, b.image, b.quantity, b.status_detail, c.total FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail = 4 and c.id_user_fk = $change";
     $query_infor_cart1 = $conn->prepare($sql_infor_cart1);
     $query_infor_cart1->execute();
     $result_infor_cart1 = $query_infor_cart1->fetchAll(PDO::FETCH_OBJ);
@@ -29,7 +29,7 @@ if (isset($_SESSION['logins']['id'])) {
         $num = $result->order_id;
         // var_dump($num);
         // exit;
-        $sql = "UPDATE order_detail SET status_detail = 4 WHERE id = $id";
+        $sql = "UPDATE order_detail SET status_detail = 4, last_update = now() WHERE id = $id";
         $query = $conn->prepare($sql);
         $query_excute = $query->execute();
 
@@ -69,7 +69,7 @@ if (isset($_SESSION['logins']['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+    <title>Thông tin đơn hàng</title>
     <!-- link css  -->
     <?php
     include "./include/link-css.php";
@@ -104,6 +104,7 @@ if (isset($_SESSION['logins']['id'])) {
                                 <th>Đơn giá</th>
                                 <th>Số lượng</th>
                                 <th>Thành tiền</th>
+                                <th>Ngày đặt</th>
                                 <th>Trạng thái</th>
                                 <th>Hủy đơn hàng</th>
                             </tr>
@@ -120,6 +121,9 @@ if (isset($_SESSION['logins']['id'])) {
                                 <td class="line_infor_line"><?php echo $value->quantity ?></td>
                                 <td class="line_infor_line">
                                     <?php echo number_format($value->price_detail * $value->quantity, 0, ",", ".") . ' VNĐ' ?>
+                                </td>
+                                <td class="line_infor_line">
+                                    <?php echo $value->created_od ?>
                                 </td>
                                 <td class="line_infor_line"><?php if ($value->status_detail == 0) { ?>
                                     <?php echo 'Chưa xác nhận'; ?>
@@ -158,6 +162,7 @@ if (isset($_SESSION['logins']['id'])) {
                             <th>Đơn giá</th>
                             <th>Số lượng</th>
                             <th>Thành tiền</th>
+                            <th>Ngày hủy</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
@@ -173,6 +178,9 @@ if (isset($_SESSION['logins']['id'])) {
                             <td class="line_infor_line"><?php echo $value->quantity ?></td>
                             <td class="line_infor_line">
                                 <?php echo number_format($value->price_detail * $value->quantity, 0, ",", ".") . ' VNĐ' ?>
+                            </td>
+                            <td class="line_infor_line">
+                                <?php echo $value->update_cancel ?>
                             </td>
                             <td class="line_infor_line">
                                 <?php if ($value->status_detail == 0) { ?>
@@ -202,6 +210,7 @@ if (isset($_SESSION['logins']['id'])) {
                             <th>Đơn giá</th>
                             <th>Số lượng</th>
                             <th>Thành tiền</th>
+                            <th>Ngày giao</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
@@ -216,6 +225,9 @@ if (isset($_SESSION['logins']['id'])) {
                             <td class="line_infor_line"><?php echo $value->quantity ?></td>
                             <td class="line_infor_line">
                                 <?php echo number_format($value->price_detail * $value->quantity, 0, ",", ".") . ' VNĐ' ?>
+                            </td>
+                            <td class="line_infor_line">
+                                <?php echo $value->complate ?>
                             </td>
                             <td class="line_infor_line"><?php if ($value->status_detail == 0) { ?>
                                 <?php echo 'Chưa xác nhận'; ?>

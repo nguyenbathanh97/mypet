@@ -1064,6 +1064,9 @@ table.dataTable tbody tr:last-child {
   font-size: 14px;
   font-weight: bold;
 }
+.title-show-top2 h1 {
+  text-align: center;
+}
 #display-slider-add {
   width: 250px;
   height: 135px;
@@ -1610,4 +1613,59 @@ table.dataTable tbody tr:last-child {
 .box-control-under-store {
   display: flex;
   justify-content: space-around;
+}
+.box-control-under-box a {
+  align-items: center;
+  font-size: 14px;
+  color: #00575a;
+}
+.box-control-under-box a:hover {
+  color: #005da5;
+}
+.box-control-under-box {
+  display: flex;
+  justify-content: space-around;
+}
+.box-control-under-box a i {
+  margin-left: 5px;
+  font-size: 25px;
+}
+.address-user {
+  width: 200px;
+}
+
+#select-user {
+  margin-bottom: 15px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid #0070bb;
+  color: #00538a;
+}
+#select-user:focus {
+  outline: none;
+}
+.btn-edit-order:hover {
+  color: #d30000;
+}
+.name-product-detail {
+  width: 200px;
+}
+.product_detail_form {
+  padding: 50px 0;
+}
+.form-edit-detail {
+  padding-bottom: 20px;
+}
+.show-top-all-detail {
+  margin-bottom: 20px;
+}
+.change_order a {
+  padding: 5px 10px;
+  background: #00365a;
+  color: #ffffff;
+  border-radius: 5px;
+}
+.title-show-detail {
+  display: flex;
+  justify-content: center;
 }

@@ -88,7 +88,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch vụ</title>
+    <title>Danh mục</title>
     <link href='//fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
     <?php
@@ -110,7 +110,8 @@ if (isset($_GET['id'])) {
                 <div class="container-sevice main-category-chil-in">
                     <div class="title-show-top-1">
                         <div class="add-infor">
-                            <input class="btn-add-shop-category" type="submit" name="btn-add-shop-category" value="Thêm danh mục">
+                            <input class="btn-add-shop-category" type="submit" name="btn-add-shop-category"
+                                value="Thêm danh mục">
                         </div>
                         <div class="title-show-top title-show-top2"><i class="fas fa-paw"></i>
                             <h1>Quản danh mục cửa hàng pet shop</h1><i class="fas fa-paw"></i>
@@ -140,34 +141,40 @@ if (isset($_GET['id'])) {
                                 </thead>
                                 <tbody>
                                     <?php foreach ($result_sv as $key => $value) { ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $key + 1 ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->category_title ?>
-                                            </td>
-                                            <td>
-                                                <img style="width: 125px ; heigth: 125px" src=".<?php echo $value->slider ?>" alt="image">
-                                            </td>
-                                            <td>
-                                                <?php if ($value->status_category_shop == 1) { ?>
-                                                    <?php echo "Đang hiện thị" ?>
-                                                <?php } else { ?>
-                                                    <?php echo "Đã ẩn"; ?>
-                                                <?php } ?>
-                                            </td>
-                                            <td>
-                                                <div class="button-edit-delete">
-                                                    <div class="btn-edit-pre">
-                                                        <a class="btn-edit btn-edit-sevice" href="./category-shop.php?id=<?php echo $value->id ?>"><i class="fas fa-edit"></i></a>
-                                                    </div>
-                                                    <div class="btn-delete-pre">
-                                                        <a class="btn-delete" href="./category-shop.php?delete_sv=<?php echo $value->id ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
+                                    <tr>
+                                        <td>
+                                            <?php echo $key + 1 ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->category_title ?>
+                                        </td>
+                                        <td>
+                                            <img style="width: 125px ; heigth: 125px"
+                                                src=".<?php echo $value->slider ?>" alt="image">
+                                        </td>
+                                        <td>
+                                            <?php if ($value->status_category_shop == 1) { ?>
+                                            <?php echo "Đang hiện thị" ?>
+                                            <?php } else { ?>
+                                            <?php echo "Đã ẩn"; ?>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <div class="button-edit-delete">
+                                                <div class="btn-edit-pre">
+                                                    <a class="btn-edit btn-edit-sevice"
+                                                        href="./category-shop.php?id=<?php echo $value->id ?>"><i
+                                                            class="fas fa-edit"></i></a>
                                                 </div>
-                                            </td>
-                                        </tr>
+                                                <div class="btn-delete-pre">
+                                                    <a class="btn-delete"
+                                                        href="./category-shop.php?delete_sv=<?php echo $value->id ?>"
+                                                        onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i
+                                                            class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -190,7 +197,8 @@ if (isset($_GET['id'])) {
                     <div class="flex-slider-category">
                         <div class="image-slider-category">
                             <p class="slider-category">Thêm ảnh</p>
-                            <input id="add-categoy-img-slider" type="file" name="image" onchange="ImageFileAsUrlAddCategory()">
+                            <input id="add-categoy-img-slider" type="file" name="image"
+                                onchange="ImageFileAsUrlAddCategory()">
                         </div>
                         <div id="display-add-categoy-slider"></div>
                         <div class="group-category-shop">
@@ -210,49 +218,53 @@ if (isset($_GET['id'])) {
             </div>
         </div>
         <?php if (isset($_GET['id'])) { ?>
-            <div class="form-edit">
-                <div class="infor-edit-container form-edit-chil show-category">
-                    <div class="title-form-edit show-top-all">
-                        <h1>Cập nhật danh mục sản phẩm</h1>
-                        <a class="close-edit" href="./category-shop.php"><i class="fas fa-times"></i></a>
-                    </div>
-                    <form action="" method="POST" enctype='multipart/form-data'>
-                        <div class="input-add title-input">
-                            <p>Tiêu đề</p>
-                            <input class="input-mypet" type="text" value="<?php echo $result_edit->category_title ?>" name="category_title">
-                        </div>
-                        <div class="flex-slider-category">
-                            <div class="group-img-category-shop">
-                                <div class="image-slider-category">
-                                    <p class="slider-category">Thêm ảnh</p>
-                                    <input id="edit-categoy-img-slider" type="file" name="image" onchange="ImageFileAsUrlEditCategory()">
-                                </div>
-                                <div class="show-img-category-shop1">
-                                    <p>Ảnh mới chọn</p>
-                                    <div id="display-edit-categoy-slider1"></div>
-                                </div>
-                                <div class="show-img-category-shop">
-                                    <p>Ảnh trước</p>
-                                    <div id="display-edit-categoy-slider">
-                                        <img src=".<?php echo $result_edit->slider ?>" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="group-hotel">
-                                <p class="status-img">Trạng thái</p>
-                                <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
-                                    <option value="0" <?php if ($result_edit->status_category_shop == 0) echo "selected" ?>>Ẩn</option>
-                                    <option value="1" <?php if ($result_edit->status_category_shop == 1) echo "selected" ?>>Hiện</option>
-                                </select>
-                                <p class="message-hotel"></p>
-                            </div>
-                        </div>
-                        <div class="btn-edit-in">
-                            <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
-                        </div>
-                    </form>
+        <div class="form-edit">
+            <div class="infor-edit-container form-edit-chil show-category">
+                <div class="title-form-edit show-top-all">
+                    <h1>Cập nhật danh mục sản phẩm</h1>
+                    <a class="close-edit" href="./category-shop.php"><i class="fas fa-times"></i></a>
                 </div>
+                <form action="" method="POST" enctype='multipart/form-data'>
+                    <div class="input-add title-input">
+                        <p>Tiêu đề</p>
+                        <input class="input-mypet" type="text" value="<?php echo $result_edit->category_title ?>"
+                            name="category_title">
+                    </div>
+                    <div class="flex-slider-category">
+                        <div class="group-img-category-shop">
+                            <div class="image-slider-category">
+                                <p class="slider-category">Thêm ảnh</p>
+                                <input id="edit-categoy-img-slider" type="file" name="image"
+                                    onchange="ImageFileAsUrlEditCategory()">
+                            </div>
+                            <div class="show-img-category-shop1">
+                                <p>Ảnh mới chọn</p>
+                                <div id="display-edit-categoy-slider1"></div>
+                            </div>
+                            <div class="show-img-category-shop">
+                                <p>Ảnh trước</p>
+                                <div id="display-edit-categoy-slider">
+                                    <img src=".<?php echo $result_edit->slider ?>" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-hotel">
+                            <p class="status-img">Trạng thái</p>
+                            <select name="status_category_shop" id="status_category_shop" class="status_category_shop">
+                                <option value="0" <?php if ($result_edit->status_category_shop == 0) echo "selected" ?>>
+                                    Ẩn</option>
+                                <option value="1" <?php if ($result_edit->status_category_shop == 1) echo "selected" ?>>
+                                    Hiện</option>
+                            </select>
+                            <p class="message-hotel"></p>
+                        </div>
+                    </div>
+                    <div class="btn-edit-in">
+                        <input type="submit" name="btn-edit-form" value="cập nhật" class="btn-edit-form">
+                    </div>
+                </form>
             </div>
+        </div>
         <?php  } ?>
     </div>
 </body>
@@ -267,15 +279,15 @@ if (isset($_GET['id'])) {
 <script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
 <script>
-    $(document).ready(function() {
-        $("#my-table").DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
-            },
-            pageLength: 10,
-            lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
-        });
+$(document).ready(function() {
+    $("#my-table").DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
+        },
+        pageLength: 10,
+        lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
     });
+});
 </script>
 
 </html>

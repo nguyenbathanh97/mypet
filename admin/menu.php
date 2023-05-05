@@ -62,6 +62,11 @@ if (isset($_SESSION['logins']['id'])) {
                         <li><a href="./control.php"><i class="material-icons fab fa-elementor"></i><span>Bảng điều
                                     khiển</span></a>
                         </li>
+                        <li><a href="./user.php"><i class="material-icons fas fa-user-tie"></i><span>User</span></a>
+                        </li>
+                        <li><a href="./order.php"><i class="material-icons fas fa-box-open"></i><span>Đơn
+                                    hàng</span></a>
+                        </li>
                         <li><a href="./slider.php"><i
                                     class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
                         </li>

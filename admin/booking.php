@@ -25,15 +25,15 @@ if (isset($_REQUEST['status_xn']) && ($_REQUEST['status_xn'])) {
         header("Location: ./booking.php");
     }
 };
-if (isset($_REQUEST['status_h']) && ($_REQUEST['status_h'])) {
-    $status = intval($_GET['status_h']);
-    $sql = "UPDATE booking SET status_bk = 1 WHERE id_bk = $status";
-    $query = $conn->prepare($sql);
-    $query->execute();
-    if ($query) {
-        header("Location: ./booking.php");
-    }
-};
+// if (isset($_REQUEST['status_h']) && ($_REQUEST['status_h'])) {
+//     $status = intval($_GET['status_h']);
+//     $sql = "UPDATE booking SET status_bk = 1 WHERE id_bk = $status";
+//     $query = $conn->prepare($sql);
+//     $query->execute();
+//     if ($query) {
+//         header("Location: ./booking.php");
+//     }
+// };
 if (isset($_REQUEST['del']) && ($_REQUEST['del'])) {
     $del = intval($_GET['del']);
     // var_dump($del);
@@ -121,46 +121,56 @@ if (isset($_REQUEST['del']) && ($_REQUEST['del'])) {
                                 </thead>
                                 <tbody>
                                     <?php foreach ($result as $key => $value) { ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $key + 1 ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->name_bk ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->phone ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->email ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->date ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->title ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $value->name ?>
-                                            </td>
-                                            <td class="content_bk">
-                                                <?php echo $value->content_booking ?>
-                                            </td>
-                                            <th>
-                                                <?php if ($value->status_bk == 0) { ?>
-                                                    <a class="btn_booking_xn" href="./booking.php?status=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn xác nhận lịch?');">Chưa xác nhận</a>
-                                                <?php }else if($value->status_bk == 1){ ?>
-                                                    <a class="btn_booking_xn" href="./booking.php?status_xn=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn hủy lịch?');">Đã xác nhận</a>
-                                                    <?php }else{ ?>
-                                                        <a class="btn_booking_xn" href="./booking.php?status_h=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn xác nhận lại lịch?');">Đã hoàn thành</a>
-                                                        <?php } ?>
-                                            </th>
-                                            <td>
-                                                <div class="btn-delete-pre">
-                                                    <a class="btn-delete" href="./booking.php?del=<?php echo $value->id_bk ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i class="fas fa-trash-alt"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            <?php echo $key + 1 ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->name_bk ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->phone ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->email ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->date ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->title ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $value->name ?>
+                                        </td>
+                                        <td class="content_bk">
+                                            <?php echo $value->content_booking ?>
+                                        </td>
+                                        <th>
+                                            <?php if ($value->status_bk == 0) { ?>
+                                            <a class="btn_booking_xn"
+                                                href="./booking.php?status=<?php echo $value->id_bk ?>"
+                                                onclick="return confirm('Bạn chắc chắn muốn xác nhận lịch?');">Chưa xác
+                                                nhận</a>
+                                            <?php } else if ($value->status_bk == 1) { ?>
+                                            <a class="btn_booking_xn"
+                                                href="./booking.php?status_xn=<?php echo $value->id_bk ?>"
+                                                onclick="return confirm('Bạn chắc chắn muốn xác nhận lịch đã hoàn thành?');">Đã
+                                                xác nhận</a>
+                                            <?php } else { ?>
+                                            <a class="btn_booking_xn" href="#">Đã hoàn
+                                                thành</a>
+                                            <?php } ?>
+                                        </th>
+                                        <td>
+                                            <div class="btn-delete-pre">
+                                                <a class="btn-delete"
+                                                    href="./booking.php?del=<?php echo $value->id_bk ?>"
+                                                    onclick="return confirm('Bạn chắc chắn muốn xóa?');"><i
+                                                        class="fas fa-trash-alt"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -182,15 +192,15 @@ if (isset($_REQUEST['del']) && ($_REQUEST['del'])) {
 <script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
 <script>
-    $(document).ready(function() {
-        $("#my-table").DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
-            },
-            pageLength: 10,
-            lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
-        });
+$(document).ready(function() {
+    $("#my-table").DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.12.1/i18n/vi.json",
+        },
+        pageLength: 10,
+        lengthMenu: [1, 2, 3, 4, 5, 10, 15, 20, 30, 50, 100],
     });
+});
 </script>
 
 </html>

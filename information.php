@@ -1,8 +1,8 @@
 <?php
 include './include/config.php';
-$sql ="SELECT * FROM about WHERE status_about = 1";
-$query= $conn -> prepare($sql);
-$query-> execute();
+$sql = "SELECT * FROM about WHERE status_about = 1";
+$query = $conn->prepare($sql);
+$query->execute();
 $result = $query->fetch(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $result = $query->fetch(PDO::FETCH_OBJ);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+    <title>Thông tin</title>
     <!-- link css  -->
     <?php
     include "./include/link-css.php";

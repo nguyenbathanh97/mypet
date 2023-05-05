@@ -115,6 +115,22 @@ include '../include/config.php';
                             <a href="./booking.php"><i class="material-icons fas fa-book"></i></a>
                         </div>
                     </div>
+                    <div class="col-3 margin-under-control">
+                        <div class="box-control box-control1">
+                            <h5>Người dùng</h5>
+                        </div>
+                        <div class="box-control-under">
+                            <a href="#"><i class="fas fa-user-tie"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-3 margin-under-control">
+                        <div class="box-control box-control1">
+                            <h5>Đơn hàng</h5>
+                        </div>
+                        <div class="box-control-under box-control">
+                            <a href="./order.php"><i class="fas fa-box-open"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,4 +146,5 @@ include '../include/config.php';
 <script src="../lib/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="./js-admin/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./js-admin/main-admin.js"></script>
+
 </html>
