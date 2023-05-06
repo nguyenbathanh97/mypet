@@ -1669,3 +1669,61 @@ table.dataTable tbody tr:last-child {
   display: flex;
   justify-content: center;
 }
+.date-revenue {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.show-revenue {
+  margin-top: 20px;
+  padding: 30px 30px;
+  background-color: #c5e9ff;
+}
+.date-to-from {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.date-from p {
+  color: #003c70;
+  font-size: 16px;
+  font-weight: bold;
+}
+.date-to p {
+  color: #003c70;
+  font-size: 16px;
+  font-weight: bold;
+}
+.date-to-from p {
+  color: #003c70;
+  font-size: 16px;
+  font-weight: bold;
+}
+.date-to-from p span {
+  color: #d30000;
+  font-size: 16px;
+  font-weight: bold;
+}
+.total-order-re p {
+  color: #00365a;
+  font-size: 18px;
+  font-weight: bold;
+}
+.total-order-re p span {
+  color: #d30000;
+}
+.total-order-detail-re P {
+  color: #00365a;
+  font-size: 18px;
+  font-weight: bold;
+}
+.total-order-detail-re P span {
+  color: #d30000;
+}
+.total-money-re P {
+  color: #00365a;
+  font-size: 25px;
+  font-weight: bold;
+}
+.total-money-re P span {
+  color: #d30000;
+}

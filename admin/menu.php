@@ -67,6 +67,9 @@ if (isset($_SESSION['logins']['id'])) {
                         <li><a href="./order.php"><i class="material-icons fas fa-box-open"></i><span>Đơn
                                     hàng</span></a>
                         </li>
+                        <li><a href="./revenue.php"><i class="material-icons fas fa-money-check-alt"></i><span>Doanh
+                                    thu</span></a>
+                        </li>
                         <li><a href="./slider.php"><i
                                     class="material-icons fab fa-slideshare"></i><span>Slider</span></a>
                         </li>
