@@ -1,5 +1,6 @@
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
+  session_set_cookie_params(86400 * 365, "/");
   session_start();
 }
 $host = 'localhost';
@@ -13,7 +14,6 @@ try {
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   // echo "Kết nối thành công";
-} catch(PDOException $e) {
+} catch (PDOException $e) {
   // echo "Kết lỗi không thành công: " . $e->getMessage();
 }
-?>

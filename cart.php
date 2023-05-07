@@ -56,7 +56,7 @@ if (isset($_GET['action'])) {
                 } elseif (empty($_POST['address'])) {
                     $err2 = 'Bạn chưa nhập địa chỉ nhận hàng!';
                 }
-                if ($err == false) {
+                if ($err == false && $err1 == false && $err2 == false) {
                     $sqladd = "SELECT * FROM shop WHERE id_shop in (" . implode(",", array_keys($_POST['quantity'])) . ")";
                     $queryadd = $conn->prepare($sqladd);
                     $queryadd->execute();
