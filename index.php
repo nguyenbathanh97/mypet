@@ -8,8 +8,8 @@ $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
 
 //user
-if (isset($_SESSION['logins'])) {
-    $id_user = $_SESSION['logins']['id'];
+if (isset($_COOKIE['logins_id'])) {
+    $id_user = $_COOKIE['logins_id'];
     $sql_user = "SELECT * FROM user WHERE id = $id_user";
     $query_user = $conn->prepare($sql_user);
     $query_user->execute();
@@ -43,7 +43,7 @@ $query_news->execute();
 $result_news = $query_news->fetchAll(PDO::FETCH_OBJ);
 // var_dump($result); die();
 // isset($_POST['btn-add-form']) && ($_POST['btn-add-form']);
-if (isset($_SESSION['logins']['id'])) {
+if (isset($_COOKIE['logins_id'])) {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // $_SERVER['REQUEST_METHOD'] == "POST"
         $name = $_POST['name'];
@@ -247,20 +247,22 @@ if (isset($_SESSION['logins']['id'])) {
             </div>
             <div class="line-2">
                 <div class="group-booking">
-                    <input id="fullname" type="text" <?php if (isset($_SESSION['logins'])) { ?>
+                    <input id="fullname" type="text" <?php if (isset($_COOKIE['logins_id'])) { ?>
                         value="<?php echo $result_user->name ?>" <?php } ?> placeholder="Họ tên" name="name">
                     <p class="booking-message"></p>
                 </div>
                 <div class="group-booking">
                     <input id="phone" type="text" placeholder="Điện thoại" name="phone"
-                        <?php if (isset($_SESSION['logins'])) { ?> value="<?php echo $result_user->phone ?>" <?php } ?>>
+                        <?php if (isset($_COOKIE['logins_id'])) { ?> value="<?php echo $result_user->phone ?>"
+                        <?php } ?>>
                     <p class="booking-message"></p>
                 </div>
             </div>
             <div class="line-3">
                 <div class="group-booking">
                     <input id="email" type="email" placeholder="Email" name="email"
-                        <?php if (isset($_SESSION['logins'])) { ?> value="<?php echo $result_user->email ?>" <?php } ?>>
+                        <?php if (isset($_COOKIE['logins_id'])) { ?> value="<?php echo $result_user->email ?>"
+                        <?php } ?>>
                     <p class="booking-message"></p>
                 </div>
                 <div class="group-booking">

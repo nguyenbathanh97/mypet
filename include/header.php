@@ -10,16 +10,17 @@ $query_header_shop = $conn->prepare($sql_header_shop);
 $query_header_shop->execute();
 $result_header_shop = $query_header_shop->fetchAll(PDO::FETCH_OBJ);
 
-if (isset($_SESSION['logins']['id'])) {
-    $change = $_SESSION['logins']['id'];
+// if (isset($_SESSION['logins']['id'])) {
+if (isset($_COOKIE['logins_id'])) {
+    $change = $_COOKIE['logins_id'];
     $sql_setting = "SELECT * FROM user  WHERE id = $change";
     $query_setting = $conn->prepare($sql_setting);
     $query_setting->execute();
     $result_setting = $query_setting->fetch(PDO::FETCH_OBJ);
 }
 
-if (isset($_SESSION['logins']['id'])) {
-    $change = $_SESSION['logins']['id'];
+if (isset($_COOKIE['logins_id'])) {
+    $change = $_COOKIE['logins_id'];
     $sql_setting = "SELECT * FROM user  WHERE id = $change";
     $query_setting = $conn->prepare($sql_setting);
     $query_setting->execute();
@@ -61,9 +62,9 @@ if (isset($_SESSION['logins']['id'])) {
                     </div>
                     <div class="login-header">
                         <div class="login-user">
-                            <?php if (isset($_SESSION['logins']['username'])) { ?>
+                            <?php if (isset($_COOKIE['logins_username'])) { ?>
                             <img src="<?php echo $result_setting->image ?>" alt="image">
-                            <span><?php echo $_SESSION['logins']['name'] ?></span>
+                            <span><?php echo $_COOKIE['logins_name'] ?></span>
                             <?php } else { ?>
                             <div class="login-register">
                                 <span><a href="register.php">Đăng ký</a> / <a href="login.php">Đăng
@@ -71,15 +72,15 @@ if (isset($_SESSION['logins']['id'])) {
                             </div>
                             <?php } ?>
                             <div class="down-icon">
-                                <?php if (isset($_SESSION['logins']['username'])) { ?>
+                                <?php if (isset($_COOKIE['logins_username'])) { ?>
                                 <div class="icon-down">
                                     <i class="fas fa-caret-down"></i>
                                 </div>
                                 <div class="login-down">
                                     <ul>
                                         <li><a class="infor-form" href="setting.php">Thông tin</a></li>
-                                        <?php if (isset($_SESSION['logins']['status'])) { ?>
-                                        <?php $test = $_SESSION['logins']['status'] ?>
+                                        <?php if (isset($_COOKIE['logins_status'])) { ?>
+                                        <?php $test = $_COOKIE['logins_status'] ?>
                                         <?php if ($test == 1) { ?>
                                         <li><a href="admin/control.php">Trang quản trị</a></li>
                                         <?php } ?>
@@ -124,7 +125,7 @@ if (isset($_SESSION['logins']['id'])) {
                             </li>
                             <li><a href="news.php">Tin tức</a></li>
                             <li><a href="contact.php">Liên hệ</a></li>
-                            <?php if (isset($_SESSION['logins']['id'])) { ?>
+                            <?php if (isset($_COOKIE['logins_id'])) { ?>
                             <li><a class="cart-li" href="cart.php">
                                     <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) >= 1) { ?>
                                     <div class="cart-number">

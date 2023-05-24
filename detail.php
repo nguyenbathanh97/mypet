@@ -20,8 +20,8 @@ if (isset($_GET['id_shop'])) {
     $result_cmt->execute();
     $result_cmt_ex = $result_cmt->fetchAll(PDO::FETCH_OBJ);
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        if (isset($_SESSION['logins']['id'])) {
-            $id_user = $_SESSION['logins']['id'];
+        if (isset($_COOKIE['logins_id'])) {
+            $id_user = $_COOKIE['logins_id'];
             $content_comment = $_POST['content_comment'];
             $sql = "INSERT INTO comment (id_user, content_comment, id_shop_fk) VALUES (:id_user, :content_comment, :id)";
             $query_comment = $conn->prepare($sql);
@@ -104,7 +104,7 @@ $result_shop = $query_shop->fetchAll(PDO::FETCH_OBJ);
                                 <!-- <input class="plus is-form" type="button" value="+"> -->
                             </div>
                             <div class="btn-add-store">
-                                <?php if (isset($_SESSION['logins']['id'])) { ?>
+                                <?php if (isset($_COOKIE['logins_id'])) { ?>
                                 <input type="submit" value="Thêm vào giỏi hàng" name="btn-add-cart">
                                 <?php } else { ?>
                                 <input type="submit" disabled="disabled" value="Thêm vào giỏi hàng" name="btn-add-cart">

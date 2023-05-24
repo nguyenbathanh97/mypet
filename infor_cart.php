@@ -1,8 +1,8 @@
 <?php
 include './include/slug.php';
 include './include/config.php';
-if (isset($_SESSION['logins']['id'])) {
-    $change = $_SESSION['logins']['id'];
+if (isset($_COOKIE['logins_id'])) {
+    $change = $_COOKIE['logins_id'];
     $sql_infor_cart = "SELECT c.created as created_od, b.id as id_detail, a.title, b.price_detail, b.image, b.quantity, b.status_detail, c.total  FROM shop a join order_detail b on a.id_shop = b.shop_id_order join order_od c on c.id = b.order_id  WHERE b.status_detail in(0, 1, 2) and  c.id_user_fk = $change";
     $query_infor_cart = $conn->prepare($sql_infor_cart);
     $query_infor_cart->execute();

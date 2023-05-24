@@ -1,14 +1,14 @@
 <?php
 include './include/slug.php';
 include './include/config.php';
-if (isset($_SESSION['logins']['id'])) {
-    $change = $_SESSION['logins']['id'];
+if (isset($_COOKIE['logins_id'])) {
+    $change = $_COOKIE['logins_id'];
     $sql_setting = "SELECT * FROM user  WHERE id = $change";
     $query_setting = $conn->prepare($sql_setting);
     $query_setting->execute();
     $result_setting = $query_setting->fetch(PDO::FETCH_OBJ);
 
-    $id = $_SESSION['logins']['id'];
+    $id = $_COOKIE['logins_id'];
     $sqls = "SELECT * FROM user WHERE id = $id";
     $querys = $conn->prepare($sqls);
     $querys->execute();
@@ -61,7 +61,7 @@ if (isset($_SESSION['logins']['id'])) {
         <div class="container">
             <div class="infor-setting">
                 <h2>Thông tin cá nhân</h2>
-                <?php if (isset($_SESSION['logins']['id'])) { ?>
+                <?php if (isset($_COOKIE['logins_id'])) { ?>
                 <div class="infor-setting-chil">
                     <div class="img-setting-infor">
                         <img src="<?php echo $result_setting->image ?>" alt="image">

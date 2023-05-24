@@ -5,8 +5,10 @@ include './include/config.php';
 //     var_dump($_POST);
 //     exit;
 // }
-if (isset($_SESSION['logins']['id'])) {
-    $idadd = ($_SESSION['logins']['id']);
+if (isset($_COOKIE['logins_id'])) {
+    $idadd = ($_COOKIE['logins_id']);
+    // var_dump($idadd);
+    // exit;
 }
 
 if (!isset($_SESSION['cart'])) {
@@ -132,6 +134,8 @@ if (!empty($_SESSION['cart'])) {
     $query = $conn->prepare($sql);
     $query->execute();
     $resultt = $query->fetchAll(PDO::FETCH_OBJ);
+    // var_dump($_SESSION['cart']);
+    // exit;
 }
 ?>
 <!DOCTYPE html>
@@ -210,15 +214,15 @@ if (!empty($_SESSION['cart'])) {
                     <div class="group-cart">
                         <h5>Người nhận:</h5>
                         <div class="group-cart-chil">
-                            <input type="text" name="name" value="<?php echo $_SESSION['logins']['name'] ?>"
-                                class="name" id="name">
+                            <input type="text" name="name" value="<?php echo $_COOKIE['logins_name'] ?>" class="name"
+                                id="name">
                             <p><?php echo $err ?></p>
                         </div>
                     </div>
                     <div class="group-cart">
                         <h5>Điện thoại:</h5>
                         <div class="group-cart-chil">
-                            <input type="phone" name="phone" value="<?php echo $_SESSION['logins']['phone'] ?>"
+                            <input type="phone" name="phone" value="<?php echo $_COOKIE['logins_phone'] ?>"
                                 class="phone" id="phone">
                             <p><?php echo $err1 ?></p>
                         </div>
@@ -226,7 +230,7 @@ if (!empty($_SESSION['cart'])) {
                     <div class="group-cart">
                         <h5>Địa chỉ:</h5>
                         <div class="group-cart-chil">
-                            <input type="text" name="address" value="<?php echo $_SESSION['logins']['address'] ?>"
+                            <input type="text" name="address" value="<?php echo $_COOKIE['logins_address'] ?>"
                                 class="address" id="address">
                             <p><?php echo $err2 ?></p>
                         </div>
@@ -245,7 +249,7 @@ if (!empty($_SESSION['cart'])) {
                 <h5 class="sussess_cart"><?php if (!empty($sussecc)) {
                                                     echo $sussecc;
                                                 } ?></h5>
-                <p class="cart-emty">Xin chào <?php echo $_SESSION['logins']['name'] ?> hiện tại giỏ hàng của bạn đang
+                <p class="cart-emty">Xin chào <?php echo $_COOKIE['logins_name'] ?> hiện tại giỏ hàng của bạn đang
                     rỗng!
                 </p>
                 <?php } ?>

@@ -7,8 +7,8 @@ include '../include/config.php';
 //     $query_user->execute();
 //     $result_user = $query_user->fetch(PDO::FETCH_OBJ);
 // }
-if (isset($_SESSION['logins']['id'])) {
-    $change = $_SESSION['logins']['id'];
+if (isset($_COOKIE['logins_id'])) {
+    $change = $_COOKIE['logins_id'];
     $sql_setting = "SELECT * FROM user  WHERE id = $change";
     $query_setting = $conn->prepare($sql_setting);
     $query_setting->execute();
@@ -40,7 +40,7 @@ if (isset($_SESSION['logins']['id'])) {
             </div>
             <div class="menu-right">
                 <h5 class="name-user">
-                    Xin chào: <span><?php echo $_SESSION['logins']['name'] ?></span>
+                    Xin chào: <span><?php echo $_COOKIE['logins_name'] ?></span>
                 </h5>
                 <a class="img-user" href="#">
                     <img src=".<?php echo $result_setting->image ?>" alt="image">

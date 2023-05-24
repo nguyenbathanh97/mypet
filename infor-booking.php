@@ -1,7 +1,7 @@
 <?php
 include './include/slug.php';
 include './include/config.php';
-$id_user = $_SESSION['logins']['id'];
+$id_user = $_COOKIE['logins_id'];
 $sqlSl = "SELECT * FROM booking a join sevice b on a.id_sevice = b.id  join employee c on a.id_employee_f = c.id_employee WHERE id_user_fk = $id_user ";
 $query = $conn->prepare($sqlSl);
 $query->execute();

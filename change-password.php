@@ -2,8 +2,8 @@
 include './include/slug.php';
 include './include/config.php';
 $err = '';
-if (isset($_SESSION['logins']['id'])) {
-    $id = $_SESSION['logins']['id'];
+if (isset($_COOKIE['logins_id'])) {
+    $id = $_COOKIE['logins_id'];
     $sql = "SELECT * FROM user WHERE id = $id";
     $query = $conn->prepare($sql);
     $query->execute();
@@ -56,7 +56,7 @@ if (isset($_SESSION['logins']['id'])) {
         <div class="container">
             <div class="infor-setting">
                 <h2>Thông tin cá nhân</h2>
-                <?php if (isset($_SESSION['logins']['id'])) { ?>
+                <?php if (isset($_COOKIE['logins_id'])) { ?>
                 <div class="infor-setting-chil">
                     <div class="img-setting-infor">
                         <img src="<?php echo $result_setting->image ?>" alt="image">
