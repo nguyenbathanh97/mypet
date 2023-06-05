@@ -1,5 +1,6 @@
 <?php
 include "./include/config.php";
+$image = './image/user.png';
 //kiểm tra thông tin khi bấm nút submit
 if (isset($_POST['btn-register'])) {
     $name = $_POST['name'];
@@ -39,10 +40,10 @@ if (isset($_POST['btn-register'])) {
             $_SESSION['error'] = 'Người dùng đã tồn tại';
         } else {
             $password = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO user (name, username, password, email, phone, address) VALUES (:name, :username, :password, :email, :phone, :address)";
+            $sql = "INSERT INTO user (name, username, password, email, phone, address, image) VALUES (:name, :username, :password, :email, :phone, :address, :image)";
             $query = $conn->prepare($sql);
             try {
-                $query->execute(['name' => $name, 'username' => $username, 'password' => $password, 'email' => $email, 'phone' => $phone, 'address' => $address]);
+                $query->execute(['name' => $name, 'username' => $username, 'password' => $password, 'email' => $email, 'phone' => $phone, 'address' => $address, 'image' => $image]);
 
                 $_SESSION['success'] = 'Người dùng đã tạo thành công. Bây giờ đã bạn có thể <a class="login-here" href="login.php">đăng nhập</a>';
             } catch (PDOException $e) {
