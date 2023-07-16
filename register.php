@@ -64,6 +64,7 @@ if (isset($_POST['btn-register'])) {
     <title>Đăng ký</title>
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="./admin/css-admin/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>

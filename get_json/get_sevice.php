@@ -5,4 +5,3 @@ include '../include/config.php';
     $query_booking->execute();
     $data = $query_booking->fetchAll(PDO::FETCH_OBJ);
     echo json_encode($data);
-?>

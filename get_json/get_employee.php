@@ -8,4 +8,3 @@ if (isset($_GET['id_sevice'])==true) $id_sevice = $_GET['id_sevice'];
     $query_booking->execute([$id_sevice]);
     $data = $query_booking->fetchAll(PDO::FETCH_OBJ);
     echo json_encode($data);
-?>

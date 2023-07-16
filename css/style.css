@@ -32,6 +32,27 @@ li {
   padding: 0;
   list-style: none;
 } */
+.main-login {
+  width: 100%;
+  min-height: 950px;
+  background-image: url("../image/anhdayanh.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  clear: both;
+  position: relative;
+}
+.main-register {
+  width: 100%;
+  min-height: 950px;
+  background-image: url("../image/anhdayanh.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  clear: both;
+  position: relative;
+  z-index: 1;
+}
 .menu ul li {
   list-style: none;
   padding: 0;

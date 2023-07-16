@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="../lib/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="./admin/css-admin/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 
 </head>
 

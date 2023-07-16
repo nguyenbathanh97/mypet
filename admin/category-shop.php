@@ -149,7 +149,7 @@ if (isset($_GET['id'])) {
                                             <?php echo $value->category_title ?>
                                         </td>
                                         <td>
-                                            <img style="width: 125px ; heigth: 125px"
+                                            <img style="width: 125px ; height: 125px"
                                                 src=".<?php echo $value->slider ?>" alt="image">
                                         </td>
                                         <td>
